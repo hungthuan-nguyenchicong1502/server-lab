@@ -8,10 +8,12 @@ services:
  $(CLOUDFLARED_TUNNEL_NAME):
   image: cloudflare/cloudflared:latest
   container_name: $(CLOUDFLARED_TUNNEL_NAME)
-  restart: always
+  restart: unless-stopped
   networks:
    - $(CLOUDFLARED_TUNNEL_NAME)-net
-  command: tunnel --no-autoupdate run --token $${TUNNEL_TOKEN}
+  environment:
+   - TUNNEL_TOKEN=$${TUNNEL_TOKEN}
+  command: tunnel run
 
 networks:
  $(CLOUDFLARED_TUNNEL_NAME)-net:

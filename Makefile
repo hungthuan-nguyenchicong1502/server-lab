@@ -16,7 +16,7 @@ dd:
 	@echo "$(PROJECT_DIR)"
 
 help:
-	@echo "help"
+	@echo "make cloudflared-tunnel-setup"
 
 _check-network:
 	@echo "_check-network"
@@ -34,7 +34,7 @@ project-ls:
 
 setup: _prepare
 	@echo "setup"
-	$(MAKE) cloudflared-tunnel-setup
+# 	$(MAKE) cloudflared-tunnel-setup
 
 up:
 	@echo "up"

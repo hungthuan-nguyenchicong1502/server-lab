@@ -56,3 +56,17 @@ _cloudflared-tunnel-create-docker-compose-yml:
 	echo "$$CLOUNDFLARED_TUNNEL_DOCKER_COMPOSE_YML" > $(CLOUNDFLARED_TUNNEL_PROJECT_PATH)/docker-compose.yml
 
 @printf "%s\n" "$$VAR" > file
+
+services:
+  cloudflared-tunnel:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    # Thay vì dùng command: tunnel run --token ...
+    # Chúng ta chỉ dùng lệnh chạy cơ bản:
+    command: tunnel run
+    environment:
+      # Cloudflare sẽ tự tìm biến này để lấy token
+      - TUNNEL_TOKEN=${CLOUDFLARE_TUNNEL_TOKEN}
+
+
+	  restart: always
