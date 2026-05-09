@@ -12,6 +12,7 @@ RUN apk add --no-cache \
 	php84 \
 	composer \
 	php84-mysqli \
+	php84-tokenizer \
 	mariadb-client
 
 RUN composer global require wp-cli/wp-cli-bundle && \

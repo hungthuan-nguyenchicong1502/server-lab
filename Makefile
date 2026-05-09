@@ -17,6 +17,7 @@ include nginx/nginx.mk
 include php-fpm/php-fpm.mk
 include mariadb/mariadb.mk
 include wp-cli/wp-cli.mk
+include wp-app/wp-app.mk
 
 dd:
 	@echo "$(PROJECT_DIR)"
@@ -39,6 +40,7 @@ _prepare:
 project-ls:
 	@echo "project-ls"
 	ls $(PROJECT_PATH)
+	ls $(VOLUMES_PROJECT_APP)
 
 setup: _prepare
 	@echo "setup"
@@ -46,6 +48,7 @@ setup: _prepare
 	$(MAKE) nginx-setup
 	$(MAKE) php-fpm-setup
 	$(MAKE) mariadb-setup
+	$(MAKE) wp-cli-setup
 
 	docker ps
 

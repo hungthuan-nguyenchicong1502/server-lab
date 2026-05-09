@@ -15,5 +15,5 @@ php-fpm-test:
 
 php-fpm-test-remove:
 	@echo "php-fpm-test-remove"
-	rm -rf$(VOLUMES_PROJECT_APP)/php-fpm-test
+	rm -rf $(VOLUMES_PROJECT_APP)/php-fpm-test
 	rm -f $(NGINX_VOLUMES_CONF)/php-fpm-test.conf
