@@ -8,7 +8,7 @@ services:
  $(CLOUDFLARED_TUNNEL_NAME):
   image: cloudflare/cloudflared:latest
   container_name: $(CLOUDFLARED_TUNNEL_NAME)
-  restart: unless-stopped
+  restart: always
   networks:
    - $(CLOUDFLARED_TUNNEL_NAME)-net
   environment:

@@ -10,7 +10,8 @@ RUN apk update && apk upgrade --no-cache
 
 RUN apk add --no-cache \
 	php84-fpm \
-	php84-mysqli
+	php84-mysqli \
+	php84-gd
 
 RUN sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/' /etc/php84/php-fpm.d/www.conf
 

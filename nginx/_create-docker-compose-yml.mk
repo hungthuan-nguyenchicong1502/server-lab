@@ -9,6 +9,7 @@ services:
 
   image: $(NGINX_NAME)
   container_name: $(NGINX_NAME)
+  restart: always
 
   networks:
    - $(NGINX_NAME)-net

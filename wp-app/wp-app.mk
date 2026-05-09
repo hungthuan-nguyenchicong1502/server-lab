@@ -10,7 +10,9 @@ include wp-app/_wp-cli-core-download.mk
 include wp-app/_wp-cli-config-create.mk
 include wp-app/_wp-cli-config-set.mk
 include wp-app/_wp-cli-core-install.mk
+include wp-app/_wp-cli-option-update.mk
 include wp-app/_create-wp-app.mk
+include wp-app/_restart-services.mk
 include wp-app/_wp-cli-db-reset.mk
 
 _wp-app-prepare:
@@ -27,8 +29,11 @@ wp-app-setup: _wp-app-prepare
 	$(MAKE) _wp-app/_create-wp-app.mk
 
 	$(MAKE) wp-app-down
-	docker restart $(NGINX_NAME)
-	docker restart $(PHP_FPM_NAME)
+	$(MAKE) _wp-app/_restart-services.mk
+
+wp-app-up:
+	@echo "wp-app-up"
+	$(MAKE) _wp-app/_docker-compose.mk-up
 
 wp-app-down:
 	@echo "wp-app-down"

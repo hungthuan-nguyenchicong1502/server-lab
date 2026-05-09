@@ -17,7 +17,4 @@ _wp-app/_create-wp-app.mk:
 	$(MAKE) _wp-app/_wp-cli-config-create.mk
 	$(MAKE) _wp-app/_wp-cli-config-set.mk
 	$(MAKE) _wp-app/_wp-cli-core-install.mk
-
-wp-app-remove-wp-config:
-	@echo "wp-app-remove-wp-config"
-	docker exec $(WP_APP_NAME) rm -f /wp-app/wp-config.php
+	$(MAKE) _wp-app/_wp-cli-option-update.mk

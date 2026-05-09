@@ -9,7 +9,7 @@ services:
 
   image: $(MARIADB_NAME)
   container_name: $(MARIADB_NAME)
-  restart: unless-stopped
+  restart: always
 
   networks:
    - $(MARIADB_NAME)-net

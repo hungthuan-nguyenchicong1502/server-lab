@@ -9,6 +9,7 @@ services:
 
   image: $(PHP_FPM_NAME)
   container_name: $(PHP_FPM_NAME)
+  restart: always
 
   networks:
    - $(PHP_FPM_NAME)-net
