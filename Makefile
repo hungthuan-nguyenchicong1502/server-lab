@@ -16,6 +16,7 @@ include cloudflared-tunnel/cloudflared-tunnel.mk
 include nginx/nginx.mk
 include php-fpm/php-fpm.mk
 include mariadb/mariadb.mk
+include wp-cli/wp-cli.mk
 
 dd:
 	@echo "$(PROJECT_DIR)"
@@ -45,6 +46,8 @@ setup: _prepare
 	$(MAKE) nginx-setup
 	$(MAKE) php-fpm-setup
 	$(MAKE) mariadb-setup
+
+	docker ps
 
 up:
 	@echo "up"
