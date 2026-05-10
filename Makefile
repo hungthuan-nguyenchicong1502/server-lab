@@ -1,15 +1,17 @@
+# Makefile
+-include ./.env
 
 .DEFAULT_GOAL :=help
 PROJECT_DIR = $(shell dirname $(PWD))
-PROJECT_NAME = ncc-lab-project
+PROJECT_NAME ?= ncc-lab-project
 PROJECT_PATH = $(PROJECT_DIR)/$(PROJECT_NAME)
 VOLUMES_PROJECT = $(PROJECT_PATH)/volumes
 VOLUMES_PROJECT_APP = $(VOLUMES_PROJECT)/project-app
 # docker network
-MY_APP_NET = my-app-net
+MY_APP_NET ?= my-app-net
 # alpine_image => Using default tag: latest
 # docker pull alpine
-ALPINE_IMAGE = alpine
+ALPINE_IMAGE ?= alpine
 
 # include
 include cloudflared-tunnel/cloudflared-tunnel.mk

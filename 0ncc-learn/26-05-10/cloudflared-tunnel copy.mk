@@ -12,6 +12,10 @@ _cloudflared-tunnel-prepare:
 	@echo "_cloudflared-tunnel-prepare"
 	mkdir -p $(CLOUDFLARED_TUNNEL_PROJECT_PATH)
 
+cloudflared-tunnel-ls:
+	@echo "cloudflared-tunnel-ls"
+	ls $(CLOUDFLARED_TUNNEL_PROJECT_PATH) -a
+
 cloudflared-tunnel-setup: _cloudflared-tunnel-prepare
 	@echo "cloudflared-tunnel-setup"
 	$(MAKE) _cloudflared-tunnel/_create-env.mk

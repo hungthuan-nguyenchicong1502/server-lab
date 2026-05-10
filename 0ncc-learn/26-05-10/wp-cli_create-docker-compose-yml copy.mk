@@ -10,6 +10,9 @@ services:
   image: $(WP_CLI_NAME)
   container_name: $(WP_CLI_NAME)
 
+  ports:
+   - "8000:8000"
+
   networks:
    - $(WP_CLI_NAME)-net
 

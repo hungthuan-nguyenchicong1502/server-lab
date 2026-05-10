@@ -1,6 +1,6 @@
 # wp-cli/wp-cli.mk
 
-WP_CLI_NAME = wp-cli-alpine-ncc
+WP_CLI_NAME ?= wp-cli-alpine-ncc
 WP_CLI_PROJECT_PATH = $(PROJECT_PATH)/wp-cli
 
 include wp-cli/_create-dockerfile.mk

@@ -10,7 +10,7 @@ php-fpm-test:
 	cp -f ./php-fpm/php-fpm-test/testdb.php $(VOLUMES_PROJECT_APP)/php-fpm-test
 
 
-	docker restart $(NGINX_NAME)
+	$(MAKE) nginx-reload
 	docker restart $(PHP_FPM_NAME)
 
 php-fpm-test-remove:

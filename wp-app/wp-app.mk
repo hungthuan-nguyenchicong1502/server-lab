@@ -1,9 +1,13 @@
 # wp-app/wp-app.mk
-WP_APP_NAME = wp-app-alpine-ncc
+WP_APP_NAME ?= wp-app-alpine-ncc
 WP_APP_PROJECT_PATH = $(PROJECT_PATH)/wp-app
 WP_APP_VOLUMES_PROJECT_APP = $(VOLUMES_PROJECT_APP)/wp-app
 
+include wp-app/_create-env-wp-app.mk
+include wp-app/_create-wp-app-conf.mk
+
 include wp-app/_create-connect-mariadb.mk
+
 include wp-app/_create-docker-compose-yml.mk
 include wp-app/_docker-compose.mk
 include wp-app/_wp-cli-core-download.mk
@@ -17,6 +21,8 @@ include wp-app/_wp-cli-db-reset.mk
 
 _wp-app-prepare:
 	@echo "_wp-app-prepare"
+	$(MAKE) _wp-app/_create-env-wp-app.mk
+	$(MAKE) _wp-app/_create-wp-app-conf.mk
 	mkdir -p $(WP_APP_PROJECT_PATH)
 	mkdir -p $(WP_APP_VOLUMES_PROJECT_APP)
 	cp -f ./wp-app/wp-app.conf $(NGINX_VOLUMES_CONF)

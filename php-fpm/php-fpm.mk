@@ -1,6 +1,6 @@
 # php-fpm/php-fpm.mk
 
-PHP_FPM_NAME = php-fpm-alpine-ncc
+PHP_FPM_NAME ?= php-fpm-alpine-ncc
 PHP_FPM_PROJECT_PATH = $(PROJECT_PATH)/php-fpm
 
 include php-fpm/_create-dockerfile.mk

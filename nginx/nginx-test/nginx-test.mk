@@ -11,7 +11,7 @@ _nginx-test-prepre:
 
 nginx-test: _nginx-test-prepre
 	@echo "nginx-test"
-	docker restart $(NGINX_NAME)
+	$(MAKE) nginx-reload
 
 nginx-test-remove:
 	@echo "nginx-test-remove"

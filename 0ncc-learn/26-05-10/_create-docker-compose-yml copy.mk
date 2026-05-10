@@ -14,6 +14,10 @@ services:
   networks:
    - $(NGINX_NAME)-net
 
+  volumes:
+   - $(VOLUMES_PROJECT_APP):/var/www/html
+   - $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
+
 networks:
  $(NGINX_NAME)-net:
   external: true
@@ -22,23 +26,6 @@ endef
 
 export NGINX_DOCKER_COMPOSE_YML
 
-# override
-define NGINX_DOCKER_COMPOSE_OVERRIDE_YML
-services:
- $(NGINX_NAME):
-  
-  volumes:
-   - $(VOLUMES_PROJECT_APP):/var/www/html
-   - $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
-
-  ports:
-  - "8888:8888"
-   
-endef
-
-export NGINX_DOCKER_COMPOSE_OVERRIDE_YML
-
 _nginx/_create-docker-compose-yml.mk:
 	@echo "_nginx/_create-docker-compose-yml.mk"
 	printf "$$NGINX_DOCKER_COMPOSE_YML" > $(NGINX_PROJECT_PATH)/docker-compose.yml
-	printf "$$NGINX_DOCKER_COMPOSE_OVERRIDE_YML" > $(NGINX_PROJECT_PATH)/docker-compose.override.yml

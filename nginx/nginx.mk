@@ -1,5 +1,5 @@
 # nginx/nginx.mk
-NGINX_NAME = nginx-alpine-ncc
+NGINX_NAME ?= nginx-alpine-ncc
 NGINX_PROJECT_PATH = $(PROJECT_PATH)/nginx
 # use $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
 NGINX_VOLUMES_CONF = $(VOLUMES_PROJECT)/nginx-conf

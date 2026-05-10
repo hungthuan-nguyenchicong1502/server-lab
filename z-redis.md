@@ -87,3 +87,19 @@ docker exec laravel-octane-alpine-ncc wrk -t1 -c400 -d10s http://127.0.0.1:1000/
 wrk -t8 -c8 -d1s http://172.17.0.1:1000/test
 
 wrk -t4 -c400 -d5s https://hungthuan.com/test
+
+# Tại thư mục dự án chính (nhánh develop)
+git worktree add ../erp-prod main
+
+git checkout [branch] -- [path] (Giống như cp -f)
+
+git checkout main
+git checkout dev -- app/Services/InventoryService.php  # Chỉ lấy 1 file
+git checkout dev -- public/assets/                     # Lấy cả thư mục
+
+git checkout main
+    git cherry-pick abc1234
+
+git restore --staged docs/
+   # Hoặc nếu bạn muốn xóa luôn tài liệu đó khỏi thư mục làm việc hiện tại:
+   git checkout main -- docs/
