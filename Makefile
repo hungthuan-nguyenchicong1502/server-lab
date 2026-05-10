@@ -18,6 +18,9 @@ include php-fpm/php-fpm.mk
 include mariadb/mariadb.mk
 include wp-cli/wp-cli.mk
 include wp-app/wp-app.mk
+include laravel/laravel.mk
+include laravel-octane/laravel-octane.mk
+include redis/redis.mk
 
 dd:
 	@echo "$(PROJECT_DIR)"

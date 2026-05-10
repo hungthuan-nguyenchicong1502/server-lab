@@ -1,0 +1,35 @@
+# laravel/_create-dockerfile.mk
+
+define LARAVEL_DOCKER_FILE
+FROM $(ALPINE_IMAGE)
+
+RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirror.leaseweb.com/alpine/latest-stable/community\\n" \\
+	> /etc/apk/repositories
+
+RUN apk update && apk upgrade --no-cache
+
+RUN apk add --no-cache \
+	php84 \
+	composer
+
+RUN apk add --no-cache \
+    php84-tokenizer \
+    php84-session \
+    php84-dom \
+    php84-xml \
+    php84-xmlwriter \
+    php84-fileinfo \
+    php84-pdo \
+    php84-pdo_sqlite \
+    php84-pdo_mysql
+
+# RUN composer create-project laravel/laravel:^12 laravel-app
+
+CMD ["sh", "-c", "tail -f >/dev/nul"]
+endef
+
+export LARAVEL_DOCKER_FILE
+
+_laravel/_create-dockerfile.mk:
+	@echo "_laravel/_create-dockerfile.mk"
+	printf "$$LARAVEL_DOCKER_FILE" > $(LARAVEL_PROJECT_PATH)/Dockerfile

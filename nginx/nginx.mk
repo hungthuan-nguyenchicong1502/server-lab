@@ -37,3 +37,6 @@ nginx-down-v:
 
 nginx-conf-ls:
 	ls $(NGINX_VOLUMES_CONF)
+
+nginx-reload:
+	docker exec $(NGINX_NAME) nginx -s reload

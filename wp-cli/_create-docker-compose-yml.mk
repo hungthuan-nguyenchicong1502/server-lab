@@ -11,7 +11,7 @@ services:
   container_name: $(WP_CLI_NAME)
 
   ports:
-   - "8080:8080"
+   - "8000:8000"
 
   networks:
    - $(WP_CLI_NAME)-net

@@ -46,3 +46,7 @@ wp-app-remove:
 # 	rm -rf $(WP_APP_VOLUMES_PROJECT_APP)
 # Dùng một container tạm thời để xóa folder với quyền root
 	docker run --rm -v /home/cong/git/ncc-lab-project/volumes/project-app:/parent $(ALPINE_IMAGE) sh -c "rm -rf /parent/wp-app"
+
+wp-app-conf-remove:
+	@echo "wp-app-config-remove"
+	rm -f $(NGINX_VOLUMES_CONF)/wp-app.conf
