@@ -24,6 +24,9 @@ include laravel/laravel.mk
 include laravel-octane/laravel-octane.mk
 include redis/redis.mk
 
+# app env
+include z-git-dev/git-dev.mk
+
 dd:
 	@echo "$(PROJECT_DIR)"
 
