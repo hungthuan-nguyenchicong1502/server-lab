@@ -1,4 +1,4 @@
-# wp-app/_create-env-wp-app.mk
+# wp-app/_define-env-wp-app.mk
 
 define WP_APP_ENV
 # db wp app
@@ -18,8 +18,3 @@ WP_ADMIN_EMAIL=$(WP_ADMIN_EMAIL)
 endef
 
 export WP_APP_ENV
-
-_wp-app/_create-env-wp-app.mk:
-	@echo "_wp-app/_create-env-wp-app.mk"
-	@echo "create ./wp-app/.env.wp-app"
-	printf "$$WP_APP_ENV" > ./wp-app/.env.wp-app

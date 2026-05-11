@@ -1,4 +1,4 @@
-# laravel/_create-docker-compose-yml.mk
+# laravel/_define-docker-compose-yml.mk
 
 define LARAVEL_DOCKER_COMPOSE_YML
 services:
@@ -26,7 +26,3 @@ networks:
 endef
 
 export LARAVEL_DOCKER_COMPOSE_YML
-
-_laravel/_create-docker-compose-yml.mk:
-	@echo "_laravel/_create-docker-compose-yml.mk"
-	printf "$$LARAVEL_DOCKER_COMPOSE_YML" > $(LARAVEL_PROJECT_PATH)/docker-compose.yml

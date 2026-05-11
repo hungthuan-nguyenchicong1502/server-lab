@@ -13,7 +13,7 @@ _wp-app/_create-connect-mariadb.mk:
 		sleep 1; \
 	done
 	@echo "Using env: wp-app/.env.wp-app"
-	@set -a && . ./wp-app/.env.wp-app set +a && \
+	@set -a && . $(WP_APP_PROJECT_PATH)/.env.wp-app set +a && \
 	docker exec -i $(MARIADB_NAME) mariadb -e \
 		"CREATE DATABASE IF NOT EXISTS \`$$DB_NAME\` CHARACTER SET $$DB_CHARSET COLLATE $$DB_COLLATE; \
 		CREATE USER IF NOT EXISTS '$$DB_USER'@'%' IDENTIFIED BY '$$DB_PASSWORD'; \

@@ -1,4 +1,4 @@
-# laravel/_create-dockerfile.mk
+# laravel/_define-dockerfile.mk
 
 define LARAVEL_DOCKER_FILE
 FROM $(ALPINE_IMAGE)
@@ -29,7 +29,3 @@ CMD ["sh", "-c", "tail -f >/dev/nul"]
 endef
 
 export LARAVEL_DOCKER_FILE
-
-_laravel/_create-dockerfile.mk:
-	@echo "_laravel/_create-dockerfile.mk"
-	printf "$$LARAVEL_DOCKER_FILE" > $(LARAVEL_PROJECT_PATH)/Dockerfile

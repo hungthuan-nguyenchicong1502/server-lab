@@ -20,9 +20,9 @@ nginx-test: _nginx-test-prepre
 
 # 	$(MAKE) nginx-reload
 # test: nginx-test
-test:
-	docker logs $(NGINX_NAME)
-	docker exec -it $(NGINX_NAME) sh
+# test:
+# 	docker logs $(NGINX_NAME)
+# 	docker exec -it $(NGINX_NAME) sh
 
 # 	docker logs $(NGINX_NAME)-$(APP_ENV)
 # 	/etc/nginx/http.d/nginx-test.conf

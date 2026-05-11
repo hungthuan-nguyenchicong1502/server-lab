@@ -1,13 +1,17 @@
-# wp-app/_create-docker-compose-yml.mk
+# wp-app/_define-docker-compose-yml.mk
 
 define WP_APP_DOCKER_COMPOSE_YML
 services:
  $(WP_APP_NAME):
+
   image: $(WP_CLI_NAME)
   container_name: $(WP_APP_NAME)
 
   networks:
    - $(WP_APP_NAME)-net
+
+  volumes:
+   - $(WP_APP_VOLUMES_PROJECT_APP):/$(WP_PATH)
 
 networks:
  $(WP_APP_NAME)-net:
@@ -25,8 +29,3 @@ services:
 endef
 
 export WP_APP_DOCKER_COMPOSE_OVERRIDE_YML
-
-_wp-app/_create-docker-compose-yml.mk:
-	@echo "_wp-app/_create-docker-compose-yml.mk"
-	printf "$$WP_APP_DOCKER_COMPOSE_YML" > $(WP_APP_PROJECT_PATH)/docker-compose.yml
-	printf "$$WP_APP_DOCKER_COMPOSE_OVERRIDE_YML" > $(WP_APP_PROJECT_PATH)/docker-compose.override.yml

@@ -1,4 +1,4 @@
-# laravel-octane/_create-docker-compose-yml.mk
+# laravel-octane/_define-docker-compose-yml.mk
 define LARAVEL_OCTANE_DOCKER_COMPOSE_YML
 services:
  $(LARAVEL_OCTANE_NAME):
@@ -40,7 +40,3 @@ networks:
 endef
 
 export LARAVEL_OCTANE_DOCKER_COMPOSE_YML
-
-_laravel-octane/_create-docker-compose-yml.mk:
-	@echo "_laravel-octane/_create-docker-compose-yml.mk"
-	printf "$$LARAVEL_OCTANE_DOCKER_COMPOSE_YML" > $(LARAVEL_OCTANE_PROJECT_PATH)/docker-compose.yml

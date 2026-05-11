@@ -1,4 +1,4 @@
-# laravel-octane/_create-docker-file.mk
+# laravel-octane/_define-docker-file.mk
 
 define LARAVEL_OCTANE_DOCKER_FILE
 FROM $(LARAVEL_NAME)
@@ -22,7 +22,3 @@ CMD ["php", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--p
 endef
 
 export LARAVEL_OCTANE_DOCKER_FILE
-
-_laravel-octane/_create-docker-file.mk:
-	@echo "_laravel-octane/_create-docker-file.mk"
-	printf "$$LARAVEL_OCTANE_DOCKER_FILE" > $(LARAVEL_OCTANE_PROJECT_PATH)/Dockerfile

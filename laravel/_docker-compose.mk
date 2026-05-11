@@ -2,7 +2,18 @@
 
 _laravel/_docker-compose.mk:
 	@echo "_laravel/_docker-compose.mk"
+	$(MAKE) _laravel/_docker-compose.mk-create-dockerfile
+	$(MAKE) _laravel/_docker-compose.mk-create-docker-compose-yml
 	$(MAKE) _laravel/_docker-compose.mk-build
+
+
+_laravel/_docker-compose.mk-create-dockerfile:
+	@echo "_laravel/_docker-compose.mk-create-dockerfile"
+	printf "$$LARAVEL_DOCKER_FILE" > $(LARAVEL_PROJECT_PATH)/Dockerfile
+
+_laravel/_docker-compose.mk-create-docker-compose-yml:
+	@echo "_laravel/_docker-compose.mk-create-docker-compose-yml"
+	printf "$$LARAVEL_DOCKER_COMPOSE_YML" > $(LARAVEL_PROJECT_PATH)/docker-compose.yml
 
 _laravel/_docker-compose.mk-build:
 	@echo "_laravel/_docker-compose.mk-build"

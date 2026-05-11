@@ -33,3 +33,17 @@ COPY --from=source /app /var/www/html
 # --- Stage 3: Nginx ---
 FROM nginx:alpine
 COPY --from=source /app /var/www/html
+
+docker exec -it php-fpm-alpine-ncc-dev chown -R www-data:www-data /var/www/html
+docker exec -it php-fpm-alpine-ncc-dev chmod -R 755 /var/www/html
+
+user: "${UID}:${GID}" # Ép container chạy bằng ID của bạn ở ngoài
+
+## fix fpm
+
+sudo usermod -aG nobody cong
+
+docker
+sudo usermod -aG nobody 1000
+docker exec -it php-fpm-alpine-ncc-dev chmod -R 775 /var/www/html
+docker exec -it php-fpm-alpine-ncc-dev chown -R nobody:nobody /var/www/html
