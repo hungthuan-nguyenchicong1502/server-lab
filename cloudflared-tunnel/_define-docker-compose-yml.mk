@@ -1,4 +1,4 @@
-# cloudflared-tunnel/_create-docker-compose-yml.mk
+# cloudflared-tunnel/_define-docker-compose-yml.mk
 
 define CLOUDFLARED_TUNNEL_DOCKER_COMPOSE_YML
 services:
@@ -19,7 +19,3 @@ networks:
 endef
 
 export CLOUDFLARED_TUNNEL_DOCKER_COMPOSE_YML
-
-_cloudflared-tunnel/_create-docker-compose-yml.mk:
-	@echo "_cloudflared-tunnel/_create-docker-compose-yml.mk"
-	printf "$$CLOUDFLARED_TUNNEL_DOCKER_COMPOSE_YML" > $(CLOUDFLARED_TUNNEL_PROJECT_PATH)/docker-compose.yml

@@ -3,15 +3,15 @@
 
 .DEFAULT_GOAL :=help
 PROJECT_DIR = $(shell dirname $(PWD))
-PROJECT_NAME ?= ncc-lab-project
+PROJECT_NAME = project-server-lab
 PROJECT_PATH = $(PROJECT_DIR)/$(PROJECT_NAME)
 VOLUMES_PROJECT = $(PROJECT_PATH)/volumes
 VOLUMES_PROJECT_APP = $(VOLUMES_PROJECT)/project-app
 # docker network
-MY_APP_NET ?= my-app-net
+MY_APP_NET = my-app-net
 # alpine_image => Using default tag: latest
 # docker pull alpine
-ALPINE_IMAGE ?= alpine
+ALPINE_IMAGE = alpine
 
 # include
 include cloudflared-tunnel/cloudflared-tunnel.mk
@@ -36,9 +36,7 @@ _check-network:
 
 _prepare:
 	@echo "prepare"
-	$(MAKE) _check-network
 	mkdir -p $(PROJECT_PATH)
-	docker pull $(ALPINE_IMAGE)
 	mkdir -p $(VOLUMES_PROJECT)
 	mkdir -p $(VOLUMES_PROJECT_APP)
 
@@ -49,27 +47,30 @@ project-ls:
 
 setup: _prepare
 	@echo "setup"
-# 	$(MAKE) cloudflared-tunnel-setup
-	$(MAKE) nginx-setup
-	$(MAKE) php-fpm-setup
-	$(MAKE) mariadb-setup
-	$(MAKE) wp-cli-setup
+	$(MAKE) _check-network
+	docker pull $(ALPINE_IMAGE)
+
+	$(MAKE) cloudflared-tunnel-setup
+# 	$(MAKE) nginx-setup
+# 	$(MAKE) php-fpm-setup
+# 	$(MAKE) mariadb-setup
+# 	$(MAKE) wp-cli-setup
 
 	docker ps
 
 up:
 	@echo "up"
 	$(MAKE) cloudflared-tunnel-up
-	$(MAKE) nginx-up
-	$(MAKE) php-fpm-up
-	$(MAKE) mariadb-up
+# 	$(MAKE) nginx-up
+# 	$(MAKE) php-fpm-up
+# 	$(MAKE) mariadb-up
 
 down:
 	@echo "down"
 	$(MAKE) cloudflared-tunnel-down
-	$(MAKE) nginx-down
-	$(MAKE) php-fpm-down
-	$(MAKE) mariadb-down
+# 	$(MAKE) nginx-down
+# 	$(MAKE) php-fpm-down
+# 	$(MAKE) mariadb-down
 
 down-v:
 	@echo "down-v"

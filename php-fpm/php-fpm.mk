@@ -1,10 +1,10 @@
 # php-fpm/php-fpm.mk
 
-PHP_FPM_NAME ?= php-fpm-alpine-ncc
+PHP_FPM_NAME = php-fpm-alpine-ncc
 PHP_FPM_PROJECT_PATH = $(PROJECT_PATH)/php-fpm
 
-include php-fpm/_create-dockerfile.mk
-include php-fpm/_create-docker-compose-yml.mk
+include php-fpm/_define-docker-file.mk
+include php-fpm/_define-docker-compose-yml.mk
 include php-fpm/_docker-compose.mk
 
 # test
@@ -16,8 +16,6 @@ _php-fpm-prepare:
 
 php-fpm-setup: _php-fpm-prepare
 	@echo "php-fpm-setup"
-	$(MAKE) _php-fpm/_create-dockerfile.mk
-	$(MAKE) _php-fpm/_create-docker-compose-yml.mk
 	$(MAKE) _php-fpm/_docker-compose.mk
 
 php-fpm-up:

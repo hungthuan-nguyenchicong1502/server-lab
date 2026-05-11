@@ -8,8 +8,21 @@ endif
 
 _php-fpm/_docker-compose.mk:
 	@echo "_php-fpm/_docker-compose.mk"
+	$(MAKE) _php-fpm/_docker-compose.mk-create-dockerfile
+	$(MAKE) _php-fpm/_docker-compose.mk-create-docker-compose-yml
 	$(MAKE) _php-fpm/_docker-compose.mk-build
 
+
+_php-fpm/_docker-compose.mk-create-dockerfile:
+	@echo "_php-fpm/_docker-compose.mk-create-dockerfile"
+	printf "$$PHP_FPM_DOCKER_FILE" > $(PHP_FPM_PROJECT_PATH)/Dockerfile
+	printf "$$PHP_FPM_DOCKER_FILE_DEV" > $(PHP_FPM_PROJECT_PATH)/Dockerfile-dev
+
+
+_php-fpm/_docker-compose.mk-create-docker-compose-yml:
+	@echo "_php-fpm/_docker-compose.mk-create-docker-compose-yml"
+	printf "$$PHP_FPM_DOCKER_COMPOSE_YML" > $(PHP_FPM_PROJECT_PATH)/docker-compose.yml
+	printf "$$PHP_FPM_DOCKER_COMPOSE_OVERRIDE_YML" > $(PHP_FPM_PROJECT_PATH)/docker-compose.override.yml
 
 _php-fpm/_docker-compose.mk-build:
 	@echo "_php-fpm/_docker-compose.mk-build"

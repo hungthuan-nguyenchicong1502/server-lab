@@ -1,12 +1,12 @@
 # nginx/nginx.mk
-NGINX_NAME ?= nginx-alpine-ncc
+NGINX_NAME = nginx-alpine-ncc
 NGINX_PROJECT_PATH = $(PROJECT_PATH)/nginx
 # use $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
 NGINX_VOLUMES_CONF = $(VOLUMES_PROJECT)/nginx-conf
 
 # include
-include nginx/_create-dockerfile.mk
-include nginx/_create-docker-compose-yml.mk
+include nginx/_define_docker-file.mk
+include nginx/_define-docker-compose-yml.mk
 include nginx/_docker-compose.mk
 
 # test
@@ -19,8 +19,6 @@ _nginx-prepare:
 
 nginx-setup: _nginx-prepare
 	@echo "nginx-setup"
-	$(MAKE) _nginx/_create-dockerfile.mk
-	$(MAKE) _nginx/_create-docker-compose-yml.mk
 	$(MAKE) _nginx/_docker-compose.mk
 
 nginx-up:

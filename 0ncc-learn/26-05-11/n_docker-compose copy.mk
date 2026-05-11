@@ -7,23 +7,20 @@ endif
 
 _nginx/_docker-compose.mk:
 	@echo "_nginx/_docker-compose.mk"
-	$(MAKE) _nginx/_docker-compose.mk-create-dockerfile
-	$(MAKE) _nginx/_docker-compose.mk-create-docker-compose-yml
 	$(MAKE) _nginx/_docker-compose.mk-build
 
 
-_nginx/_docker-compose.mk-create-dockerfile:
-	@echo "_nginx/_docker-compose.mk-create-dockerfile"
+_nginx/_create-dockerfile.mk:
+	@echo "_nginx/_create-dockerfile.mk"
 	printf "$$NGINX_DOCKERFILE" > $(NGINX_PROJECT_PATH)/Dockerfile
-	printf "$$NGINX_DOCKERFILE_DEV" > $(NGINX_PROJECT_PATH)/Dockerfile-dev
 
 
-_nginx/_docker-compose.mk-create-docker-compose-yml:
-	@echo "_nginx/_docker-compose.mk-create-docker-compose-yml"
+_nginx/_create-docker-compose-yml.mk:
+	@echo "_nginx/_create-docker-compose-yml.mk"
 	printf "$$NGINX_DOCKER_COMPOSE_YML" > $(NGINX_PROJECT_PATH)/docker-compose.yml
 	printf "$$NGINX_DOCKER_COMPOSE_OVERRIDE_YML" > $(NGINX_PROJECT_PATH)/docker-compose.override.yml
 
-
+	
 _nginx/_docker-compose.mk-build:
 	@echo "_nginx/_docker-compose.mk-build"
 	docker compose $(NGINX_COMPOSE_FILES) \

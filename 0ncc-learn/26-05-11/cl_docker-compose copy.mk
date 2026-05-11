@@ -2,15 +2,9 @@
 
 _cloudflared-tunnel/_docker-compose.mk:
 	@echo "_cloudflared-tunnel/_docker-compose.mk"
-	$(MAKE) _cloudflared-tunnel/_docker-compose.mk-create-docker-compose-yml
 	docker compose -f $(CLOUDFLARED_TUNNEL_PROJECT_PATH)/docker-compose.yml \
 		--project-directory $(CLOUDFLARED_TUNNEL_PROJECT_PATH) \
 		up -d
-
-_cloudflared-tunnel/_docker-compose.mk-create-docker-compose-yml:
-	@echo "_cloudflared-tunnel/_docker-compose.mk-create-docker-compose-yml"
-	printf "$$CLOUDFLARED_TUNNEL_DOCKER_COMPOSE_YML" > $(CLOUDFLARED_TUNNEL_PROJECT_PATH)/docker-compose.yml
-
 
 _cloudflared-tunnel/_docker-compose.mk-up:
 	@echo "_cloudflared-tunnel/_docker-compose.mk-up"
