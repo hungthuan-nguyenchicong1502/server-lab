@@ -37,4 +37,17 @@ nginx-conf-ls:
 	ls $(NGINX_VOLUMES_CONF)
 
 nginx-reload:
-	docker exec $(NGINX_NAME) nginx -s reload
+	sleep 1;
+	if [ -z "$(APP_ENV)" ]; then \
+		docker exec $(NGINX_NAME) nginx -s reload; \
+	else \
+		docker exec $(NGINX_NAME)-$(APP_ENV) nginx -s reload; \
+	fi
+
+nginx-restart:
+	sleep 1;
+	if [ -z "$(APP_ENV)" ]; then \
+		docker restart $(NGINX_NAME); \
+	else \
+		docker restart $(NGINX_NAME)-$(APP_ENV); \
+	fi

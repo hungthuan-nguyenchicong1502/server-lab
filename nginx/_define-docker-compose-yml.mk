@@ -6,14 +6,18 @@ services:
   build:
    context: .
    dockerfile: Dockerfile
-   
-  image: $(NGINX_NAME)
-  container_name: $(NGINX_NAME)
 
   restart: always
 
   networks:
    - $(NGINX_NAME)-net
+
+  image: $(NGINX_NAME)
+  container_name: $(NGINX_NAME)
+
+  volumes:
+   - $(VOLUMES_PROJECT_APP):/var/www/html
+   - $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
 
 networks:
  $(NGINX_NAME)-net:

@@ -16,14 +16,16 @@ _nginx-test-prepre:
 
 nginx-test: _nginx-test-prepre
 	@echo "nginx-test"
-	$(MAKE) nginx-restart
-
+	@if [ $(APP_ENV) = "dev" ]; then \
+		echo "nginx restart"; \
+		sleep 1; \
+		docker exec $(NGINX_NAME)-$(APP_ENV) nginx -s reload; \
+	else \
+		echo "prod"; \
+	fi
 # 	$(MAKE) nginx-reload
 # test: nginx-test
-test:
-	docker logs $(NGINX_NAME)
-	docker exec -it $(NGINX_NAME) sh
-
+# test:
 # 	docker logs $(NGINX_NAME)-$(APP_ENV)
 # 	/etc/nginx/http.d/nginx-test.conf
 # 	docker exec $(NGINX_NAME)-$(APP_ENV) cat /etc/nginx/http.d/nginx-test.conf

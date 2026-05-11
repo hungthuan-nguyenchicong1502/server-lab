@@ -51,7 +51,7 @@ setup: _prepare
 	docker pull $(ALPINE_IMAGE)
 
 	$(MAKE) cloudflared-tunnel-setup
-# 	$(MAKE) nginx-setup
+	$(MAKE) nginx-setup
 # 	$(MAKE) php-fpm-setup
 # 	$(MAKE) mariadb-setup
 # 	$(MAKE) wp-cli-setup

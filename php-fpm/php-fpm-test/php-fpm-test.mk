@@ -6,7 +6,7 @@ PHP_FPM_TEXT_PATH = ./php-fpm/php-fpm-test
 
 include php-fpm/php-fpm-test/_define-php-fpm-test-conf.mk
 
-test:
+# test:
 # 	ls $(PHP_FPM_TEXT_VOLUMES_PROJECT_APP)
 # 	docker logs $(NGINX_NAME)-$(APP_ENV)
 # 	docker exec -it $(NGINX_NAME)-$(APP_ENV) sh
@@ -15,7 +15,7 @@ test:
 # 	ls $(PHP_FPM_PROJECT_PATH)
 # 	ls $(VOLUMES_PROJECT_APP)
 # 	ls $(NGINX_PROJECT_PATH)
-	ls $(VOLUMES_PROJECT)
+# 	ls $(VOLUMES_PROJECT)
 
 _php-fpm-test-prepare:
 	mkdir -p $(PHP_FPM_TEXT_PROJECT_PATH)
