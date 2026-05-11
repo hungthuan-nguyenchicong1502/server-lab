@@ -29,3 +29,11 @@ php-fpm-down:
 php-fpm-down-v:
 	@echo "php-fpm-down-v"
 	$(MAKE) _php-fpm/_docker-compose.mk-down-v
+
+php-fpm-restart:
+	sleep 1;
+	if [ -z "$(APP_ENV)" ]; then \
+		docker restart $(PHP_FPM_NAME); \
+	else \
+		docker restart $(PHP_FPM_NAME)-$(APP_ENV); \
+	fi

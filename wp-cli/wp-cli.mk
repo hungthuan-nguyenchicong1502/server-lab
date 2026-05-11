@@ -1,10 +1,10 @@
-# wp-cli/wp-cli.mk
+# wp-cli/_define-docker-file.mk
 
-WP_CLI_NAME ?= wp-cli-alpine-ncc
+WP_CLI_NAME = wp-cli-alpine-ncc
 WP_CLI_PROJECT_PATH = $(PROJECT_PATH)/wp-cli
 
-include wp-cli/_create-dockerfile.mk
-include wp-cli/_create-docker-compose-yml.mk
+include wp-cli/_define-docker-file.mk
+include wp-cli/_define-docker-compose-yml.mk
 include wp-cli/_docker-compose.mk
 
 #test
@@ -16,8 +16,6 @@ _wp-cli-prepare:
 
 wp-cli-setup: _wp-cli-prepare
 	@echo "wp-cli-setup"
-	$(MAKE) _wp-cli/_create-dockerfile.mk
-	$(MAKE) _wp-cli/_create-docker-compose-yml.mk
 	$(MAKE) _wp-cli/_docker-compose.mk
 
 wp-cli-up:

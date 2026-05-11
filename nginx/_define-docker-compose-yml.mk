@@ -6,14 +6,14 @@ services:
   build:
    context: .
    dockerfile: Dockerfile
+  
+  image: $(NGINX_NAME)
+  container_name: $(NGINX_NAME)
 
   restart: always
 
   networks:
    - $(NGINX_NAME)-net
-
-  image: $(NGINX_NAME)
-  container_name: $(NGINX_NAME)
 
   volumes:
    - $(VOLUMES_PROJECT_APP):/var/www/html
@@ -23,6 +23,7 @@ networks:
  $(NGINX_NAME)-net:
   external: true
   name: $(MY_APP_NET)
+
 endef
 
 export NGINX_DOCKER_COMPOSE_YML

@@ -29,9 +29,8 @@ php-fpm-test: _php-fpm-test-prepare
 	cp -f $(PHP_FPM_TEXT_PROJECT_PATH)/php-fpm-test.conf $(NGINX_VOLUMES_CONF)/php-fpm-test.conf
 	cp -rf $(PHP_FPM_TEXT_PATH)/. $(PHP_FPM_TEXT_VOLUMES_PROJECT_APP)
 
-	sleep 1;
-	docker restart $(PHP_FPM_NAME)-$(APP_ENV)
-	docker restart $(NGINX_NAME)-$(APP_ENV)
+	$(MAKE) nginx-restart
+	$(MAKE) php-fpm-restart
 
 _php-fpm-test-create-php-fpm-test-conf:
 	@echo "_php-fpm-test-create-php-fpm-test-conf"

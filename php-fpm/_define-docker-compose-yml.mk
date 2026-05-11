@@ -3,11 +3,20 @@
 define PHP_FPM_DOCKER_COMPOSE_YML
 services:
  $(PHP_FPM_NAME):
+  build:
+   context: .
+   dockerfile: Dockerfile
   
+  image: $(PHP_FPM_NAME)
+  container_name: $(PHP_FPM_NAME)
+
   restart: always
 
   networks:
    - $(PHP_FPM_NAME)-net
+
+  volumes:
+   - $(VOLUMES_PROJECT_APP):/var/www/html
 
 networks:
  $(PHP_FPM_NAME)-net:

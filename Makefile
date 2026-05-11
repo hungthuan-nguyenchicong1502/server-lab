@@ -52,9 +52,9 @@ setup: _prepare
 
 	$(MAKE) cloudflared-tunnel-setup
 	$(MAKE) nginx-setup
-# 	$(MAKE) php-fpm-setup
-# 	$(MAKE) mariadb-setup
-# 	$(MAKE) wp-cli-setup
+	$(MAKE) php-fpm-setup
+	$(MAKE) mariadb-setup
+	$(MAKE) wp-cli-setup
 
 	docker ps
 

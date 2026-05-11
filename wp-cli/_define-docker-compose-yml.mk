@@ -1,4 +1,4 @@
-# wp-cli/_create-docker-compose-yml.mk
+# wp-cli/_define-docker-compose-yml.mk
 
 define WP_CLI_DOCKER_COMPOSE_YML
 services:
@@ -20,7 +20,3 @@ networks:
 endef
 
 export WP_CLI_DOCKER_COMPOSE_YML
-
-_wp-cli/_create-docker-compose-yml.mk:
-	@echo "_wp-cli/_create-docker-compose-yml.mk"
-	printf "$$WP_CLI_DOCKER_COMPOSE_YML" > $(WP_CLI_PROJECT_PATH)/docker-compose.yml

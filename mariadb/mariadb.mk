@@ -3,8 +3,8 @@
 MARIADB_NAME = mariadb-alpine-ncc
 MARIADB_PROJECT_PATH = $(PROJECT_PATH)/mariadb
 
-include mariadb/_create-dockerfile.mk
-include mariadb/_create-docker-compose-yml.mk
+include mariadb/_define-docker-file.mk
+include mariadb/_define-docker-compose-yml.mk
 include mariadb/_docker-compose.mk
 
 # test
@@ -17,8 +17,6 @@ _mariadb-prepare:
 
 mariadb-setup: _mariadb-prepare
 	@echo "mariadb-setup"
-	$(MAKE) _mariadb/_create-dockerfile.mk
-	$(MAKE) _mariadb/_create-docker-compose-yml.mk
 	$(MAKE) _mariadb/_docker-compose.mk
 
 mariadb-up:
