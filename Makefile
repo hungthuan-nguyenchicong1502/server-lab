@@ -55,6 +55,7 @@ setup: _prepare
 	$(MAKE) php-fpm-setup
 	$(MAKE) mariadb-setup
 	$(MAKE) wp-cli-setup
+	$(MAKE) wp-app-setup
 
 	docker ps
 
