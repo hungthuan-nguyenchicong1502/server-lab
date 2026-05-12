@@ -1,3 +1,4 @@
+# build: !reset null 
 services:
   php-fpm:
     image: php-fpm-alpine-ncc-dev

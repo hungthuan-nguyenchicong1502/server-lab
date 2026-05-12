@@ -4,10 +4,13 @@ LARAVEL_NAME = laravel-alpine-ncc
 LARAVEL_PROJECT_PATH = $(PROJECT_PATH)/laravel
 LARAVEL_VOLUMES_LARAVEL_APP = $(VOLUMES_PROJECT_APP)/laravel-app
 
-# app env
+LARAVEL_NAME_APP_ENV = $(LARAVEL_NAME)
 ifeq ($(APP_ENV), dev)
-	LARAVEL_NAME = laravel-alpine-ncc-dev
+	LARAVEL_NAME_APP_ENV := $(LARAVEL_NAME_APP_ENV)-dev
 endif
+
+test:
+	echo "$(LARAVEL_NAME_APP_ENV)"
 
 include laravel/_define-dockerfile.mk
 include laravel/_define-docker-compose-yml.mk

@@ -3,8 +3,7 @@
 define LARAVEL_DOCKER_FILE
 FROM $(ALPINE_IMAGE)
 
-RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirror.leaseweb.com/alpine/latest-stable/community\\n" \\
-	> /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirror.leaseweb.com/g' /etc/apk/repositories
 
 RUN apk update && apk upgrade --no-cache
 
@@ -29,3 +28,27 @@ CMD ["sh", "-c", "tail -f >/dev/nul"]
 endef
 
 export LARAVEL_DOCKER_FILE
+
+define LARAVEL_DOCKER_FILE_DEV
+FROM $(LARAVEL_NAME)
+
+RUN apk add --no-cache \
+    openssh \
+    git \
+    libgcc \
+    libstdc++ \
+
+RUN ssh-keygen -A
+
+# vscode
+RUN sed -i 's/AllowTcpForwarding.*/AllowTcpForwarding yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+#     sed -i 's/#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+#     sed -i 's/#GatewayPorts.*/GatewayPorts yes/' /etc/ssh/sshd_config
+
+WORKDIR /laravel-app
+
+CMD ["/usr/sbin/sshd", "-D"]
+endef
+
+export LARAVEL_DOCKER_FILE_DEV
