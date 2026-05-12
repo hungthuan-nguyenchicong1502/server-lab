@@ -4,6 +4,11 @@ LARAVEL_NAME = laravel-alpine-ncc
 LARAVEL_PROJECT_PATH = $(PROJECT_PATH)/laravel
 LARAVEL_VOLUMES_LARAVEL_APP = $(VOLUMES_PROJECT_APP)/laravel-app
 
+# app env
+ifeq ($(APP_ENV), dev)
+	LARAVEL_NAME = laravel-alpine-ncc-dev
+endif
+
 include laravel/_define-dockerfile.mk
 include laravel/_define-docker-compose-yml.mk
 include laravel/_docker-compose.mk
@@ -17,6 +22,7 @@ _laravel-prepare:
 laravel-setup: _laravel-prepare
 	@echo "laravel-setup"
 	$(MAKE) _laravel/_docker-compose.mk
+	$(MAKE) _laravel/_docker-compose.mk-build
 	sleep 2;
 	$(MAKE) _laravel/_create-laravel-app.mk
 
