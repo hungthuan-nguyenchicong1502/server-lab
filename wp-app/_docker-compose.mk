@@ -2,9 +2,9 @@
 
 WP_APP_COMPOSE_FILES := -f $(WP_APP_PROJECT_PATH)/docker-compose.yml
 
-ifeq ($(APP_ENV), dev)
-	WP_APP_COMPOSE_FILES += -f $(WP_APP_PROJECT_PATH)/docker-compose.override.yml
-endif
+# ifeq ($(APP_ENV), dev)
+# 	WP_APP_COMPOSE_FILES += -f $(WP_APP_PROJECT_PATH)/docker-compose.override.yml
+# endif
 
 _wp-app/_docker-compose.mk:
 	@echo "_wp-app/_docker-compose.mk"
