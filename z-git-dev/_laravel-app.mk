@@ -1,8 +1,8 @@
 # z-git-dev/_laravel-app.mk
 # LARAVEL_VOLUMES_LARAVEL_APP
 
-include z-git-dev/_laravel-app-dev/_define-laravel-app-dev-conf.mk
-include z-git-dev/_laravel-app-dev/_create-laravel-app-dev-conf.mk
+# include z-git-dev/_laravel-app-dev/_define-laravel-app-dev-conf.mk
+# include z-git-dev/_laravel-app-dev/_create-laravel-app-dev-conf.mk
 
 _z-git-dev/_laravel-app.mk: _laravel-prepare
 	@echo "z-git-dev/_laravel-app.mk"

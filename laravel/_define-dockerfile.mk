@@ -3,7 +3,8 @@
 define LARAVEL_DOCKER_FILE
 FROM $(ALPINE_IMAGE)
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirror.leaseweb.com/g' /etc/apk/repositories
+RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirror.leaseweb.com/alpine/latest-stable/community\\n" \\
+	> /etc/apk/repositories
 
 RUN apk update && apk upgrade --no-cache
 
@@ -31,6 +32,11 @@ export LARAVEL_DOCKER_FILE
 
 define LARAVEL_DOCKER_FILE_DEV
 FROM $(LARAVEL_NAME)
+
+RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirror.leaseweb.com/alpine/latest-stable/community\\n" \\
+	> /etc/apk/repositories
+    
+RUN apk update && apk upgrade --no-cache
 
 RUN apk add --no-cache \
     openssh \

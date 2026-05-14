@@ -17,6 +17,12 @@ include nginx/_docker-compose.mk
 # test
 include nginx/nginx-test/nginx-test.mk
 
+# app env dev
+include nginx/nginx-app-env-dev/nginx-app-env-dev.mk
+
+test:
+	echo $(NGINX_NAME_APP_NAME)
+
 _nginx-prepare:
 	@echo "_nginx-prepare"
 	mkdir -p $(NGINX_PROJECT_PATH)

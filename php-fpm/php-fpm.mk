@@ -16,6 +16,9 @@ include php-fpm/_docker-compose.mk
 # test
 include php-fpm/php-fpm-test/php-fpm-test.mk
 
+# app-env-dev
+include php-fpm/_app-env-dev/app-env-dev.mk
+
 _php-fpm-prepare:
 	@echo "_php-fpm-prepare"
 	mkdir -p $(PHP_FPM_PROJECT_PATH)
@@ -23,6 +26,7 @@ _php-fpm-prepare:
 php-fpm-setup: _php-fpm-prepare
 	@echo "php-fpm-setup"
 	$(MAKE) _php-fpm/_docker-compose.mk
+	$(MAKE) app-env-dev-setup
 
 php-fpm-up:
 	@echo "php-fpm-up"

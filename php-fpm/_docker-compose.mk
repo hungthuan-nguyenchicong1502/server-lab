@@ -16,7 +16,7 @@ _php-fpm/_docker-compose.mk:
 _php-fpm/_docker-compose.mk-create-dockerfile:
 	@echo "_php-fpm/_docker-compose.mk-create-dockerfile"
 	printf "$$PHP_FPM_DOCKER_FILE" > $(PHP_FPM_PROJECT_PATH)/Dockerfile
-	printf "$$PHP_FPM_DOCKER_FILE_DEV" > $(PHP_FPM_PROJECT_PATH)/Dockerfile-dev
+	printf "$$PHP_FPM_DOCKER_FILE_DEV" > $(PHP_FPM_PROJECT_PATH)/Dockerfile.dev
 
 
 _php-fpm/_docker-compose.mk-create-docker-compose-yml:

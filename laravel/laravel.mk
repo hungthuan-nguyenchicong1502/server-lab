@@ -9,8 +9,6 @@ ifeq ($(APP_ENV), dev)
 	LARAVEL_NAME_APP_ENV := $(LARAVEL_NAME_APP_ENV)-dev
 endif
 
-test:
-	echo "$(LARAVEL_NAME_APP_ENV)"
 
 include laravel/_define-dockerfile.mk
 include laravel/_define-docker-compose-yml.mk
