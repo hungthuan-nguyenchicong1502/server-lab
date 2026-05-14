@@ -1,4 +1,4 @@
-ssh-keygen -t ed25519 -C "inm@gmail.com"
+docker exec php-fpm-alpine-ncc-dev chmod -R 775 /var/www/html/ssh-keygen -t ed25519 -C "inm@gmail.com"
 
 cat ~/.ssh/id_ed25519.pub
 

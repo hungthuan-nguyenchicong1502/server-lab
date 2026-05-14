@@ -26,18 +26,28 @@ endef
 
 export PHP_FPM_DOCKER_COMPOSE_YML
 
-define PHP_FPM_DOCKER_COMPOSE_OVERRIDE_YML
+define PHP_FPM_DOCKER_COMPOSE_DEV_YML
 services:
- $(PHP_FPM_NAME):
+ $(PHP_FPM_NAME)-dev:
   build:
    context: .
-   dockerfile: Dockerfile-$(APP_ENV)
+   dockerfile: Dockerfile-dev
+  
+  image: $(PHP_FPM_NAME)-dev
+  container_name: $(PHP_FPM_NAME)-dev
 
-  image: $(PHP_FPM_NAME)-$(APP_ENV)
-  container_name: $(PHP_FPM_NAME)-$(APP_ENV)
+  restart: always
+
+  networks:
+   - $(PHP_FPM_NAME)-net-dev
 
   volumes:
    - $(VOLUMES_PROJECT_APP):/var/www/html
+
+networks:
+ $(PHP_FPM_NAME)-net-dev:
+  external: true
+  name: $(MY_APP_NET)
 endef
 
-export PHP_FPM_DOCKER_COMPOSE_OVERRIDE_YML
+export PHP_FPM_DOCKER_COMPOSE_DEV_YML

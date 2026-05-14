@@ -3,7 +3,7 @@
 PHP_FPM_COMPOSE_FILES := -f $(PHP_FPM_PROJECT_PATH)/docker-compose.yml
 
 ifeq ($(APP_ENV), dev)
-	PHP_FPM_COMPOSE_FILES += -f $(PHP_FPM_PROJECT_PATH)/docker-compose.override.yml
+	PHP_FPM_COMPOSE_FILES := -f $(PHP_FPM_PROJECT_PATH)/docker-compose.dev.yml
 endif
 
 _php-fpm/_docker-compose.mk:
@@ -22,7 +22,7 @@ _php-fpm/_docker-compose.mk-create-dockerfile:
 _php-fpm/_docker-compose.mk-create-docker-compose-yml:
 	@echo "_php-fpm/_docker-compose.mk-create-docker-compose-yml"
 	printf "$$PHP_FPM_DOCKER_COMPOSE_YML" > $(PHP_FPM_PROJECT_PATH)/docker-compose.yml
-	printf "$$PHP_FPM_DOCKER_COMPOSE_OVERRIDE_YML" > $(PHP_FPM_PROJECT_PATH)/docker-compose.override.yml
+	printf "$$PHP_FPM_DOCKER_COMPOSE_DEV_YML" > $(PHP_FPM_PROJECT_PATH)/docker-compose.dev.yml
 
 _php-fpm/_docker-compose.mk-build:
 	@echo "_php-fpm/_docker-compose.mk-build"

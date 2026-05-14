@@ -3,6 +3,12 @@
 PHP_FPM_NAME = php-fpm-alpine-ncc
 PHP_FPM_PROJECT_PATH = $(PROJECT_PATH)/php-fpm
 
+PHP_FPM_NAME_APP_ENV := $(PHP_FPM_NAME)
+
+ifeq ($(APP_ENV), dev)
+	PHP_FPM_NAME_APP_ENV := $(PHP_FPM_NAME)-dev
+endif
+
 include php-fpm/_define-docker-file.mk
 include php-fpm/_define-docker-compose-yml.mk
 include php-fpm/_docker-compose.mk
@@ -32,8 +38,4 @@ php-fpm-down-v:
 
 php-fpm-restart:
 	sleep 1;
-	if [ -z "$(APP_ENV)" ]; then \
-		docker restart $(PHP_FPM_NAME); \
-	else \
-		docker restart $(PHP_FPM_NAME)-$(APP_ENV); \
-	fi
+	docker restart $(PHP_FPM_NAME_APP_ENV)

@@ -29,23 +29,30 @@ endef
 export NGINX_DOCKER_COMPOSE_YML
 
 # override
-define NGINX_DOCKER_COMPOSE_OVERRIDE_YML
+define NGINX_DOCKER_COMPOSE_DEV_YML
 services:
- $(NGINX_NAME):
-  build:
-   context: .
-   dockerfile: Dockerfile-$(APP_ENV)
+ $(NGINX_NAME)-dev:
+    
+  image: $(NGINX_NAME)
+  container_name: $(NGINX_NAME)-dev
 
-  image: $(NGINX_NAME)-$(APP_ENV)
-  container_name: $(NGINX_NAME)-$(APP_ENV)
+  restart: always
+
+  ports:
+   - "8080:8080"
+   - "8888:8888"
+
+  networks:
+   - $(NGINX_NAME)-net-dev
 
   volumes:
    - $(VOLUMES_PROJECT_APP):/var/www/html
    - $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
 
-  ports:
-  - "80:80"
-   
+networks:
+ $(NGINX_NAME)-net-dev:
+  external: true
+  name: $(MY_APP_NET)
 endef
 
-export NGINX_DOCKER_COMPOSE_OVERRIDE_YML
+export NGINX_DOCKER_COMPOSE_DEV_YML

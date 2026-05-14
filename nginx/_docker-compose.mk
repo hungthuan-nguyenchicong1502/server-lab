@@ -2,7 +2,7 @@
 NGINX_COMPOSE_FILES := -f $(NGINX_PROJECT_PATH)/docker-compose.yml
 
 ifeq ($(APP_ENV), dev)
-	NGINX_COMPOSE_FILES += -f $(NGINX_PROJECT_PATH)/docker-compose.override.yml
+	NGINX_COMPOSE_FILES := -f $(NGINX_PROJECT_PATH)/docker-compose.dev.yml
 endif
 
 _nginx/_docker-compose.mk:
@@ -21,7 +21,7 @@ _nginx/_docker-compose.mk-create-dockerfile:
 _nginx/_docker-compose.mk-create-docker-compose-yml:
 	@echo "_nginx/_docker-compose.mk-create-docker-compose-yml"
 	printf "$$NGINX_DOCKER_COMPOSE_YML" > $(NGINX_PROJECT_PATH)/docker-compose.yml
-	printf "$$NGINX_DOCKER_COMPOSE_OVERRIDE_YML" > $(NGINX_PROJECT_PATH)/docker-compose.override.yml
+	printf "$$NGINX_DOCKER_COMPOSE_DEV_YML" > $(NGINX_PROJECT_PATH)/docker-compose.dev.yml
 
 
 _nginx/_docker-compose.mk-build:
