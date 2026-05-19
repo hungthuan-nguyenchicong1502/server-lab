@@ -2,6 +2,7 @@
 
 MARIADB_NAME = mariadb-alpine-ncc
 MARIADB_PROJECT_PATH = $(SHARE_PROJECT_PATH)/mariadb
+MARIADB_VOLUMES_DATA = $(MARIADB_PROJECT_PATH)/mariadb-data
 
 include mariadb/_define-docker-file.mk
 include mariadb/_define-docker-compose-yml.mk
@@ -9,6 +10,10 @@ include mariadb/_docker-compose.mk
 
 # test
 include mariadb/mariadb-test/mariadb-test.mk
+
+mariadb-help:
+	@echo "make mariadb-setup"
+	@echo "make mariadb-down"
 
 _mariadb-prepare:
 	@echo "_mariadb-prepare"

@@ -24,8 +24,10 @@ laravel-setup: _laravel-prepare
 	@echo "laravel-setup"
 	$(MAKE) _laravel/_docker-compose.mk
 	$(MAKE) _laravel/_docker-compose.mk-build
-	sleep 2;
+	sleep 2
 	$(MAKE) _laravel/_create-laravel-app.mk
+	sleep 1
+	make _laravel/_docker-compose.mk-down
 
 laravel-up:
 	@echo "laravel-up"

@@ -57,3 +57,6 @@ nginx-reload:
 nginx-restart:
 	sleep 1;
 	docker restart $(NGINX_NAME_APP_NAME)
+
+nginx-logs:
+	docker logs $(NGINX_NAME_APP_NAME)

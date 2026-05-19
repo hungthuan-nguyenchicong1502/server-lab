@@ -30,7 +30,7 @@ _mariadb/_docker-compose.mk-up:
 _mariadb/_docker-compose.mk-down:
 	@echo "_mariadb/_docker-compose.mk-down"
 	docker compose -f $(MARIADB_PROJECT_PATH)/docker-compose.yml \
-		up down
+		down
 
 _mariadb/_docker-compose.mk-down-v:
 	@echo "_mariadb/_docker-compose.mk-down-v"

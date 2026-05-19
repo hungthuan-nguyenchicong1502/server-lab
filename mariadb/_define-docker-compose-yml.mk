@@ -16,7 +16,7 @@ services:
    - $(MARIADB_NAME)-net
 
   volumes:
-   - $(VOLUMES_PROJECT)/mariadb-data:/var/lib/mysql
+   - $(MARIADB_VOLUMES_DATA)/mariadb-data:/var/lib/mysql
 
 networks:
  $(MARIADB_NAME)-net:

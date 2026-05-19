@@ -75,6 +75,10 @@ setup: _prepare
 	sleep 1
 	$(MAKE) wp-app-setup
 	sleep 1
+	make laravel-setup
+	sleep 1
+	make laravel-octane-setup
+	sleep 1
 	
 
 	docker ps
@@ -89,9 +93,11 @@ up:
 down:
 	@echo "down"
 	$(MAKE) cloudflared-tunnel-down
-# 	$(MAKE) nginx-down
-# 	$(MAKE) php-fpm-down
-# 	$(MAKE) mariadb-down
+	$(MAKE) mariadb-down
+	$(MAKE) nginx-down
+	$(MAKE) php-fpm-down
+	make laravel-down
+	make laravel-octane-down
 
 down-v:
 	@echo "down-v"
