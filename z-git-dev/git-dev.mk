@@ -10,3 +10,5 @@ git-dev-setup: _prepare
 git-dev-up:
 	@echo "git-dev-up"
 	make laravel-app-dev-up
+# 	make nginx-up
+# 	make php-fpm-up
