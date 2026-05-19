@@ -1,0 +1,12 @@
+{
+	"folders": [
+		{
+			"name": "NCC-DOCUMENT",
+			"path": "../ncc-document"
+		},
+		{
+			"name": "SERVER-LAB",
+			"path": "."
+		}
+	]
+}

@@ -1,18 +1,20 @@
 # laravel-octane/_define-docker-compose-yml.mk
+
+# main 
 define LARAVEL_OCTANE_DOCKER_COMPOSE_YML
 services:
- $(LARAVEL_OCTANE_NAME):
+ $(LARAVEL_OCTANE_APP_NAME):
   build:
    context: .
    dockerfile: Dockerfile
    
   restart: always
 
-  image: $(LARAVEL_OCTANE_NAME)
-  container_name: $(LARAVEL_OCTANE_NAME)
+  image: $(LARAVEL_OCTANE_APP_NAME)
+  container_name: $(LARAVEL_OCTANE_APP_NAME)
   
   networks:
-   - $(LARAVEL_OCTANE_NAME)-net
+   - $(LARAVEL_OCTANE_APP_NAME)-net
    - internal-bridge-laravel-octane
 
   volumes:
@@ -24,15 +26,15 @@ services:
   environment:
    - OCTANE_SERVER=swoole
  
- $(LARAVEL_OCTANE_REDIS_NAME):
+ $(LARAVEL_OCTANE_REDIS_APP_NAME):
   image: $(REDIS_NAME)
-  container_name: $(LARAVEL_OCTANE_REDIS_NAME)
+  container_name: $(LARAVEL_OCTANE_REDIS_APP_NAME)
 
   networks:
    - internal-bridge-laravel-octane
 
 networks:
- $(LARAVEL_OCTANE_NAME)-net:
+ $(LARAVEL_OCTANE_APP_NAME)-net:
   external: true
   name: $(MY_APP_NET)
 

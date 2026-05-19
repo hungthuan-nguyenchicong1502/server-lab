@@ -29,7 +29,6 @@ _wp-app-prepare:
 wp-app-setup: _wp-app-prepare
 	@echo "wp-app-setup"
 	$(MAKE) _wp-app/_docker-compose.mk
-	sleep 2;
 	$(MAKE) _wp-app/_wp-cli-z-create-wp-app.mk
 
 	$(MAKE) wp-app-down

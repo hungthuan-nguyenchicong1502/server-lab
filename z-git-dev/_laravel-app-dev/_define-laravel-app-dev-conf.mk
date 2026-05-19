@@ -1,11 +1,11 @@
-# wp-app/_define-wp-app-conf.mk
+# z-git-dev/_laravel-app-dev/_define-laravel-app-dev-conf.mk
 
-define WP_APP_CONF
+define LARAVEL_APP_DEV_CONF
 server {
-    listen $(WP_APP_CONF_LISTEN);
-    server_name $(WP_APP_CONF_SERVER_NAME);
+    listen $(LARAVEL_APP_DEV_CONF_LISTEN);
+    server_name $(LARAVEL_APP_DEV_CONF_SERVER_NAME);
 
-    root /var/www/html/wp-app;
+    root /var/www/html/laravel-app/public;
     index index.html index.php;
 
     location / {
@@ -15,7 +15,7 @@ server {
     location ~ \.php$$ {
         try_files $$uri =404;
 
-        fastcgi_pass $(WP_APP_CONF_FASTCGI_PASS);
+        fastcgi_pass $(LARAVEL_APP_DEV_CONF_FASTCGI_PASS):9000;
         fastcgi_index index.php;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $$document_root$$fastcgi_script_name;
@@ -23,4 +23,4 @@ server {
 }
 endef
 
-export WP_APP_CONF
+export LARAVEL_APP_DEV_CONF

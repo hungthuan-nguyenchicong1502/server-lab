@@ -1,7 +1,7 @@
 # mariadb/mariadb.mk
 
 MARIADB_NAME = mariadb-alpine-ncc
-MARIADB_PROJECT_PATH = $(PROJECT_PATH)/mariadb
+MARIADB_PROJECT_PATH = $(SHARE_PROJECT_PATH)/mariadb
 
 include mariadb/_define-docker-file.mk
 include mariadb/_define-docker-compose-yml.mk

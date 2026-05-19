@@ -7,12 +7,16 @@ PROJECT_NAME = project-server-lab
 PROJECT_PATH = $(PROJECT_DIR)/$(PROJECT_NAME)
 VOLUMES_PROJECT = $(PROJECT_PATH)/volumes
 VOLUMES_PROJECT_APP = $(VOLUMES_PROJECT)/project-app
+# share
+SHARE_PATH = $(HOME)/share
+SHARE_PROJECT_PATH = $(SHARE_PATH)/$(PROJECT_NAME)
 # docker network
 MY_APP_NET = my-app-net
 # alpine_image => Using default tag: latest
 # docker pull alpine
 ALPINE_IMAGE = alpine
-
+# test:
+# 	echo $(SHARE_PATH)
 # include
 include cloudflared-tunnel/cloudflared-tunnel.mk
 include nginx/nginx.mk
@@ -24,11 +28,18 @@ include laravel/laravel.mk
 include laravel-octane/laravel-octane.mk
 include redis/redis.mk
 
+# app env
+include z-git-dev/git-dev.mk
+
+# app env prod
+include git-prod/git-prod.mk
+
 dd:
 	@echo "$(PROJECT_DIR)"
 
 help:
-	@echo "make cloudflared-tunnel-setup"
+	@echo "make setup"
+	@echo "make cloudflared-tunnel-help"
 
 _check-network:
 	@echo "_check-network"
@@ -39,6 +50,8 @@ _prepare:
 	mkdir -p $(PROJECT_PATH)
 	mkdir -p $(VOLUMES_PROJECT)
 	mkdir -p $(VOLUMES_PROJECT_APP)
+	mkdir -p $(SHARE_PATH)
+	mkdir -p $(SHARE_PROJECT_PATH)
 
 project-ls:
 	@echo "project-ls"
@@ -49,13 +62,20 @@ setup: _prepare
 	@echo "setup"
 	$(MAKE) _check-network
 	docker pull $(ALPINE_IMAGE)
-
+	sleep 1
 	$(MAKE) cloudflared-tunnel-setup
-	$(MAKE) nginx-setup
-	$(MAKE) php-fpm-setup
+	sleep 1
 	$(MAKE) mariadb-setup
+	sleep 1
+	$(MAKE) nginx-setup
+	sleep 1
+	$(MAKE) php-fpm-setup
+	sleep 1
 	$(MAKE) wp-cli-setup
+	sleep 1
 	$(MAKE) wp-app-setup
+	sleep 1
+	
 
 	docker ps
 

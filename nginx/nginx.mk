@@ -4,13 +4,27 @@ NGINX_PROJECT_PATH = $(PROJECT_PATH)/nginx
 # use $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
 NGINX_VOLUMES_CONF = $(VOLUMES_PROJECT)/nginx-conf
 
+NGINX_NAME_APP_NAME := $(NGINX_NAME)
+
+ifeq ($(APP_ENV), dev)
+	NGINX_NAME_APP_NAME := $(NGINX_NAME)-dev
+endif
+ifeq ($(APP_ENV), prod)
+	NGINX_NAME_APP_NAME := $(NGINX_NAME)-prod
+endif
 # include
 include nginx/_define_docker-file.mk
 include nginx/_define-docker-compose-yml.mk
 include nginx/_docker-compose.mk
 
 # test
-include nginx/nginx-test/nginx-test.mk
+# include nginx/nginx-test/nginx-test.mk
+
+# app env dev
+include nginx/nginx-app-env-dev/nginx-app-env-dev.mk
+
+# test:
+# 	echo $(NGINX_NAME_APP_NAME)
 
 _nginx-prepare:
 	@echo "_nginx-prepare"
@@ -38,16 +52,8 @@ nginx-conf-ls:
 
 nginx-reload:
 	sleep 1;
-	if [ -z "$(APP_ENV)" ]; then \
-		docker exec $(NGINX_NAME) nginx -s reload; \
-	else \
-		docker exec $(NGINX_NAME)-$(APP_ENV) nginx -s reload; \
-	fi
+	docker exec $(NGINX_NAME_APP_NAME) nginx -s reload
 
 nginx-restart:
 	sleep 1;
-	if [ -z "$(APP_ENV)" ]; then \
-		docker restart $(NGINX_NAME); \
-	else \
-		docker restart $(NGINX_NAME)-$(APP_ENV); \
-	fi
+	docker restart $(NGINX_NAME_APP_NAME)
