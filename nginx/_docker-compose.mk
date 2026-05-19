@@ -5,6 +5,10 @@ ifeq ($(APP_ENV), dev)
 	NGINX_COMPOSE_FILES += -f $(NGINX_PROJECT_PATH)/docker-compose.dev.yml
 endif
 
+ifeq ($(APP_ENV), prod)
+	NGINX_COMPOSE_FILES += -f $(NGINX_PROJECT_PATH)/docker-compose.prod.yml
+endif
+
 _nginx/_docker-compose.mk:
 	@echo "_nginx/_docker-compose.mk"
 	$(MAKE) _nginx/_docker-compose.mk-create-dockerfile
@@ -16,12 +20,15 @@ _nginx/_docker-compose.mk-create-dockerfile:
 	@echo "_nginx/_docker-compose.mk-create-dockerfile"
 	printf "$$NGINX_DOCKERFILE" > $(NGINX_PROJECT_PATH)/Dockerfile
 	printf "$$NGINX_DOCKERFILE_DEV" > $(NGINX_PROJECT_PATH)/Dockerfile.dev
+	printf "$$NGINX_DOCKERFILE_PROD" > $(NGINX_PROJECT_PATH)/Dockerfile.prod
+
 
 
 _nginx/_docker-compose.mk-create-docker-compose-yml:
 	@echo "_nginx/_docker-compose.mk-create-docker-compose-yml"
 	printf "$$NGINX_DOCKER_COMPOSE_YML" > $(NGINX_PROJECT_PATH)/docker-compose.yml
-	printf "$$NGINX_DOCKER_COMPOSE_DEV_YML" > $(NGINX_PROJECT_PATH)/docker-compose.dev.yml
+	printf "$$NGINX_DOCKER_COMPOSE_YML_DEV" > $(NGINX_PROJECT_PATH)/docker-compose.dev.yml
+	printf "$$NGINX_DOCKER_COMPOSE_YML_PROD" > $(NGINX_PROJECT_PATH)/docker-compose.prod.yml
 
 
 _nginx/_docker-compose.mk-build:

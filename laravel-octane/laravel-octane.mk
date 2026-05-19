@@ -4,6 +4,13 @@ LARAVEL_OCTANE_NAME = laravel-octane-alpine-ncc
 LARAVEL_OCTANE_REDIS_NAME = laravel-octane-redis-alpine-ncc
 LARAVEL_OCTANE_PROJECT_PATH = $(PROJECT_PATH)/laravel-octane
 
+LARAVEL_OCTANE_APP_NAME := $(LARAVEL_OCTANE_NAME)
+LARAVEL_OCTANE_REDIS_APP_NAME := $(LARAVEL_OCTANE_REDIS_NAME)
+ifeq ($(APP_ENV), prod)
+	LARAVEL_OCTANE_APP_NAME := $(LARAVEL_OCTANE_NAME)-prod
+	LARAVEL_OCTANE_REDIS_APP_NAME :=$(LARAVEL_OCTANE_REDIS_NAME)-pro
+endif
+
 include laravel-octane/_define-laravel-octane-conf.mk
 include laravel-octane/_define-docker-file.mk
 include laravel-octane/_define-docker-compose-yml.mk

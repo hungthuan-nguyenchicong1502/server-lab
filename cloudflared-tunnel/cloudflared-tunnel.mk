@@ -1,13 +1,18 @@
 # cloudflared-tunnel/cloudflared-tunnel.mk
 
 CLOUDFLARED_TUNNEL_NAME = cloudflared-tunnel-alpine-ncc
-CLOUDFLARED_TUNNEL_PROJECT_PATH = $(PROJECT_PATH)/cloudflared-tunnel
+CLOUDFLARED_TUNNEL_PROJECT_PATH = $(SHARE_PROJECT_PATH)/cloudflared-tunnel
 
 # include 
 include cloudflared-tunnel/_create-env.mk
 include cloudflared-tunnel/_define-docker-compose-yml.mk
 include cloudflared-tunnel/_docker-compose.mk
 
+cloudflared-tunnel-help:
+	@echo "make cloudflared-tunnel-setup"
+	@echo "make cloudflared-tunnel-up"
+	@echo "make cloudflared-tunnel-down"
+	@echo "make cloudflared-tunnel-update-env"
 
 _cloudflared-tunnel-prepare:
 	@echo "_cloudflared-tunnel-prepare"

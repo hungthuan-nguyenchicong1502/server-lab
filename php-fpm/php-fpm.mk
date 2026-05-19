@@ -9,6 +9,10 @@ ifeq ($(APP_ENV), dev)
 	PHP_FPM_NAME_APP_ENV := $(PHP_FPM_NAME)-dev
 endif
 
+ifeq ($(APP_ENV), prod)
+	PHP_FPM_NAME_APP_ENV := $(PHP_FPM_NAME)-prod
+endif
+
 include php-fpm/_define-docker-file.mk
 include php-fpm/_define-docker-compose-yml.mk
 include php-fpm/_docker-compose.mk

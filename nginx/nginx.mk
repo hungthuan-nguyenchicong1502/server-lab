@@ -9,19 +9,22 @@ NGINX_NAME_APP_NAME := $(NGINX_NAME)
 ifeq ($(APP_ENV), dev)
 	NGINX_NAME_APP_NAME := $(NGINX_NAME)-dev
 endif
+ifeq ($(APP_ENV), prod)
+	NGINX_NAME_APP_NAME := $(NGINX_NAME)-prod
+endif
 # include
 include nginx/_define_docker-file.mk
 include nginx/_define-docker-compose-yml.mk
 include nginx/_docker-compose.mk
 
 # test
-include nginx/nginx-test/nginx-test.mk
+# include nginx/nginx-test/nginx-test.mk
 
 # app env dev
 include nginx/nginx-app-env-dev/nginx-app-env-dev.mk
 
-test:
-	echo $(NGINX_NAME_APP_NAME)
+# test:
+# 	echo $(NGINX_NAME_APP_NAME)
 
 _nginx-prepare:
 	@echo "_nginx-prepare"
