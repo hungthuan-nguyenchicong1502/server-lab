@@ -59,3 +59,9 @@ volumes:
 docker exec php-fpm-alpine-ncc-dev ln -s /var/www/html/wp-app/wp-content/uploads /var/www/html/laravel-app/public/uploads
 
 docker exec php-fpm-alpine-ncc-dev unlink /var/www/html/laravel-app/public/wp-uploads
+
+php -m | grep mysqli
+
+pgrep -o php-fpm
+
+kill -USR2 $(pgrep -o php-fpm)
