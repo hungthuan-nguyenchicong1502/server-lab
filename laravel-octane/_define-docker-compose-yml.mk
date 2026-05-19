@@ -5,6 +5,8 @@ services:
   build:
    context: .
    dockerfile: Dockerfile
+   
+  restart: always
 
   image: $(LARAVEL_OCTANE_NAME)
   container_name: $(LARAVEL_OCTANE_NAME)
