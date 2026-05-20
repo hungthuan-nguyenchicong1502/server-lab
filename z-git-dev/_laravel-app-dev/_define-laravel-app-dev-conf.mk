@@ -15,7 +15,7 @@ server {
     location ~ \.php$$ {
         try_files $$uri =404;
 
-        fastcgi_pass $(LARAVEL_APP_DEV_CONF_FASTCGI_PASS):9000;
+        fastcgi_pass $(PHP_FPM_NAME_APP_ENV):9000;
         fastcgi_index index.php;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $$document_root$$fastcgi_script_name;

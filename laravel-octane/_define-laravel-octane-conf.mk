@@ -51,7 +51,7 @@ server {
 
         # Đảm bảo Nginx không gửi /index.php mà gửi đúng URI gốc
         # Nếu vào trang chủ, Octane sẽ nhận được "/"
-        proxy_pass $(PROXY_PASS);
+        proxy_pass http://$(LARAVEL_OCTANE_APP_NAME):1000;
     }
 
     location ~ /\. {

@@ -78,7 +78,7 @@ setup: _prepare
 	make laravel-setup
 	sleep 1
 	make laravel-octane-setup
-	sleep 5
+	sleep 1
 	make nginx-down
 	sleep 1
 	make nginx-up
