@@ -45,9 +45,9 @@ services:
 
   restart: always
 
-#   ports:
-#    - "8080:8080"
-#    - "80:80"
+  ports:
+   - "8080:8080"
+   - "80:80"
 
   networks:
    - $(NGINX_NAME_APP_NAME)-net

@@ -60,3 +60,6 @@ nginx-restart:
 
 nginx-logs:
 	docker logs $(NGINX_NAME_APP_NAME)
+
+nginx-t:
+	docker exec $(NGINX_NAME_APP_NAME) nginx -t

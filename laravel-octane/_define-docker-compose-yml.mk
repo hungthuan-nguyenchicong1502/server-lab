@@ -20,8 +20,8 @@ services:
   volumes:
    - $(LARAVEL_VOLUMES_LARAVEL_APP):/laravel-app
 
-  ports:
-   - "1000:1000"
+#   ports:
+#    - "1000:1000"
 
   environment:
    - OCTANE_SERVER=swoole

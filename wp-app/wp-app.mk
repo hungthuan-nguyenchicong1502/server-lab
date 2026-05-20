@@ -33,8 +33,8 @@ wp-app-setup: _wp-app-prepare
 
 	$(MAKE) wp-app-down
 # 	$(MAKE) _wp-app/_restart-services.mk
-	$(MAKE) php-fpm-restart
-	$(MAKE) nginx-restart
+# 	$(MAKE) php-fpm-restart
+# 	$(MAKE) nginx-restart
 	
 	$(MAKE) _wp-app/_php-fpm-permission.mk
 

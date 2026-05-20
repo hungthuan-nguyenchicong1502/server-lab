@@ -12,7 +12,6 @@ app-env-dev-setup:
 		make _create-laravel-app-dev-conf; \
 		cp $(LARAVEL_APP_DEV_CONF_SOURCE) $(LARAVEL_APP_DEV_CONF_TARGET); \
 		sleep 1; \
-		make nginx-reload; \
 	fi
 
 

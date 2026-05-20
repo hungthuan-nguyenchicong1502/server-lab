@@ -6,6 +6,12 @@ LARAVEL_OCTANE_PROJECT_PATH = $(PROJECT_PATH)/laravel-octane
 
 LARAVEL_OCTANE_APP_NAME := $(LARAVEL_OCTANE_NAME)
 LARAVEL_OCTANE_REDIS_APP_NAME := $(LARAVEL_OCTANE_REDIS_NAME)
+
+ifeq ($(APP_ENV), dev)
+	LARAVEL_OCTANE_APP_NAME := $(LARAVEL_OCTANE_NAME)-dev
+	LARAVEL_OCTANE_REDIS_APP_NAME :=$(LARAVEL_OCTANE_REDIS_NAME)-dev
+endif
+
 ifeq ($(APP_ENV), prod)
 	LARAVEL_OCTANE_APP_NAME := $(LARAVEL_OCTANE_NAME)-prod
 	LARAVEL_OCTANE_REDIS_APP_NAME :=$(LARAVEL_OCTANE_REDIS_NAME)-pro
@@ -32,7 +38,7 @@ _laravel-octane-prepare:
 laravel-octane-setup: _laravel-octane-prepare
 	@echo "laravel-octane-setup"
 	$(MAKE) _laravel-octane/_docker-compose.mk
-	$(MAKE) nginx-reload
+# 	$(MAKE) nginx-reload
 
 
 laravel-octane-down:
@@ -47,3 +53,15 @@ laravel-octane-cp-conf:
 	@echo "laravel-octane-cp-conf"
 	cp -f ./laravel-octane/laravel-octane.conf $(NGINX_VOLUMES_CONF)
 	$(MAKE) nginx-reload
+
+laravel-octane-rm-conf:
+	@echo "laravel-octane-rm-conf"
+	rm -f $(NGINX_VOLUMES_CONF)/laravel-octane.conf
+	sleep 3
+	make nginx-down
+	sleep 1
+	make nginx-up
+
+laravel-octane-cat-conf:
+	@echo "laravel-octane-cat-conf"
+	cat $(NGINX_VOLUMES_CONF)/laravel-octane.conf
