@@ -31,7 +31,8 @@ include redis/redis.mk
 # app env
 include git-dev/git-dev.mk
 include z-git-dev/git-dev.mk
-
+# app env feature
+include git-feature/git-feature.mk
 # app env prod
 include git-prod/git-prod.mk
 

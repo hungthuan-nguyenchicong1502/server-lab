@@ -9,20 +9,21 @@ _nginx-test-prepre:
 	@echo "_nginx-test-prepre"
 	$(MAKE) _nginx-test-create-nginx-test-conf
 	cp -f $(NGINX_TEST_PROJECT_PATH)/nginx-test.conf $(NGINX_VOLUMES_CONF)/nginx-test.conf
-	
+	sleep 1
 	mkdir -p $(NGINX_TEST_VOLUMES)
 	cp -f $(NGINX_TEXT_PATH)/index.html $(NGINX_TEST_VOLUMES)
 
 
 nginx-test: _nginx-test-prepre
 	@echo "nginx-test"
-	$(MAKE) nginx-restart
+	sleep 2
+	$(MAKE) nginx-reload
 
 # 	$(MAKE) nginx-reload
 # test: nginx-test
-# test:
+test:
 # 	docker logs $(NGINX_NAME)
-# 	docker exec -it $(NGINX_NAME) sh
+	docker exec -it $(NGINX_NAME_APP_NAME) sh
 
 # 	docker logs $(NGINX_NAME)-$(APP_ENV)
 # 	/etc/nginx/http.d/nginx-test.conf

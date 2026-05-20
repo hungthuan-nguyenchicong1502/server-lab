@@ -5,7 +5,7 @@ server {
     listen $(LISTEN);
     server_name $(SERVER_NAME);
 
-    root /var/www/html/nginx-test;
+    root $(NGINX_WORKDIR_APP_NAME)/nginx-test;
     index index.html index.php;
 
     location / {

@@ -5,9 +5,14 @@ NGINX_PROJECT_PATH = $(PROJECT_PATH)/nginx
 NGINX_VOLUMES_CONF = $(VOLUMES_PROJECT)/nginx-conf
 
 NGINX_NAME_APP_NAME := $(NGINX_NAME)
+NGINX_WORKDIR_APP_NAME := /var/wwww/html
 
 ifeq ($(APP_ENV), dev)
 	NGINX_NAME_APP_NAME := $(NGINX_NAME)-dev
+endif
+ifeq ($(APP_ENV), feature)
+	NGINX_NAME_APP_NAME := $(NGINX_NAME)-feature
+	NGINX_WORKDIR_APP_NAME := /home/project
 endif
 ifeq ($(APP_ENV), prod)
 	NGINX_NAME_APP_NAME := $(NGINX_NAME)-prod
@@ -18,7 +23,7 @@ include nginx/_define-docker-compose-yml.mk
 include nginx/_docker-compose.mk
 
 # test
-# include nginx/nginx-test/nginx-test.mk
+include nginx/nginx-test/nginx-test.mk
 
 # app env dev
 include nginx/nginx-app-env-dev/nginx-app-env-dev.mk
@@ -26,7 +31,7 @@ include nginx/nginx-app-env-dev/nginx-app-env-dev.mk
 # test:
 # 	echo $(NGINX_NAME_APP_NAME)
 
-_nginx-prepare:
+_nginx-prepare: _prepare
 	@echo "_nginx-prepare"
 	mkdir -p $(NGINX_PROJECT_PATH)
 	mkdir -p $(NGINX_VOLUMES_CONF)

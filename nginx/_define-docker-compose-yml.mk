@@ -64,6 +64,40 @@ endef
 
 export NGINX_DOCKER_COMPOSE_YML_DEV
 
+# feature
+
+define NGINX_DOCKER_COMPOSE_YML_FEATURE
+services:
+ $(NGINX_NAME_APP_NAME):
+  
+  build:
+   context: .
+   dockerfile: Dockerfile.feature
+
+  image: $(NGINX_NAME_APP_NAME)
+  container_name: $(NGINX_NAME_APP_NAME)
+
+  restart: always
+
+  ports:
+   - "8080:8080"
+   - "80:80"
+
+  networks:
+   - $(NGINX_NAME_APP_NAME)-net
+
+  volumes:
+   - $(VOLUMES_PROJECT_APP):$(NGINX_WORKDIR_APP_NAME)
+   - $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
+
+networks:
+ $(NGINX_NAME_APP_NAME)-net:
+  external: true
+  name: $(MY_APP_NET)
+endef
+
+export NGINX_DOCKER_COMPOSE_YML_FEATURE
+
 # prod
 define NGINX_DOCKER_COMPOSE_YML_PROD
 services:
