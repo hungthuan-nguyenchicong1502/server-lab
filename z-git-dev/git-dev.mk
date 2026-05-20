@@ -7,8 +7,8 @@ git-dev-setup: _prepare
 	@echo "git-dev-setup"
 	$(MAKE) _z-git-dev/_laravel-app.mk
 
-git-dev-up:
-	@echo "git-dev-up"
-	make laravel-app-dev-up
+# git-dev-up:
+# 	@echo "git-dev-up"
+# 	make laravel-app-dev-up
 # 	make nginx-up
 # 	make php-fpm-up
