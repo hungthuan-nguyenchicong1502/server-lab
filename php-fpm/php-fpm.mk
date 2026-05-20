@@ -4,9 +4,15 @@ PHP_FPM_NAME = php-fpm-alpine-ncc
 PHP_FPM_PROJECT_PATH = $(PROJECT_PATH)/php-fpm
 
 PHP_FPM_NAME_APP_ENV := $(PHP_FPM_NAME)
+PHP_FPM_WORKDIR_APP_ENV := /var/www/html
 
 ifeq ($(APP_ENV), dev)
 	PHP_FPM_NAME_APP_ENV := $(PHP_FPM_NAME)-dev
+endif
+
+ifeq ($(APP_ENV), feature)
+	PHP_FPM_NAME_APP_ENV := $(PHP_FPM_NAME)-feature
+	PHP_FPM_WORKDIR_APP_ENV := /home/project
 endif
 
 ifeq ($(APP_ENV), prod)
@@ -23,7 +29,7 @@ include php-fpm/php-fpm-test/php-fpm-test.mk
 # app-env-dev
 include php-fpm/_app-env-dev/app-env-dev.mk
 
-_php-fpm-prepare:
+_php-fpm-prepare: _prepare
 	@echo "_php-fpm-prepare"
 	mkdir -p $(PHP_FPM_PROJECT_PATH)
 

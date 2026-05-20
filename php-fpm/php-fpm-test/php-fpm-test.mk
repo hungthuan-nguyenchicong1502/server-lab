@@ -28,15 +28,15 @@ php-fpm-test: _php-fpm-test-prepare
 	
 	cp -f $(PHP_FPM_TEXT_PROJECT_PATH)/php-fpm-test.conf $(NGINX_VOLUMES_CONF)/php-fpm-test.conf
 	cp -rf $(PHP_FPM_TEXT_PATH)/. $(PHP_FPM_TEXT_VOLUMES_PROJECT_APP)
-
-	$(MAKE) nginx-restart
-	$(MAKE) php-fpm-restart
+	sleep 1
+	$(MAKE) nginx-reload
+# 	$(MAKE) php-fpm-restart
 
 _php-fpm-test-create-php-fpm-test-conf:
 	@echo "_php-fpm-test-create-php-fpm-test-conf"
 	printf "$$PHP_FPM_TEST_CONF" > $(PHP_FPM_TEXT_PROJECT_PATH)/php-fpm-test.conf
 
-php-fpm-test-remove:
-	@echo "php-fpm-test-remove"
+php-fpm-remove-test:
+	@echo "php-fpm-remove-test"
 	rm -rf $(PHP_FPM_TEXT_VOLUMES_PROJECT_APP)
 	rm -f $(NGINX_VOLUMES_CONF)/php-fpm-test.conf

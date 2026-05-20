@@ -5,7 +5,7 @@ server {
     listen $(WP_APP_CONF_LISTEN);
     server_name $(WP_APP_CONF_SERVER_NAME);
 
-    root /var/www/html/wp-app;
+    root /$(WP_PATH);
     index index.html index.php;
 
     location / {

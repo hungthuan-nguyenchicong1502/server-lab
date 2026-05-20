@@ -14,6 +14,8 @@ git-feature-rm-project:
 git-feature-setup:
 	@echo "git-feature-setup"
 	make nginx-setup
+	make php-fpm-setup
+	make wp-app-setup
 
 git-feature-down:
 	@echo "git-feature-down"
@@ -22,3 +24,4 @@ git-feature-down:
 # use
 # make git-feature-rm-project
 # make nginx-test
+# make php-fpm-remove-test

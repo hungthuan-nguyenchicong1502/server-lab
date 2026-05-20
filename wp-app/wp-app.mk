@@ -3,6 +3,12 @@ WP_APP_NAME = wp-app-alpine-ncc
 WP_APP_PROJECT_PATH = $(PROJECT_PATH)/wp-app
 WP_APP_VOLUMES_PROJECT_APP = $(VOLUMES_PROJECT_APP)/wp-app
 
+WP_APP_WORKDIR_APP_ENV := /var/www/html
+
+ifeq ($(APP_ENV), feature)
+	WP_APP_WORKDIR_APP_ENV :=/home/project/wp-app
+endif
+
 include wp-app/_wp-app-init.mk
 
 include wp-app/_define-docker-compose-yml.mk
@@ -20,7 +26,7 @@ include wp-app/_php-fpm-permission.mk
 # 	cat $(WP_APP_PROJECT_PATH)/wp-app.conf
 # 	ls $(WP_APP_VOLUMES_PROJECT_APP)/wp-content/uploads/2026/05
 
-_wp-app-prepare:
+_wp-app-prepare: _prepare
 	@echo "_wp-app-prepare"
 	mkdir -p $(WP_APP_PROJECT_PATH)
 	mkdir -p $(WP_APP_VOLUMES_PROJECT_APP)
