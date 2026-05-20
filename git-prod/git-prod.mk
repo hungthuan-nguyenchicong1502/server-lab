@@ -10,3 +10,4 @@ git-prod-down:
 	@echo "git-prod-down"
 	make nginx-down
 	make php-fpm-down
+	make laravel-octane-down
