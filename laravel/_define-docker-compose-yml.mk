@@ -1,40 +1,40 @@
 # laravel/_define-docker-compose-yml.mk
 
+# main
 define LARAVEL_DOCKER_COMPOSE_YML
 services:
- $(LARAVEL_NAME):
+ $(LARAVEL_NAME_APP_ENV):
   build:
    context: .
    dockerfile: Dockerfile
  
-  image: $(LARAVEL_NAME)
-  container_name: $(LARAVEL_NAME)
+  image: $(LARAVEL_NAME_APP_ENV)
+  container_name: $(LARAVEL_NAME_APP_ENV)
 
   networks:
-   - $(LARAVEL_NAME)-net
+   - $(LARAVEL_NAME_APP_ENV)-net
 
   volumes:
    - $(LARAVEL_VOLUMES_LARAVEL_APP):/laravel-app
 
 networks:
- $(LARAVEL_NAME)-net:
+ $(LARAVEL_NAME_APP_ENV)-net:
   external: true
   name: $(MY_APP_NET)
 endef
 
 export LARAVEL_DOCKER_COMPOSE_YML
 
-define LARAVEL_DOCKER_COMPOSE_DEV_YML
+# dev
+define LARAVEL_DOCKER_COMPOSE_YML_DEV
 services:
- $(LARAVEL_NAME)-dev:
-#   build: !reset null
-
+ $(LARAVEL_NAME_APP_ENV):
   build:
      context: .
      dockerfile: Dockerfile-dev
 
-  image: $(LARAVEL_NAME)
-  container_name: $(LARAVEL_NAME)-dev
+  image: $(LARAVEL_NAME_APP_ENV)
+  container_name: $(LARAVEL_NAME_APP_ENV)
 
 #   ports:
 #    - "8000:8000"
@@ -44,14 +44,46 @@ services:
    - laravel-dev-ssh_data:/root/.ssh
 
   networks:
-     - $(LARAVEL_NAME)-net-dev
+     - $(LARAVEL_NAME_APP_ENV)-net
 volumes:
  laravel-dev-ssh_data:
 
 networks:
- $(LARAVEL_NAME)-net-dev:
+ $(LARAVEL_NAME_APP_ENV)-net:
   external: true
   name: $(MY_APP_NET)
 endef
 
-export LARAVEL_DOCKER_COMPOSE_DEV_YML
+export LARAVEL_DOCKER_COMPOSE_YML_DEV
+
+# feature
+
+define LARAVEL_DOCKER_COMPOSE_YML_FEATURE
+services:
+ $(LARAVEL_NAME_APP_ENV):
+  build:
+     context: .
+     dockerfile: Dockerfile-feature
+
+  image: $(LARAVEL_NAME_APP_ENV)
+  container_name: $(LARAVEL_NAME_APP_ENV)
+
+#   ports:
+#    - "8000:8000"
+  
+  volumes:
+   - $(LARAVEL_VOLUMES_LARAVEL_APP):$(LARAVEL_WORKDIR_APP_ENV)
+   - laravel-dev-ssh_data:/root/.ssh
+
+  networks:
+     - $(LARAVEL_NAME_APP_ENV)-net
+volumes:
+ laravel-dev-ssh_data:
+
+networks:
+ $(LARAVEL_NAME_APP_ENV)-net:
+  external: true
+  name: $(MY_APP_NET)
+endef
+
+export LARAVEL_DOCKER_COMPOSE_YML_FEATURE

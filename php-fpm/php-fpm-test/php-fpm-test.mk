@@ -36,7 +36,7 @@ _php-fpm-test-create-php-fpm-test-conf:
 	@echo "_php-fpm-test-create-php-fpm-test-conf"
 	printf "$$PHP_FPM_TEST_CONF" > $(PHP_FPM_TEXT_PROJECT_PATH)/php-fpm-test.conf
 
-php-fpm-remove-test:
+php-fpm-test-remove:
 	@echo "php-fpm-remove-test"
 	rm -rf $(PHP_FPM_TEXT_VOLUMES_PROJECT_APP)
 	rm -f $(NGINX_VOLUMES_CONF)/php-fpm-test.conf

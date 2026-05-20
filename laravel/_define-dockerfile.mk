@@ -1,5 +1,6 @@
 # laravel/_define-dockerfile.mk
 
+# main
 define LARAVEL_DOCKER_FILE
 FROM $(ALPINE_IMAGE)
 
@@ -30,6 +31,7 @@ endef
 
 export LARAVEL_DOCKER_FILE
 
+# dev
 define LARAVEL_DOCKER_FILE_DEV
 FROM $(LARAVEL_NAME)
 
@@ -58,3 +60,33 @@ CMD ["/usr/sbin/sshd", "-D"]
 endef
 
 export LARAVEL_DOCKER_FILE_DEV
+
+# feature
+define LARAVEL_DOCKER_FILE_FEATURE
+FROM $(LARAVEL_NAME)
+
+RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirror.leaseweb.com/alpine/latest-stable/community\\n" \\
+	> /etc/apk/repositories
+    
+RUN apk update && apk upgrade --no-cache
+
+RUN apk add --no-cache \
+    openssh \
+    git \
+    libgcc \
+    libstdc++ \
+
+RUN ssh-keygen -A
+
+# vscode
+RUN sed -i 's/AllowTcpForwarding.*/AllowTcpForwarding yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+#     sed -i 's/#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
+#     sed -i 's/#GatewayPorts.*/GatewayPorts yes/' /etc/ssh/sshd_config
+
+WORKDIR $(LARAVEL_WORKDIR_APP_ENV)
+
+CMD ["/usr/sbin/sshd", "-D"]
+endef
+
+export LARAVEL_DOCKER_FILE_FEATURE

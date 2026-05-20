@@ -109,3 +109,8 @@ down-v:
 	$(MAKE) nginx-down-v
 	$(MAKE) php-fpm-down-v
 	$(MAKE) mariadb-down-v
+
+remove-project:
+	@echo "remove-project"
+	docker run -u root --rm -v $(VOLUMES_PROJECT_APP):/parent $(ALPINE_IMAGE) sh -c "rm -rf /parent/project-app"
+	rm -rf $(PROJECT_PATH)

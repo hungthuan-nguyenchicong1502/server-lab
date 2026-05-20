@@ -82,6 +82,7 @@ services:
   ports:
    - "8080:8080"
    - "80:80"
+   - "8888:8888"
 
   networks:
    - $(NGINX_NAME_APP_NAME)-net
