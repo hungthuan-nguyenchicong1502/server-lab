@@ -26,7 +26,7 @@ RUN apk add --no-cache \
 
 # RUN composer create-project laravel/laravel:^12 laravel-app
 
-CMD ["sh", "-c", "tail -f >/dev/nul"]
+CMD ["sh", "-c", "tail -f >/dev/null"]
 endef
 
 export LARAVEL_DOCKER_FILE
@@ -71,22 +71,23 @@ RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirr
 RUN apk update && apk upgrade --no-cache
 
 RUN apk add --no-cache \
-    openssh \
     git \
     libgcc \
     libstdc++ \
 
-RUN ssh-keygen -A
+#RUN ssh-keygen -A
 
 # vscode
-RUN sed -i 's/AllowTcpForwarding.*/AllowTcpForwarding yes/' /etc/ssh/sshd_config && \
-    sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+#RUN sed -i 's/AllowTcpForwarding.*/AllowTcpForwarding yes/' /etc/ssh/sshd_config && \
+#    sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 #     sed -i 's/#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 #     sed -i 's/#GatewayPorts.*/GatewayPorts yes/' /etc/ssh/sshd_config
 
 WORKDIR $(LARAVEL_WORKDIR_APP_ENV)
 
-CMD ["/usr/sbin/sshd", "-D"]
+# CMD ["/usr/sbin/sshd", "-D"]
+CMD ["sh", "-c", "tail -f >/dev/null"]
+
 endef
 
 export LARAVEL_DOCKER_FILE_FEATURE

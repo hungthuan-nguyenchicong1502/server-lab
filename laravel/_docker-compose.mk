@@ -17,8 +17,8 @@ _laravel/_docker-compose.mk:
 _laravel/_docker-compose.mk-create-dockerfile:
 	@echo "_laravel/_docker-compose.mk-create-dockerfile"
 	printf "$$LARAVEL_DOCKER_FILE" > $(LARAVEL_PROJECT_PATH)/Dockerfile
-	printf "$$LARAVEL_DOCKER_FILE_DEV" > $(LARAVEL_PROJECT_PATH)/Dockerfile-dev
-	printf "$$LARAVEL_DOCKER_FILE_FEATURE" > $(LARAVEL_PROJECT_PATH)/Dockerfile-feature
+	printf "$$LARAVEL_DOCKER_FILE_DEV" > $(LARAVEL_PROJECT_PATH)/Dockerfile.dev
+	printf "$$LARAVEL_DOCKER_FILE_FEATURE" > $(LARAVEL_PROJECT_PATH)/Dockerfile.feature
 
 _laravel/_docker-compose.mk-create-docker-compose-yml:
 	@echo "_laravel/_docker-compose.mk-create-docker-compose-yml"

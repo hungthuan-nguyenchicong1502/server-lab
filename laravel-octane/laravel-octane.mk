@@ -1,20 +1,27 @@
 # laravel-octane/laravel-octane.mk
 
-LARAVEL_OCTANE_NAME = laravel-octane-alpine-ncc
-LARAVEL_OCTANE_REDIS_NAME = laravel-octane-redis-alpine-ncc
-LARAVEL_OCTANE_PROJECT_PATH = $(PROJECT_PATH)/laravel-octane
+LARAVEL_OCTANE_NAME := laravel-octane-alpine-ncc
+LARAVEL_OCTANE_REDIS_NAME := laravel-octane-redis-alpine-ncc
+LARAVEL_OCTANE_PROJECT_PATH := $(PROJECT_PATH)/laravel-octane
 
-LARAVEL_OCTANE_APP_NAME := $(LARAVEL_OCTANE_NAME)
-LARAVEL_OCTANE_REDIS_APP_NAME := $(LARAVEL_OCTANE_REDIS_NAME)
+LARAVEL_OCTANE_NAME_APP_ENV := $(LARAVEL_OCTANE_NAME)
+LARAVEL_OCTANE_NAME_REDIS_APP_ENV := $(LARAVEL_OCTANE_REDIS_NAME)
+LARAVEL_OCTANE_WORKDIR_APP_ENV := /laravel-app
 
 ifeq ($(APP_ENV), dev)
-	LARAVEL_OCTANE_APP_NAME := $(LARAVEL_OCTANE_NAME)-dev
-	LARAVEL_OCTANE_REDIS_APP_NAME :=$(LARAVEL_OCTANE_REDIS_NAME)-dev
+	LARAVEL_OCTANE_NAME_APP_ENV := $(LARAVEL_OCTANE_NAME)-dev
+	LARAVEL_OCTANE_NAME_REDIS_APP_ENV :=$(LARAVEL_OCTANE_REDIS_NAME)-dev
+endif
+
+ifeq ($(APP_ENV), feature)
+	LARAVEL_OCTANE_NAME_APP_ENV := $(LARAVEL_OCTANE_NAME)-feature
+	LARAVEL_OCTANE_NAME_REDIS_APP_ENV :=$(LARAVEL_OCTANE_REDIS_NAME)-feature
+	LARAVEL_OCTANE_WORKDIR_APP_ENV := /home/project/laravel-app
 endif
 
 ifeq ($(APP_ENV), prod)
-	LARAVEL_OCTANE_APP_NAME := $(LARAVEL_OCTANE_NAME)-prod
-	LARAVEL_OCTANE_REDIS_APP_NAME :=$(LARAVEL_OCTANE_REDIS_NAME)-pro
+	LARAVEL_OCTANE_NAME_APP_ENV := $(LARAVEL_OCTANE_NAME)-prod
+	LARAVEL_OCTANE_NAME_REDIS_APP_ENV :=$(LARAVEL_OCTANE_REDIS_NAME)-pro
 endif
 
 include laravel-octane/_define-laravel-octane-conf.mk
@@ -22,13 +29,13 @@ include laravel-octane/_define-docker-file.mk
 include laravel-octane/_define-docker-compose-yml.mk
 include laravel-octane/_docker-compose.mk
 
-# test:
-# 	@echo "$$LARAVEL_OCTANE_CONF"
+test:
+	cat $(LARAVEL_OCTANE_PROJECT_PATH)/laravel-octane.conf
 
 _createlaravel-octane-conf:
 	printf "$$LARAVEL_OCTANE_CONF" > $(LARAVEL_OCTANE_PROJECT_PATH)/laravel-octane.conf
 
-_laravel-octane-prepare:
+_laravel-octane-prepare: _prepare
 	@echo "_laravel-octane-prepare"
 	mkdir -p $(LARAVEL_OCTANE_PROJECT_PATH)
 	$(MAKE) _createlaravel-octane-conf
@@ -44,6 +51,10 @@ laravel-octane-setup: _laravel-octane-prepare
 laravel-octane-down:
 	@echo "laravel-octane-down"
 	$(MAKE) _laravel-octane/_docker-compose.mk-down
+
+laravel-octane-down-v:
+	@echo "laravel-octane-down-v"
+	$(MAKE) _laravel-octane/_docker-compose.mk-down-v
 
 laravel-octane-up:
 	@echo "laravel-octane-up"

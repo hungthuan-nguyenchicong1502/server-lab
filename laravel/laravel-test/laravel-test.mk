@@ -9,7 +9,7 @@ laravel-test-setup:
 	make php-fpm-test-remove
 	make _laravel-test-create-laravel-php-fpm-conf
 	sleep 1
-	make _laravel/laravel-test/_php-fpm-permission.mk
+# 	make _laravel/laravel-test/_php-fpm-permission.mk
 	sleep 1
 	make nginx-reload
 

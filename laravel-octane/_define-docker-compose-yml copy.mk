@@ -65,7 +65,7 @@ services:
   user: "root:root"
 
   volumes:
-   - $(VOLUMES_LARAVEL_APP):$(LARAVEL_OCTANE_WORKDIR_APP_ENV)
+   - $(VOLUMES_LARAVEL_APP)/$(APP_ENV):$(LARAVEL_WORKDIR_APP_ENV)
 
 #   ports:
 #    - "1000:1000"

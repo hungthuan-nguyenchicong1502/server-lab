@@ -1,7 +1,7 @@
 # nginx/nginx-test/nginx-test.mk
-NGINX_TEST_VOLUMES = $(VOLUMES_PROJECT_APP)/nginx-test
-NGINX_TEST_PROJECT_PATH = $(NGINX_PROJECT_PATH)/nginx-test
-NGINX_TEXT_PATH = ./nginx/nginx-test
+NGINX_TEST_VOLUMES := $(VOLUMES_PROJECT_APP)/nginx-test
+NGINX_TEST_PROJECT_PATH := $(NGINX_PROJECT_PATH)/nginx-test
+NGINX_TEXT_PATH := ./nginx/nginx-test
 
 include nginx/nginx-test/_define-nginx-test-conf.mk
 
@@ -21,9 +21,9 @@ nginx-test: _nginx-test-prepre
 
 # 	$(MAKE) nginx-reload
 # test: nginx-test
-test:
+# test:
 # 	docker logs $(NGINX_NAME)
-	docker exec -it $(NGINX_NAME_APP_NAME) sh
+# 	docker exec -it $(NGINX_NAME_APP_NAME) sh
 
 # 	docker logs $(NGINX_NAME)-$(APP_ENV)
 # 	/etc/nginx/http.d/nginx-test.conf

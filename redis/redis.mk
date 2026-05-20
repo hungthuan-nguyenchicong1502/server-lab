@@ -1,7 +1,7 @@
 # redis/redis.mk
 
-REDIS_NAME = redis-alpine-ncc
-REDIS_PROJECT_PATH = $(PROJECT_PATH)/redis
+REDIS_NAME := redis-alpine-ncc
+REDIS_PROJECT_PATH := $(PROJECT_PATH)/redis
 
 include redis/_create-docker-file.mk
 include redis/_create-docker-compose-yml.mk

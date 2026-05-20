@@ -77,6 +77,8 @@ services:
   image: $(NGINX_NAME_APP_NAME)
   container_name: $(NGINX_NAME_APP_NAME)
 
+#   user: "nginx:1000"
+
   restart: always
 
   ports:

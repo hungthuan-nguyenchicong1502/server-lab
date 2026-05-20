@@ -2,9 +2,9 @@
 
 WP_APP_COMPOSE_FILES := -f $(WP_APP_PROJECT_PATH)/docker-compose.yml
 
-# ifeq ($(APP_ENV), dev)
-# 	WP_APP_COMPOSE_FILES += -f $(WP_APP_PROJECT_PATH)/docker-compose.override.yml
-# endif
+ifeq ($(APP_ENV), feature)
+	WP_APP_COMPOSE_FILES := -f $(WP_APP_PROJECT_PATH)/docker-compose.feature.yml
+endif
 
 _wp-app/_docker-compose.mk:
 	@echo "_wp-app/_docker-compose.mk"
@@ -15,7 +15,7 @@ _wp-app/_docker-compose.mk:
 _wp-app/_docker-compose.mk-create-docker-compose-yml:
 	@echo "_wp-app/_docker-compose.mk-create-docker-compose-yml"
 	printf "$$WP_APP_DOCKER_COMPOSE_YML" > $(WP_APP_PROJECT_PATH)/docker-compose.yml
-	printf "$$WP_APP_DOCKER_COMPOSE_OVERRIDE_YML" > $(WP_APP_PROJECT_PATH)/docker-compose.override.yml
+	printf "$$WP_APP_DOCKER_COMPOSE_YML_FEATURE" > $(WP_APP_PROJECT_PATH)/docker-compose.feature.yml
 
 _wp-app/_docker-compose.mk-up:
 	@echo "_wp-app/_docker-compose.mk-up"

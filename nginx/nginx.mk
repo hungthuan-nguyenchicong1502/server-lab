@@ -1,8 +1,8 @@
 # nginx/nginx.mk
-NGINX_NAME = nginx-alpine-ncc
-NGINX_PROJECT_PATH = $(PROJECT_PATH)/nginx
+NGINX_NAME := nginx-alpine-ncc
+NGINX_PROJECT_PATH := $(PROJECT_PATH)/nginx
 # use $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
-NGINX_VOLUMES_CONF = $(VOLUMES_PROJECT)/nginx-conf
+NGINX_VOLUMES_CONF := $(VOLUMES_PROJECT)/nginx-conf
 
 NGINX_NAME_APP_NAME := $(NGINX_NAME)
 NGINX_WORKDIR_APP_NAME := /var/wwww/html

@@ -74,7 +74,7 @@ services:
 #    - "8000:8000"
   
   volumes:
-   - $(VOLUMES_LARAVEL_APP):$(LARAVEL_WORKDIR_APP_ENV)
+   - $(VOLUMES_LARAVEL_APP)/$(APP_ENV):$(LARAVEL_WORKDIR_APP_ENV)/app
 #    - laravel-dev-ssh_data:/root/.ssh
 
   networks:

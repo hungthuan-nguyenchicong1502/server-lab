@@ -2,19 +2,22 @@
 -include ./.env
 
 .DEFAULT_GOAL :=help
-PROJECT_DIR = $(shell dirname $(PWD))
-PROJECT_NAME = project-server-lab
-PROJECT_PATH = $(PROJECT_DIR)/$(PROJECT_NAME)
-VOLUMES_PROJECT = $(PROJECT_PATH)/volumes
-VOLUMES_PROJECT_APP = $(VOLUMES_PROJECT)/project-app
+PROJECT_DIR := $(shell dirname $(PWD))
+PROJECT_NAME := project-server-lab
+PROJECT_PATH := $(PROJECT_DIR)/$(PROJECT_NAME)
+VOLUMES_PROJECT := $(PROJECT_PATH)/volumes
+VOLUMES_PROJECT_APP := $(VOLUMES_PROJECT)/project-app
 # share
-SHARE_PATH = $(HOME)/share
-SHARE_PROJECT_PATH = $(SHARE_PATH)/$(PROJECT_NAME)
+SHARE_PATH := $(HOME)/share
+SHARE_PROJECT_PATH := $(SHARE_PATH)/$(PROJECT_NAME)
+# volumes app
+VOLUMES_WP_APP := $(VOLUMES_PROJECT_APP)/wp-app
+VOLUMES_LARAVEL_APP := $(VOLUMES_PROJECT_APP)/laravel-app
 # docker network
-MY_APP_NET = my-app-net
+MY_APP_NET := my-app-net
 # alpine_image => Using default tag: latest
 # docker pull alpine
-ALPINE_IMAGE = alpine
+ALPINE_IMAGE := alpine
 # test:
 # 	echo $(SHARE_PATH)
 # include
@@ -54,6 +57,8 @@ _prepare:
 	mkdir -p $(VOLUMES_PROJECT_APP)
 	mkdir -p $(SHARE_PATH)
 	mkdir -p $(SHARE_PROJECT_PATH)
+	mkdir -p $(VOLUMES_WP_APP)
+	mkdir -p $(VOLUMES_LARAVEL_APP)
 
 project-ls:
 	@echo "project-ls"

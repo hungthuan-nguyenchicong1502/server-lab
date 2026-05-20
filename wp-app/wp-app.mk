@@ -1,7 +1,7 @@
 # wp-app/wp-app.mk
-WP_APP_NAME = wp-app-alpine-ncc
-WP_APP_PROJECT_PATH = $(PROJECT_PATH)/wp-app
-WP_APP_VOLUMES_PROJECT_APP = $(VOLUMES_PROJECT_APP)/wp-app
+WP_APP_NAME := wp-app-alpine-ncc
+WP_APP_PROJECT_PATH := $(PROJECT_PATH)/wp-app
+WP_APP_VOLUMES_PROJECT_APP := $(VOLUMES_PROJECT_APP)/wp-app
 
 WP_APP_WORKDIR_APP_ENV := /var/www/html
 

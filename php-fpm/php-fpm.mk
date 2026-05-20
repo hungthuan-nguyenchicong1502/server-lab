@@ -6,6 +6,7 @@ PHP_FPM_PROJECT_PATH = $(PROJECT_PATH)/php-fpm
 PHP_FPM_NAME_APP_ENV := $(PHP_FPM_NAME)
 PHP_FPM_WORKDIR_APP_ENV := /var/www/html
 
+
 ifeq ($(APP_ENV), dev)
 	PHP_FPM_NAME_APP_ENV := $(PHP_FPM_NAME)-dev
 endif
@@ -36,7 +37,7 @@ _php-fpm-prepare: _prepare
 php-fpm-setup: _php-fpm-prepare
 	@echo "php-fpm-setup"
 	$(MAKE) _php-fpm/_docker-compose.mk
-	$(MAKE) app-env-dev-setup
+# 	$(MAKE) app-env-dev-setup
 
 php-fpm-up:
 	@echo "php-fpm-up"

@@ -67,6 +67,8 @@ services:
   image: $(PHP_FPM_NAME_APP_ENV)
   container_name: $(PHP_FPM_NAME_APP_ENV)
 
+#   user: "nobody:1000"
+
   restart: always
 
   networks:

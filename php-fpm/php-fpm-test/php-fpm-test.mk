@@ -1,12 +1,13 @@
 # php-fpm/php-fpm-test/php-fpm-test.mk
 
-PHP_FPM_TEXT_PROJECT_PATH = $(PHP_FPM_PROJECT_PATH)/php-fpm-test
-PHP_FPM_TEXT_VOLUMES_PROJECT_APP = $(VOLUMES_PROJECT_APP)/php-fpm-test
-PHP_FPM_TEXT_PATH = ./php-fpm/php-fpm-test
+PHP_FPM_TEXT_PROJECT_PATH := $(PHP_FPM_PROJECT_PATH)/php-fpm-test
+PHP_FPM_TEXT_VOLUMES_PROJECT_APP := $(VOLUMES_PROJECT_APP)/php-fpm-test
+PHP_FPM_TEXT_PATH := ./php-fpm/php-fpm-test
 
 include php-fpm/php-fpm-test/_define-php-fpm-test-conf.mk
 
 # test:
+# 	docker exec -it $(PHP_FPM_NAME_APP_ENV) sh
 # 	ls $(PHP_FPM_TEXT_VOLUMES_PROJECT_APP)
 # 	docker logs $(NGINX_NAME)-$(APP_ENV)
 # 	docker exec -it $(NGINX_NAME)-$(APP_ENV) sh

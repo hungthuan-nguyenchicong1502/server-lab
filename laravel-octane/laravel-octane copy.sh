@@ -1,7 +1,7 @@
 #!/bin/sh
 # Sửa compose.json thành composer.json
-if [ -f /home/project/laravel-app/composer.json ]; then
-    cd /home/project/laravel-app
+if [ -f /laravel-app/composer.json ]; then
+    cd /laravel-app
 
     php artisan optimize:clear
     # Cài đặt nếu chưa có

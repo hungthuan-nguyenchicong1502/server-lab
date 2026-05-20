@@ -4,7 +4,7 @@ server {
     listen $(LISTEN);
     server_name $(SERVER_NAME);
 
-    root /var/www/html/laravel-app/public;
+    root $(LARAVEL_OCTANE_WORKDIR_APP_ENV)/public;
     index index.php;
 
     # Ưu tiên bắt các file tĩnh trước
@@ -51,7 +51,7 @@ server {
 
         # Đảm bảo Nginx không gửi /index.php mà gửi đúng URI gốc
         # Nếu vào trang chủ, Octane sẽ nhận được "/"
-        proxy_pass http://$(LARAVEL_OCTANE_APP_NAME):1000;
+        proxy_pass http://$(LARAVEL_OCTANE_NAME_APP_ENV):1000;
     }
 
     location ~ /\. {
