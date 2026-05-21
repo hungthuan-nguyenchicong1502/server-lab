@@ -7,16 +7,22 @@ include nginx/nginx-test/_define-nginx-test-conf.mk
 
 _nginx-test-prepre:
 	@echo "_nginx-test-prepre"
-	$(MAKE) _nginx-test-create-nginx-test-conf
+	make _nginx-test-create-nginx-test-conf
+	sleep 1
 	cp -f $(NGINX_TEST_PROJECT_PATH)/nginx-test.conf $(NGINX_VOLUMES_CONF)/nginx-test.conf
 	sleep 1
 	mkdir -p $(NGINX_TEST_VOLUMES)
 	cp -f $(NGINX_TEXT_PATH)/index.html $(NGINX_TEST_VOLUMES)
+	sleep 1
 
+_nginx-test-create-nginx-test-conf:
+	@echo "_nginx-test-create-nginx-test-conf"
+	mkdir -p $(NGINX_TEST_PROJECT_PATH)
+	printf "$$NGINX_TEXT_CONF" > $(NGINX_TEST_PROJECT_PATH)/nginx-test.conf
 
 nginx-test: _nginx-test-prepre
 	@echo "nginx-test"
-	sleep 2
+	sleep 1
 	$(MAKE) nginx-reload
 
 # 	$(MAKE) nginx-reload
@@ -30,11 +36,6 @@ nginx-test: _nginx-test-prepre
 # 	docker exec $(NGINX_NAME)-$(APP_ENV) cat /etc/nginx/http.d/nginx-test.conf
 # 	docker exec -it $(NGINX_NAME)-$(APP_ENV) sh
 
-
-_nginx-test-create-nginx-test-conf:
-	@echo "_nginx-test-create-nginx-test-conf"
-	mkdir -p $(NGINX_TEST_PROJECT_PATH)
-	printf "$$NGINX_TEXT_CONF" > $(NGINX_TEST_PROJECT_PATH)/nginx-test.conf
 
 nginx-test-remove:
 	@echo "nginx-test-remove"

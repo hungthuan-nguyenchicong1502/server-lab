@@ -2,47 +2,49 @@
 
 # main
 
-define WP_APP_DOCKER_COMPOSE_YML
+define WP_APP_DOCKER_COMPOSE_YML_MAIN
 services:
- $(WP_APP_NAME):
+ $(WP_APP_NAME_APP_ENV):
+  build:
+    context: .
+    dockerfile: $(WP_APP_DOCKERFILE)
 
-  image: $(WP_CLI_NAME)
-  container_name: $(WP_APP_NAME)
+  image: $(WP_APP_IMAGE)
+  container_name: $(WP_APP_NAME_APP_ENV)
 
   networks:
-   - $(WP_APP_NAME)-net
+   - $(WP_APP_NAME_APP_ENV)-net
 
   volumes:
-   - $(WP_APP_VOLUMES_PROJECT_APP):/$(WP_PATH)
+   - $(VOLUMES_WP_APP):$(WP_PATH)
 
 networks:
- $(WP_APP_NAME)-net:
+ $(WP_APP_NAME_APP_ENV)-net:
   external: true
   name: $(MY_APP_NET)
 endef
 
-export WP_APP_DOCKER_COMPOSE_YML
+export WP_APP_DOCKER_COMPOSE_YML_MAIN
 
 # feature
-
-
 define WP_APP_DOCKER_COMPOSE_YML_FEATURE
 services:
- $(WP_APP_NAME):
+ $(WP_APP_NAME_APP_ENV):
+  build:
+   context: .
+   dockerfile: $(WP_APP_DOCKERFILE)
 
-  image: $(WP_CLI_NAME)
-  container_name: $(WP_APP_NAME)
-
-#   user: "root:1000"
+  image: $(WP_APP_IMAGE)
+  container_name: $(WP_APP_NAME_APP_ENV)
 
   networks:
-   - $(WP_APP_NAME)-net
+   - $(WP_APP_NAME_APP_ENV)-net
 
   volumes:
-   - $(WP_APP_VOLUMES_PROJECT_APP):/$(WP_PATH)
+   - $(VOLUMES_WP_APP):$(WP_PATH)
 
 networks:
- $(WP_APP_NAME)-net:
+ $(WP_APP_NAME_APP_ENV)-net:
   external: true
   name: $(MY_APP_NET)
 endef

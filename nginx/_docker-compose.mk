@@ -1,28 +1,14 @@
 # nginx/_docker-compose.mk
-NGINX_COMPOSE_FILES := -f $(NGINX_PROJECT_PATH)/docker-compose.yml
-
-ifeq ($(APP_ENV), dev)
-	NGINX_COMPOSE_FILES := -f $(NGINX_PROJECT_PATH)/docker-compose.dev.yml
-endif
-
-ifeq ($(APP_ENV), feature)
-	NGINX_COMPOSE_FILES := -f $(NGINX_PROJECT_PATH)/docker-compose.feature.yml
-endif
-
-ifeq ($(APP_ENV), prod)
-	NGINX_COMPOSE_FILES := -f $(NGINX_PROJECT_PATH)/docker-compose.prod.yml
-endif
+NGINX_COMPOSE_FILES := -f $(NGINX_PROJECT_PATH)/docker-compose.$(APP_ENV).yml
 
 _nginx/_docker-compose.mk:
 	@echo "_nginx/_docker-compose.mk"
 	$(MAKE) _nginx/_docker-compose.mk-create-dockerfile
 	$(MAKE) _nginx/_docker-compose.mk-create-docker-compose-yml
-	$(MAKE) _nginx/_docker-compose.mk-build
-
 
 _nginx/_docker-compose.mk-create-dockerfile:
 	@echo "_nginx/_docker-compose.mk-create-dockerfile"
-	printf "$$NGINX_DOCKERFILE" > $(NGINX_PROJECT_PATH)/Dockerfile
+	printf "$$NGINX_DOCKERFILE_MAIN" > $(NGINX_PROJECT_PATH)/Dockerfile.main
 	printf "$$NGINX_DOCKERFILE_DEV" > $(NGINX_PROJECT_PATH)/Dockerfile.dev
 	printf "$$NGINX_DOCKERFILE_FEATURE" > $(NGINX_PROJECT_PATH)/Dockerfile.feature
 	printf "$$NGINX_DOCKERFILE_PROD" > $(NGINX_PROJECT_PATH)/Dockerfile.prod
@@ -31,7 +17,7 @@ _nginx/_docker-compose.mk-create-dockerfile:
 
 _nginx/_docker-compose.mk-create-docker-compose-yml:
 	@echo "_nginx/_docker-compose.mk-create-docker-compose-yml"
-	printf "$$NGINX_DOCKER_COMPOSE_YML" > $(NGINX_PROJECT_PATH)/docker-compose.yml
+	printf "$$NGINX_DOCKER_COMPOSE_YML_MAIN" > $(NGINX_PROJECT_PATH)/docker-compose.main.yml
 	printf "$$NGINX_DOCKER_COMPOSE_YML_DEV" > $(NGINX_PROJECT_PATH)/docker-compose.dev.yml
 	printf "$$NGINX_DOCKER_COMPOSE_YML_FEATURE" > $(NGINX_PROJECT_PATH)/docker-compose.feature.yml
 	printf "$$NGINX_DOCKER_COMPOSE_YML_PROD" > $(NGINX_PROJECT_PATH)/docker-compose.prod.yml
@@ -41,7 +27,7 @@ _nginx/_docker-compose.mk-build:
 	@echo "_nginx/_docker-compose.mk-build"
 	docker compose $(NGINX_COMPOSE_FILES) \
 		--project-directory $(NGINX_PROJECT_PATH) \
-		up -d --build
+		--build --no-cache
 
 _nginx/_docker-compose.mk-up:
 	@echo "_nginx/_docker-compose.mk-up"

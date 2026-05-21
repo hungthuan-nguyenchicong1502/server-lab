@@ -21,16 +21,17 @@ include php-fpm/php-fpm-test/_define-php-fpm-test-conf.mk
 _php-fpm-test-prepare:
 	mkdir -p $(PHP_FPM_TEXT_PROJECT_PATH)
 	mkdir -p $(PHP_FPM_TEXT_VOLUMES_PROJECT_APP)
-	$(MAKE) _php-fpm-test-create-php-fpm-test-conf
+	make _php-fpm-test-create-php-fpm-test-conf
+	sleep 1
 
 php-fpm-test: _php-fpm-test-prepare
 	@echo "php-fpm-test"
-	$(MAKE) nginx-test-remove
+	make nginx-test-remove
 	
 	cp -f $(PHP_FPM_TEXT_PROJECT_PATH)/php-fpm-test.conf $(NGINX_VOLUMES_CONF)/php-fpm-test.conf
 	cp -rf $(PHP_FPM_TEXT_PATH)/. $(PHP_FPM_TEXT_VOLUMES_PROJECT_APP)
 	sleep 1
-	$(MAKE) nginx-reload
+	make nginx-reload
 # 	$(MAKE) php-fpm-restart
 
 _php-fpm-test-create-php-fpm-test-conf:

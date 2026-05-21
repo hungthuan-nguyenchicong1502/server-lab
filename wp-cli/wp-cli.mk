@@ -2,6 +2,12 @@
 
 WP_CLI_NAME := wp-cli-alpine-ncc
 WP_CLI_PROJECT_PATH := $(PROJECT_PATH)/wp-cli
+WP_CLI_VERSION := v.1.0.0
+# Dockerfile
+# docker-compose.yml
+WP_CLI_NAME_APP_ENV := $(WP_CLI_NAME)-$(APP_ENV)
+WP_CLI_DOCKERFILE := Dockerfile.$(APP_ENV)
+WP_CLI_IMAGE := $(WP_CLI_NAME_APP_ENV)-$(WP_CLI_VERSION)
 
 include wp-cli/_define-docker-file.mk
 include wp-cli/_define-docker-compose-yml.mk

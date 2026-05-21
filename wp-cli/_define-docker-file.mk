@@ -1,6 +1,6 @@
 # wp-cli/_define-docker-file.mk
-
-define WP_CLI_DOCKER_FILE
+# main
+define WP_CLI_DOCKER_FILE_MAIN
 FROM $(ALPINE_IMAGE)
 
 RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirror.leaseweb.com/alpine/latest-stable/community\\n" \\
@@ -21,4 +21,28 @@ RUN composer global require wp-cli/wp-cli-bundle && \
 CMD ["sh", "-c", "tail -f >/dev/null"]
 endef
 
-export WP_CLI_DOCKER_FILE
+export WP_CLI_DOCKER_FILE_MAIN
+
+# feature
+define WP_CLI_DOCKER_FILE_FEATURE
+FROM $(ALPINE_IMAGE)
+
+RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirror.leaseweb.com/alpine/latest-stable/community\\n" \\
+	> /etc/apk/repositories
+
+RUN apk update && apk upgrade --no-cache
+
+RUN apk add --no-cache \
+	php84 \
+	composer \
+	php84-mysqli \
+	php84-tokenizer \
+	mariadb-client
+
+RUN composer global require wp-cli/wp-cli-bundle && \
+	ln -s ~/.composer/vendor/bin/wp /usr/bin/wp
+
+CMD ["sh", "-c", "tail -f >/dev/null"]
+endef
+
+export WP_CLI_DOCKER_FILE_FEATURE

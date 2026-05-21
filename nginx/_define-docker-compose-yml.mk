@@ -2,46 +2,46 @@
 
 #main
 
-define NGINX_DOCKER_COMPOSE_YML
+define NGINX_DOCKER_COMPOSE_YML_MAIN
 services:
- $(NGINX_NAME_APP_NAME):
+ $(NGINX_NAME_APP_ENV):
   build:
    context: .
    dockerfile: Dockerfile
   
-  image: $(NGINX_NAME_APP_NAME)
-  container_name: $(NGINX_NAME_APP_NAME)
+  image: $(NGINX_NAME_APP_ENV)
+  container_name: $(NGINX_NAME_APP_ENV)
 
   restart: always
 
   networks:
-   - $(NGINX_NAME_APP_NAME)-net
+   - $(NGINX_NAME_APP_ENV)-net
 
   volumes:
    - $(VOLUMES_PROJECT_APP):/var/www/html
    - $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
 
 networks:
- $(NGINX_NAME_APP_NAME)-net:
+ $(NGINX_NAME_APP_ENV)-net:
   external: true
   name: $(MY_APP_NET)
 
 endef
 
-export NGINX_DOCKER_COMPOSE_YML
+export NGINX_DOCKER_COMPOSE_YML_MAIN
 
 # dev
 
 define NGINX_DOCKER_COMPOSE_YML_DEV
 services:
- $(NGINX_NAME_APP_NAME):
+ $(NGINX_NAME_APP_ENV):
   
   build:
    context: .
    dockerfile: Dockerfile.dev
 
-  image: $(NGINX_NAME_APP_NAME)
-  container_name: $(NGINX_NAME_APP_NAME)
+  image: $(NGINX_NAME_APP_ENV)
+  container_name: $(NGINX_NAME_APP_ENV)
 
   restart: always
 
@@ -50,14 +50,14 @@ services:
    - "80:80"
 
   networks:
-   - $(NGINX_NAME_APP_NAME)-net
+   - $(NGINX_NAME_APP_ENV)-net
 
   volumes:
    - $(VOLUMES_PROJECT_APP):/var/www/html
    - $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
 
 networks:
- $(NGINX_NAME_APP_NAME)-net:
+ $(NGINX_NAME_APP_ENV)-net:
   external: true
   name: $(MY_APP_NET)
 endef
@@ -68,14 +68,14 @@ export NGINX_DOCKER_COMPOSE_YML_DEV
 
 define NGINX_DOCKER_COMPOSE_YML_FEATURE
 services:
- $(NGINX_NAME_APP_NAME):
+ $(NGINX_NAME_APP_ENV):
   
   build:
    context: .
-   dockerfile: Dockerfile.feature
+   dockerfile: $(NGINX_DOCKERFILE)
 
-  image: $(NGINX_NAME_APP_NAME)
-  container_name: $(NGINX_NAME_APP_NAME)
+  image: $(NGINX_IMAGE)
+  container_name: $(NGINX_NAME_APP_ENV)
 
 #   user: "nginx:1000"
 
@@ -87,14 +87,14 @@ services:
    - "8888:8888"
 
   networks:
-   - $(NGINX_NAME_APP_NAME)-net
+   - $(NGINX_NAME_APP_ENV)-net
 
   volumes:
-   - $(VOLUMES_PROJECT_APP):$(NGINX_WORKDIR_APP_NAME)
+   - $(VOLUMES_PROJECT_APP):$(NGINX_WORKDIR)
    - $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
 
 networks:
- $(NGINX_NAME_APP_NAME)-net:
+ $(NGINX_NAME_APP_ENV)-net:
   external: true
   name: $(MY_APP_NET)
 endef
@@ -104,14 +104,14 @@ export NGINX_DOCKER_COMPOSE_YML_FEATURE
 # prod
 define NGINX_DOCKER_COMPOSE_YML_PROD
 services:
- $(NGINX_NAME_APP_NAME):
+ $(NGINX_NAME_APP_ENV):
   
   build:
    context: .
    dockerfile: Dockerfile.prod
 
-  image: $(NGINX_NAME_APP_NAME)
-  container_name: $(NGINX_NAME_APP_NAME)
+  image: $(NGINX_NAME_APP_ENV)
+  container_name: $(NGINX_NAME_APP_ENV)
 
   restart: always
 
@@ -120,14 +120,14 @@ services:
    - "$(NGINX_PORT_LARAVEL_APP):$(NGINX_PORT_LARAVEL_APP)"
 
   networks:
-   - $(NGINX_NAME_APP_NAME)-net
+   - $(NGINX_NAME_APP_ENV)-net
 
   volumes:
    - $(VOLUMES_PROJECT_APP):/var/www/html
    - $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
 
 networks:
- $(NGINX_NAME_APP_NAME)-net:
+ $(NGINX_NAME_APP_ENV)-net:
   external: true
   name: $(MY_APP_NET)
 endef

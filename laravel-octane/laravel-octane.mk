@@ -29,8 +29,8 @@ include laravel-octane/_define-docker-file.mk
 include laravel-octane/_define-docker-compose-yml.mk
 include laravel-octane/_docker-compose.mk
 
-test:
-	cat $(LARAVEL_OCTANE_PROJECT_PATH)/laravel-octane.conf
+# test:
+# 	cat $(LARAVEL_OCTANE_PROJECT_PATH)/laravel-octane.conf
 
 _createlaravel-octane-conf:
 	printf "$$LARAVEL_OCTANE_CONF" > $(LARAVEL_OCTANE_PROJECT_PATH)/laravel-octane.conf

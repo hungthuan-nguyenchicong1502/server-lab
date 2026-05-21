@@ -26,5 +26,5 @@ _wp-app/_wp-app-init.mk-create-env-wp-app.mk:
 	printf "$$WP_APP_ENV" > $(WP_APP_PROJECT_PATH)/.env.wp-app
 	sleep 1;
 
-# test:
-# 	cat $(WP_APP_PROJECT_PATH)/wp-app.conf
+test:
+	cat $(WP_APP_PROJECT_PATH)/.env.wp-app

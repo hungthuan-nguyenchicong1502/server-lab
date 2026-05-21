@@ -5,7 +5,7 @@ server {
     listen $(LISTEN);
     server_name $(SERVER_NAME);
 
-    root $(PHP_FPM_WORKDIR_APP_ENV)/php-fpm-test;
+    root $(PHP_FPM_WORKDIR)/php-fpm-test;
     index index.html index.php;
 
     location / {

@@ -5,9 +5,9 @@ _wp-app/_wp-cli-core-install.mk:
 	@echo "Using env: wp-app/.env.wp-app"
 	@set -a && . $(WP_APP_PROJECT_PATH)/.env.wp-app && set +a && \
 	echo "$$WP_APP" && \
-	docker exec $(WP_APP_NAME) sh -c "\
-		if ! wp core is-installed --path=/$$WP_PATH --allow-root; then \
-			wp core install --path=/$$WP_PATH \
+	docker exec -u root $(WP_APP_NAME_APP_ENV) sh -c "\
+		if ! wp core is-installed --path=$$WP_PATH --allow-root; then \
+			wp core install --path=$$WP_PATH \
 				--url=\"$$WP_URL\" \
 				--title=\"$$WP_TITLE\" \
 				--admin_user=\"$$WP_ADMIN\" \

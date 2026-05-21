@@ -115,7 +115,11 @@ down-v:
 	$(MAKE) php-fpm-down-v
 	$(MAKE) mariadb-down-v
 
-remove-project:
-	@echo "remove-project"
-	docker run -u root --rm -v $(VOLUMES_PROJECT_APP):/parent $(ALPINE_IMAGE) sh -c "rm -rf /parent/project-app"
+remove-project-path:
+	@echo "remove-project-path"
+	docker run -u root --rm -v $(VOLUMES_PROJECT_APP):/parent $(ALPINE_IMAGE) sh -c "\
+		chown -R root:root /parent; \
+		chmod -R 775 /parent; \
+		rm -rf /parent/laravel-app; \
+		rm -rf /parent/wp-app"
 	rm -rf $(PROJECT_PATH)

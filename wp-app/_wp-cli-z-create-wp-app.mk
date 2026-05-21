@@ -20,8 +20,13 @@ _wp-app/_wp-cli-z-create-wp-app.mk:
 		i=$$((i+1)); \
 		sleep 1; \
 	done
-	$(MAKE) _wp-app/_wp-cli-core-download.mk
-	$(MAKE) _wp-app/_wp-cli-config-create.mk
-	$(MAKE) _wp-app/_wp-cli-config-set.mk
-	$(MAKE) _wp-app/_wp-cli-core-install.mk
-	$(MAKE) _wp-app/_wp-cli-option-update.mk
+	make _wp-app/_wp-cli-core-download.mk
+	sleep 1
+	make _wp-app/_wp-cli-config-create.mk
+	sleep 1
+	make _wp-app/_wp-cli-config-set.mk
+	sleep 1
+	make _wp-app/_wp-cli-core-install.mk
+	sleep 1
+	make _wp-app/_wp-cli-option-update.mk
+	sleep 1

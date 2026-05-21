@@ -62,12 +62,10 @@ services:
  $(PHP_FPM_NAME_APP_ENV):
   build:
    context: .
-   dockerfile: Dockerfile.feature
+   dockerfile: $(PHP_FPM_DOCKERFILE)
   
-  image: $(PHP_FPM_NAME_APP_ENV)
+  image: $(PHP_FPM_IMAGE)
   container_name: $(PHP_FPM_NAME_APP_ENV)
-
-#   user: "nobody:1000"
 
   restart: always
 
@@ -75,7 +73,7 @@ services:
    - $(PHP_FPM_NAME_APP_ENV)-net
 
   volumes:
-   - $(VOLUMES_PROJECT_APP):$(PHP_FPM_WORKDIR_APP_ENV)
+   - $(VOLUMES_PROJECT_APP):$(PHP_FPM_WORKDIR)
 
 networks:
  $(PHP_FPM_NAME_APP_ENV)-net:
