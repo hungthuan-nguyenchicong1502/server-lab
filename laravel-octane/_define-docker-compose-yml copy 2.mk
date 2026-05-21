@@ -54,6 +54,7 @@ services:
   
   networks:
    - $(LARAVEL_OCTANE_NAME_APP_ENV)-net
+   - internal-bridge-laravel-octane-feature
 
   volumes:
    - $(VOLUMES_LARAVEL_APP):$(LARAVEL_OCTANE_WORKDIR)
@@ -61,11 +62,21 @@ services:
   environment:
    - OCTANE_SERVER=swoole
  
+ $(LARAVEL_OCTANE_NAME_REDIS_APP_ENV):
+  image: $(REDIS_NAME)
+  container_name: $(LARAVEL_OCTANE_NAME_REDIS_APP_ENV)
+
+  networks:
+   - internal-bridge-laravel-octane-feature
+
 networks:
  $(LARAVEL_OCTANE_NAME_APP_ENV)-net:
   external: true
   name: $(MY_APP_NET)
 
+ internal-bridge-laravel-octane-feature:
+  driver: bridge
+  internal: true
 endef
 
 export LARAVEL_OCTANE_DOCKER_COMPOSE_YML_FEATURE

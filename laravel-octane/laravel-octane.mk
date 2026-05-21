@@ -1,28 +1,24 @@
 # laravel-octane/laravel-octane.mk
 
 LARAVEL_OCTANE_NAME := laravel-octane-alpine-ncc
-LARAVEL_OCTANE_REDIS_NAME := laravel-octane-redis-alpine-ncc
 LARAVEL_OCTANE_PROJECT_PATH := $(PROJECT_PATH)/laravel-octane
 LARAVEL_OCTANE_VERSION := v1.0.0
 # Dockerfile
 LARAVEL_OCTANE_IMAGE := $(LARAVEL_OCTANE_NAME)-$(LARAVEL_OCTANE_VERSION)
 # docker-compose.yml
 LARAVEL_OCTANE_NAME_APP_ENV := $(LARAVEL_OCTANE_NAME)-$(APP_ENV)
-LARAVEL_OCTANE_NAME_REDIS_APP_ENV := $(LARAVEL_OCTANE_REDIS_NAME)-$(APP_ENV)
 LARAVEL_OCTANE_WORKDIR := /laravel-app
 
 ifeq ($(APP_ENV), dev)
-	LARAVEL_OCTANE_NAME_APP_ENV := $(LARAVEL_OCTANE_NAME)-dev
-	LARAVEL_OCTANE_NAME_REDIS_APP_ENV :=$(LARAVEL_OCTANE_REDIS_NAME)-dev
+ LARAVEL_OCTANE_NAME_APP_ENV := $(LARAVEL_OCTANE_NAME)-dev
 endif
 
 ifeq ($(APP_ENV), feature)
-	LARAVEL_OCTANE_WORKDIR := /home/project/laravel-app
+ LARAVEL_OCTANE_WORKDIR := /home/project/laravel-app
 endif
 
 ifeq ($(APP_ENV), prod)
-	LARAVEL_OCTANE_NAME_APP_ENV := $(LARAVEL_OCTANE_NAME)-prod
-	LARAVEL_OCTANE_NAME_REDIS_APP_ENV :=$(LARAVEL_OCTANE_REDIS_NAME)-pro
+ LARAVEL_OCTANE_NAME_APP_ENV := $(LARAVEL_OCTANE_NAME)-prod
 endif
 
 include laravel-octane/_define-docker-file.mk
