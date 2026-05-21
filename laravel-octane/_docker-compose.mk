@@ -1,16 +1,14 @@
 # laravel-octane/_docker-compose.mk
 
-LARAVEL_OCTANE_COMPOSE_FILES := -f $(LARAVEL_OCTANE_PROJECT_PATH)/docker-compose.yml
+LARAVEL_OCTANE_DOCKER_COMPOSE_YML_FILES := $(LARAVEL_OCTANE_PROJECT_PATH)/docker-compose.yml
 
 ifeq ($(APP_ENV), feature)
-	LARAVEL_OCTANE_COMPOSE_FILES := -f $(LARAVEL_OCTANE_PROJECT_PATH)/docker-compose.feature.yml
+	LARAVEL_OCTANE_DOCKER_COMPOSE_YML_FILES := $(LARAVEL_OCTANE_PROJECT_PATH)/docker-compose.feature.yml
 endif
 
 _laravel-octane/_docker-compose.mk:
 	@echo "_laravel-octane/_docker-compose.mk"
-	$(MAKE) _laravel-octane/_docker-compose.mk-create-docker-file
-	$(MAKE) _laravel-octane/_docker-compose.mk-create-docker-compose-yml
-	$(MAKE) _laravel-octane/_docker-compose.mk-build
+	make _laravel-octane/_docker-compose.mk-create-docker-compose-yml
 
 _laravel-octane/_docker-compose.mk-create-docker-file:
 	@echo "_laravel-octane/_docker-compose.mk-create-docker-file"
@@ -24,22 +22,22 @@ _laravel-octane/_docker-compose.mk-create-docker-compose-yml:
 
 _laravel-octane/_docker-compose.mk-build:
 	@echo "_laravel-octane/_docker-compose.mk-build"
-	docker compose $(LARAVEL_OCTANE_COMPOSE_FILES) \
+	docker compose -f $(LARAVEL_OCTANE_DOCKER_COMPOSE_YML_FILES) \
 		--project-directory $(LARAVEL_OCTANE_PROJECT_PATH) \
 		up -d --build
 
 _laravel-octane/_docker-compose.mk-up:
 	@echo "_laravel-octane/_docker-compose.mk-up"
-	docker compose $(LARAVEL_OCTANE_COMPOSE_FILES) \
+	docker compose -f $(LARAVEL_OCTANE_DOCKER_COMPOSE_YML_FILES) \
 		--project-directory $(LARAVEL_OCTANE_PROJECT_PATH) \
 		up -d
 
 _laravel-octane/_docker-compose.mk-down:
 	@echo "_laravel-octane/_docker-compose.mk-down"
-	docker compose $(LARAVEL_OCTANE_COMPOSE_FILES) \
+	docker compose -f $(LARAVEL_OCTANE_DOCKER_COMPOSE_YML_FILES) \
 		down
 
 _laravel-octane/_docker-compose.mk-down-v:
 	@echo "_laravel-octane/_docker-compose.mk-down-v"
-	docker compose $(LARAVEL_OCTANE_COMPOSE_FILES) \
+	docker compose -f $(LARAVEL_OCTANE_DOCKER_COMPOSE_YML_FILES) \
 		down -v

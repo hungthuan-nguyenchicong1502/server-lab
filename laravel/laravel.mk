@@ -3,12 +3,14 @@
 LARAVEL_NAME := laravel-alpine-ncc
 LARAVEL_PROJECT_PATH := $(PROJECT_PATH)/laravel
 # LARAVEL_VOLUMES_LARAVEL_APP := $(VOLUMES_PROJECT_APP)/laravel-app
-LARAVEL_NAME_VERSION := v.1.0.0
+LARAVEL_NAME_VERSION := v1.0.0
 # Dockerfile
+LARAVEL_IMAGE := $(LARAVEL_NAME)-$(LARAVEL_NAME_VERSION)
+
 # docker-compose.yml
 LARAVEL_NAME_APP_ENV := $(LARAVEL_NAME)-$(APP_ENV)
 LARAVEL_DOCKERFILE := Dockerfile.$(APP_ENV)
-LARAVEL_IMAGE := $(LARAVEL_NAME_APP_ENV)-$(LARAVEL_NAME_VERSION)
+# LARAVEL_IMAGE := $(LARAVEL_NAME_APP_ENV)-$(LARAVEL_NAME_VERSION)
 LARAVEL_WORKDIR := /laravel-app
 
 ifeq ($(APP_ENV), feature)
@@ -16,6 +18,7 @@ ifeq ($(APP_ENV), feature)
 endif
 
 include laravel/_define-dockerfile.mk
+include laravel/_docker-file.mk
 include laravel/_define-docker-compose-yml.mk
 include laravel/_docker-compose.mk
 include laravel/_create-laravel-app.mk
@@ -30,6 +33,7 @@ _laravel-prepare: _prepare
 
 laravel-setup: _laravel-prepare
 	@echo "laravel-setup"
+	make _laravel/_docker-file.mk
 	make _laravel/_docker-compose.mk
 	sleep 1
 # 	$(MAKE) _laravel/_docker-compose.mk-build
@@ -38,11 +42,16 @@ laravel-setup: _laravel-prepare
 # 	sleep 1
 # 
 
-laravel-create-project-laravel-app:
-	@echo "laravel-create-project-laravel-app"
+laravel-create-project:
+	@echo "laravel-create-project"
 	make laravel-up
 	sleep 1
 	make _laravel/_create-laravel-app.mk
+
+laravel-build:
+	@echo "laravel-build"
+	make _laravel-docker-build
+	sleep 1
 
 laravel-up:
 	@echo "laravel-up"

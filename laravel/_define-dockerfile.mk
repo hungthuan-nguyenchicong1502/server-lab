@@ -1,7 +1,7 @@
 # laravel/_define-dockerfile.mk
 
 # main
-define LARAVEL_DOCKER_FILE_MAIN
+define LARAVEL_DOCKER_FILE
 FROM $(ALPINE_IMAGE)
 
 RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirror.leaseweb.com/alpine/latest-stable/community\\n" \\
@@ -29,7 +29,7 @@ RUN apk add --no-cache \
 CMD ["sh", "-c", "tail -f >/dev/null"]
 endef
 
-export LARAVEL_DOCKER_FILE_MAIN
+export LARAVEL_DOCKER_FILE
 
 # dev
 define LARAVEL_DOCKER_FILE_DEV
