@@ -66,3 +66,11 @@ mariadb-check:
 		echo "Waiting... ($$i)"; \
 		sleep 1; \
 	done
+
+mariadb-data-remove:
+	@echo "mariadb-data-remove"
+	docker run -u root --rm -v $(MARIADB_VOLUMES_DATA):/parent $(ALPINE_IMAGE) sh -c "\
+		chown -R root:root /parent; \
+		chmod -R 777 /parent; \
+		rm -rf /parent/mariadb-data"
+	rm -rf $(MARIADB_VOLUMES_DATA)

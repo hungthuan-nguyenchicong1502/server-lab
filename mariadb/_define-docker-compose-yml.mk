@@ -40,7 +40,7 @@ services:
    - $(MARIADB_NAME_APP_ENV)-net
 
   volumes:
-   - $(MARIADB_VOLUMES_DATA)/mariadb-data:/var/lib/mysql
+   - $(MARIADB_VOLUMES_DATA):/var/lib/mysql
 
 networks:
  $(MARIADB_NAME_APP_ENV)-net:
