@@ -1,21 +1,21 @@
 # laravel/_define-docker-compose-yml.mk
 
 # main
-define LARAVEL_DOCKER_COMPOSE_YML
+define LARAVEL_DOCKER_COMPOSE_YML_MAIN
 services:
  $(LARAVEL_NAME_APP_ENV):
   build:
    context: .
-   dockerfile: Dockerfile
+   dockerfile: $(LARAVEL_DOCKERFILE)
  
-  image: $(LARAVEL_NAME_APP_ENV)
+  image: $(LARAVEL_IMAGE)
   container_name: $(LARAVEL_NAME_APP_ENV)
 
   networks:
    - $(LARAVEL_NAME_APP_ENV)-net
 
   volumes:
-   - $(LARAVEL_VOLUMES_LARAVEL_APP):/laravel-app
+   - $(LARAVEL_VOLUMES_LARAVEL_APP):$(LARAVEL_WORKDIR)
 
 networks:
  $(LARAVEL_NAME_APP_ENV)-net:
@@ -31,7 +31,7 @@ services:
  $(LARAVEL_NAME_APP_ENV):
   build:
      context: .
-     dockerfile: Dockerfile.dev
+     dockerfile: $(LARAVEL_DOCKERFILE)
 
   image: $(LARAVEL_NAME_APP_ENV)
   container_name: $(LARAVEL_NAME_APP_ENV)
@@ -63,18 +63,18 @@ services:
  $(LARAVEL_NAME_APP_ENV):
   build:
      context: .
-     dockerfile: Dockerfile.feature
+     dockerfile: $(LARAVEL_DOCKERFILE)
 
   image: $(LARAVEL_NAME_APP_ENV)
   container_name: $(LARAVEL_NAME_APP_ENV)
 
-  user: "root:root"
+#   user: "root:root"
 
 #   ports:
 #    - "8000:8000"
   
   volumes:
-   - $(VOLUMES_LARAVEL_APP):$(LARAVEL_WORKDIR_APP_ENV)
+   - $(VOLUMES_LARAVEL_APP):$(LARAVEL_WORKDIR)
 #    - laravel-dev-ssh_data:/root/.ssh
 
   networks:

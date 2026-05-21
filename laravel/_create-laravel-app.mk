@@ -2,7 +2,7 @@
 
 _laravel/_create-laravel-app.mk:
 	@echo "_laravel/_create-laravel-app.mk"
-	@docker exec $(LARAVEL_NAME_APP_ENV) sh -c "\
+	@docker exec -u root $(LARAVEL_NAME_APP_ENV) sh -c "\
 		if [ ! -f $(LARAVEL_WORKDIR_APP_ENV)/composer.json ]; then \
-			composer create-project laravel/laravel:^12 $(LARAVEL_WORKDIR_APP_ENV); \
+			composer create-project laravel/laravel:^12 $(LARAVEL_WORKDIR); \
 		fi"
