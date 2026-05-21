@@ -39,6 +39,8 @@ include z-git-dev/git-dev.mk
 include git-feature/git-feature.mk
 # app env prod
 include git-prod/git-prod.mk
+# test
+include make-test.mk
 
 dd:
 	@echo "$(PROJECT_DIR)"

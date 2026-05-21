@@ -3,14 +3,16 @@ WP_APP_NAME := wp-app-alpine-ncc
 WP_APP_PROJECT_PATH := $(PROJECT_PATH)/wp-app
 WP_APP_VERSION := v.1.0.0
 # WP_APP_VOLUMES_PROJECT_APP := $(VOLUMES_PROJECT_APP)/wp-app
-
-WP_APP_WORKDIR_APP_ENV := /var/www/html
+# Dockerfile
 # docker-compose.yml
+WP_APP_IMAGE = $(WP_APP_NAME)-$(WP_APP_VERSION)
+# WP_APP_WORKDIR_APP_ENV := /var/www/html
 WP_APP_NAME_APP_ENV := $(WP_APP_NAME)-$(APP_ENV)
 WP_APP_DOCKERFILE := Dockerfile.$(APP_ENV)
-WP_APP_IMAGE = $(WP_APP_NAME_APP_ENV)-$(WP_APP_VERSION)
+# WP_APP_IMAGE = $(WP_APP_NAME_APP_ENV)-$(WP_APP_VERSION)
 
 include wp-app/_define-docker-file.mk
+include wp-app/_docker-file.mk
 include wp-app/_define-docker-compose-yml.mk
 include wp-app/_docker-compose.mk
 
@@ -35,7 +37,8 @@ _wp-app-prepare: _prepare
 
 wp-app-setup: _wp-app-prepare
 	@echo "wp-app-setup"
-	$(MAKE) _wp-app/_docker-compose.mk
+	make _wp-app/_docker-file.mk
+	make _wp-app/_docker-compose.mk
 # 	$(MAKE) _wp-app/_wp-cli-z-create-wp-app.mk
 
 # 	$(MAKE) wp-app-down
@@ -45,7 +48,12 @@ wp-app-setup: _wp-app-prepare
 	
 # 	$(MAKE) _wp-app/_php-fpm-permission.mk
 
-wp-app-create-project-wp-app:
+wp-app-build:
+	@echo "wp-app-build"
+	make _wp-app-docker-build
+	sleep 1
+
+wp-app-create-project:
 	@echo "wp-app-download"
 	make wp-app-up
 	sleep 1
@@ -57,10 +65,6 @@ wp-app-create-project-wp-app:
 	make wp-app-down
 	sleep 1
 	make _wp-app/_php-fpm-permission.mk
-
-wp-app-build:
-	@echo "wp-app-up"
-	$(MAKE) _wp-app/_docker-compose.mk-build
 
 wp-app-up:
 	@echo "wp-app-up"

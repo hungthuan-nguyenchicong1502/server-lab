@@ -4,11 +4,8 @@
 define PHP_FPM_DOCKER_COMPOSE_YML
 services:
  $(PHP_FPM_NAME_APP_ENV):
-  build:
-   context: .
-   dockerfile: Dockerfile
-  
-  image: $(PHP_FPM_NAME_APP_ENV)
+    
+  image: $(PHP_FPM_IMAGE)
   container_name: $(PHP_FPM_NAME_APP_ENV)
 
   restart: always
@@ -17,7 +14,7 @@ services:
    - $(PHP_FPM_NAME_APP_ENV)-net
 
   volumes:
-   - $(VOLUMES_PROJECT_APP):/var/www/html
+   - $(VOLUMES_PROJECT_APP):$(PHP_FPM_WORKDIR)
 
 networks:
  $(PHP_FPM_NAME_APP_ENV)-net:

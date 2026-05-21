@@ -67,10 +67,6 @@ define NGINX_DOCKER_COMPOSE_YML_FEATURE
 services:
  $(NGINX_NAME_APP_ENV):
   
-  build:
-   context: .
-   dockerfile: $(NGINX_DOCKERFILE)
-
   image: $(NGINX_IMAGE)
   container_name: $(NGINX_NAME_APP_ENV)
 

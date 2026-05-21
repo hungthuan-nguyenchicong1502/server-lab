@@ -1,5 +1,9 @@
 # nginx/_docker-compose.mk
-NGINX_COMPOSE_FILES := -f $(NGINX_PROJECT_PATH)/docker-compose.yml
+NGINX_DOCKER_COMPOSE_YML_FILES := $(NGINX_PROJECT_PATH)/docker-compose.yml
+
+ifeq ($(APP_ENV), feature)
+	NGINX_DOCKER_COMPOSE_YML_FILES := $(NGINX_PROJECT_PATH)/docker-compose.feature.yml
+endif
 
 _nginx/_docker-compose.mk:
 	@echo "_nginx/_docker-compose.mk"
@@ -16,22 +20,22 @@ _nginx/_docker-compose.mk-create-docker-compose-yml:
 
 _nginx/_docker-compose.mk-build:
 	@echo "_nginx/_docker-compose.mk-build"
-	docker compose $(NGINX_COMPOSE_FILES) \
+	docker compose -f $(NGINX_DOCKER_COMPOSE_YML_FILES) \
 		--project-directory $(NGINX_PROJECT_PATH) \
 		--build --no-cache
 
 _nginx/_docker-compose.mk-up:
 	@echo "_nginx/_docker-compose.mk-up"
-	docker compose $(NGINX_COMPOSE_FILES) \
+	docker compose -f $(NGINX_DOCKER_COMPOSE_YML_FILES) \
 		--project-directory $(NGINX_PROJECT_PATH) \
 		up -d
 
 _nginx/_docker-compose.mk-down:
 	@echo "_nginx/_docker-compose.mk-down"
-	docker compose $(NGINX_COMPOSE_FILES) \
+	docker compose -f $(NGINX_DOCKER_COMPOSE_YML_FILES) \
 		down
 
 _nginx/_docker-compose.mk-down-v:
 	@echo "_nginx/_docker-compose.mk-down-v"
-	docker compose $(NGINX_COMPOSE_FILES) \
+	docker compose -f $(NGINX_DOCKER_COMPOSE_YML_FILES) \
 		down -v

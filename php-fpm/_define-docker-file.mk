@@ -1,7 +1,7 @@
 # php-fpm/_define-docker-file.mk
 
 # main
-define PHP_FPM_DOCKER_FILE_MAIN
+define PHP_FPM_DOCKER_FILE
 FROM $(ALPINE_IMAGE)
 
 RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirror.leaseweb.com/alpine/latest-stable/community\\n" \\
@@ -18,10 +18,10 @@ RUN sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/' /etc/php84/php-fpm
 
 RUN ln -sf /dev/stdout /var/log/php84/error.log
 
-WORKDIR /var/www/html
+WORKDIR $(PHP_FPM_WORKDIR)
 
-RUN chown -R nobody:root /var/www/html /var/log/php84 && \
-chmod -R 775 /var/www/html /var/log/php84
+RUN chown -R nobody:root $(PHP_FPM_WORKDIR) /var/log/php84 && \
+chmod -R 775 $(PHP_FPM_WORKDIR) /var/log/php84
 
 USER nobody
 
@@ -29,7 +29,7 @@ CMD ["php-fpm84", "-F"]
 
 endef
 
-export PHP_FPM_DOCKER_FILE_MAIN
+export PHP_FPM_DOCKER_FILE
 
 
 # dev

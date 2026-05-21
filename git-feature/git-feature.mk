@@ -30,7 +30,7 @@ git-feature-rm-wp-app:
 git-feature-setup:
 	@echo "git-feature-setup"
 	make nginx-setup
-# 	make php-fpm-setup
+	make php-fpm-setup
 # 	make wp-cli-setup
 # 	make wp-app-setup
 # 	make laravel-setup
@@ -38,14 +38,19 @@ git-feature-setup:
 
 git-feature-build:
 	make nginx-build
+	make php-fpm-build
+
+git-feature-create-project:
+	make wp-app-create-project
 
 git-feature-up:
 	make nginx-up
+	make php-fpm-up
 
 git-feature-down:
 	@echo "git-feature-down"
 	make nginx-down
-# 	make php-fpm-down
+	make php-fpm-down
 
 # use
 # make git-feature-rm-project

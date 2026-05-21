@@ -2,13 +2,10 @@
 
 # main
 
-define WP_APP_DOCKER_COMPOSE_YML_MAIN
+define WP_APP_DOCKER_COMPOSE_YML
 services:
  $(WP_APP_NAME_APP_ENV):
-  build:
-    context: .
-    dockerfile: $(WP_APP_DOCKERFILE)
-
+  
   image: $(WP_APP_IMAGE)
   container_name: $(WP_APP_NAME_APP_ENV)
 
@@ -24,7 +21,7 @@ networks:
   name: $(MY_APP_NET)
 endef
 
-export WP_APP_DOCKER_COMPOSE_YML_MAIN
+export WP_APP_DOCKER_COMPOSE_YML
 
 # feature
 define WP_APP_DOCKER_COMPOSE_YML_FEATURE
