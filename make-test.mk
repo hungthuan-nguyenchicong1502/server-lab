@@ -1,4 +1,4 @@
 # make-test.mk
 
 test:
-	ls $(VOLUMES_WP_APP)
+	ls $(MARIADB_VOLUMES_DATA)/mariadb-data/mysql

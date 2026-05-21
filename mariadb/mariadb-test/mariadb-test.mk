@@ -1,8 +1,8 @@
 # mariadb/mariadb-test/mariadb-test.mk
 
-mariabd-test:
+_mariabd-test:
 	@echo "mariabd-test"
-	@i=0; while [$$i -lt 20 ]; do \
+	@i=0; while [ $$i -lt 20 ]; do \
 		if docker exec $(MARADB_NAME) mariadb-admin ping -h localhost --silent; then \
 			echo "mariadb is ok:"; \
 			break; \

@@ -37,3 +37,6 @@ redis-down:
 
 redis-logs:
 	docker logs $(REDIS_NAME_APP_ENV)
+
+redis-test:
+	docker exec -it $(REDIS_NAME_APP_ENV) redis-cli
