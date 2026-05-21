@@ -1,7 +1,7 @@
 # nginx/_define_docker-file.mk
 
 # main
-define NGINX_DOCKERFILE_MAIN
+define NGINX_DOCKER_FILE
 FROM $(ALPINE_IMAGE)
 
 RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirror.leaseweb.com/alpine/latest-stable/community\\n" > /etc/apk/repositories
@@ -19,7 +19,7 @@ WORKDIR $(NGINX_WORKDIR)
 CMD ["nginx", "-g", "daemon off;"]
 endef
 
-export NGINX_DOCKERFILE_MAIN
+export NGINX_DOCKER_FILE
 
 # dev
 define NGINX_DOCKERFILE_DEV

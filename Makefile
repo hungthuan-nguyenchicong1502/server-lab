@@ -11,6 +11,7 @@ VOLUMES_PROJECT_APP := $(VOLUMES_PROJECT)/project-app
 SHARE_PATH := $(HOME)/share
 SHARE_PROJECT_PATH := $(SHARE_PATH)/$(PROJECT_NAME)
 # volumes app
+VOLUMES_NGINX_CONF := $(VOLUMES_PROJECT)/nginx-conf
 VOLUMES_WP_APP := $(VOLUMES_PROJECT_APP)/wp-app
 VOLUMES_LARAVEL_APP := $(VOLUMES_PROJECT_APP)/laravel-app
 # docker network
@@ -57,6 +58,7 @@ _prepare:
 	mkdir -p $(VOLUMES_PROJECT_APP)
 	mkdir -p $(SHARE_PATH)
 	mkdir -p $(SHARE_PROJECT_PATH)
+	mkdir -p $(VOLUMES_NGINX_CONF)
 	mkdir -p $(VOLUMES_WP_APP)
 	mkdir -p $(VOLUMES_LARAVEL_APP)
 
@@ -117,9 +119,8 @@ down-v:
 
 remove-project-path:
 	@echo "remove-project-path"
-	docker run -u root --rm -v $(VOLUMES_PROJECT_APP):/parent $(ALPINE_IMAGE) sh -c "\
+	docker run -u root --rm -v $(VOLUMES_PROJECT):/parent $(ALPINE_IMAGE) sh -c "\
 		chown -R root:root /parent; \
-		chmod -R 775 /parent; \
-		rm -rf /parent/laravel-app; \
-		rm -rf /parent/wp-app"
+		chmod -R 777 /parent; \
+		rm -rf /parent/volumes"
 	rm -rf $(PROJECT_PATH)

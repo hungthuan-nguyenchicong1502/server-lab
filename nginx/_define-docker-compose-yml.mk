@@ -2,14 +2,11 @@
 
 #main
 
-define NGINX_DOCKER_COMPOSE_YML_MAIN
+define NGINX_DOCKER_COMPOSE_YML
 services:
  $(NGINX_NAME_APP_ENV):
-  build:
-   context: .
-   dockerfile: Dockerfile
-  
-  image: $(NGINX_NAME_APP_ENV)
+    
+  image: $(NGINX_IMAGE)
   container_name: $(NGINX_NAME_APP_ENV)
 
   restart: always
@@ -18,8 +15,8 @@ services:
    - $(NGINX_NAME_APP_ENV)-net
 
   volumes:
-   - $(VOLUMES_PROJECT_APP):/var/www/html
-   - $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
+   - $(VOLUMES_PROJECT_APP):$(NGINX_WORKDIR)
+   - $(VOLUMES_NGINX_CONF):/etc/nginx/http.d
 
 networks:
  $(NGINX_NAME_APP_ENV)-net:
@@ -28,7 +25,7 @@ networks:
 
 endef
 
-export NGINX_DOCKER_COMPOSE_YML_MAIN
+export NGINX_DOCKER_COMPOSE_YML
 
 # dev
 

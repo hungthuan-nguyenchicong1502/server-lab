@@ -4,10 +4,11 @@ NGINX_PROJECT_PATH := $(PROJECT_PATH)/nginx
 # Dockerfile
 NGINX_VERSION := v1.0.0
 NGINX_WORKDIR := /var/wwww/html
+NGINX_IMAGE := $(NGINX_NAME)-$(NGINX_VERSION)
 # docker-compose.yml
 NGINX_NAME_APP_ENV := $(NGINX_NAME)-$(APP_ENV)
 NGINX_DOCKERFILE := Dockerfile.$(APP_ENV)
-NGINX_IMAGE := $(NGINX_NAME_APP_ENV)-$(NGINX_VERSION)
+# NGINX_IMAGE := $(NGINX_NAME_APP_ENV)-$(NGINX_VERSION)
 # use $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
 NGINX_VOLUMES_CONF := $(VOLUMES_PROJECT)/nginx-conf
 
@@ -19,6 +20,7 @@ endif
 include nginx/_define_docker-file.mk
 include nginx/_define-docker-compose-yml.mk
 include nginx/_docker-compose.mk
+include nginx/_docker-file.mk
 
 # test
 include nginx/nginx-test/nginx-test.mk
@@ -36,10 +38,12 @@ _nginx-prepare: _prepare
 
 nginx-setup: _nginx-prepare
 	@echo "nginx-setup"
-	$(MAKE) _nginx/_docker-compose.mk
+	make _nginx/_docker-file.mk
+	make _nginx/_docker-compose.mk
 
 nginx-build:
 	@echo "nginx-build"
+	make _nginx-docker-build
 	
 nginx-up:
 	@echo "nginx-up"
