@@ -1,4 +1,4 @@
-# redis/_create-docker-file.mk
+# redis/_define-docker-file.mk
 
 define REDIS_DOCKER_FILE
 FROM $(ALPINE_IMAGE)
@@ -17,7 +17,3 @@ CMD ["redis-server", "/etc/redis.conf"]
 endef
 
 export REDIS_DOCKER_FILE
-
-_redis/_create-docker-file.mk:
-	@echo "_redis/_create-docker-file.mk"
-	printf "$$REDIS_DOCKER_FILE" > $(REDIS_PROJECT_PATH)/Dockerfile
