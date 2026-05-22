@@ -15,8 +15,8 @@ services:
    - $(NGINX_NAME_APP_ENV)-net
 
   volumes:
-   - $(VOLUMES_PROJECT_APP):$(NGINX_WORKDIR)
    - $(VOLUMES_NGINX_CONF):/etc/nginx/http.d
+   - $(VOLUMES_PROJECT_APP):$(NGINX_WORKDIR)
 
 networks:
  $(NGINX_NAME_APP_ENV)-net:

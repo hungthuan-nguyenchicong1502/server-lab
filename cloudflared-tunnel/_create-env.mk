@@ -10,7 +10,7 @@ _cloudflared-tunnel/_create-env.mk:
 		fi; \
 	fi
 
-cloudflared-tunnel-update-env:
+_cloudflared-tunnel-update-env:
 	@echo "cloudflared-tunnel-update-env"
 	@if [ -z "$(TUNNEL_TOKEN)" ]; then \
 			echo "-->Error: .env TUNNEL_TOKEN"; exit 1; \

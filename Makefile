@@ -33,6 +33,7 @@ include laravel-octane/laravel-octane.mk
 include redis/redis.mk
 
 # app env
+include git/git.mk
 include git-dev/git-dev.mk
 include z-git-dev/git-dev.mk
 # app env feature
@@ -63,6 +64,7 @@ _prepare:
 	mkdir -p $(VOLUMES_NGINX_CONF)
 	mkdir -p $(VOLUMES_WP_APP)
 	mkdir -p $(VOLUMES_LARAVEL_APP)
+	sleep 1
 
 project-ls:
 	@echo "project-ls"
@@ -71,58 +73,107 @@ project-ls:
 
 setup: _prepare
 	@echo "setup"
-	$(MAKE) _check-network
-	docker pull $(ALPINE_IMAGE)
+	make _check-network
 	sleep 1
-	$(MAKE) cloudflared-tunnel-setup
-	sleep 1
-	$(MAKE) mariadb-setup
-	sleep 1
-	$(MAKE) nginx-setup
-	sleep 1
-	$(MAKE) php-fpm-setup
-	sleep 1
-	$(MAKE) wp-cli-setup
-	sleep 1
-	$(MAKE) wp-app-setup
+	make cloudflared-tunnel-setup
 	sleep 1
 	make laravel-setup
 	sleep 1
 	make laravel-octane-setup
 	sleep 1
-	make nginx-down
+	make mariadb-setup
 	sleep 1
-	make nginx-up
-	
+	make nginx-setup
+	sleep 1
+	make php-fpm-setup
+	sleep 1
+	make redis-setup
+	sleep 1
+	make wp-app-setup
+	sleep 1
+	make wp-cli-setup
+	sleep 1
 
-	docker ps
+build:
+	@echo "build"
+	docker pull $(ALPINE_IMAGE)
+	sleep 1
+	make nginx-build
+	sleep 1
+	make php-fpm-build
+	sleep 1
+	make mariadb-build
+	sleep 1
+	make redis-build
+	sleep 1
+	make wp-cli-build
+	sleep 1
+	make wp-app-build
+	sleep 1
+	make laravel-build
+	sleep 1
+	make laravel-octane-build
+	sleep 1
+
+create-prject-app:
+	@echo "create-prject-app"
+	make mariadb-up
+	sleep 5
+	make php-fpm-up
+	sleep 5
+	make wp-app-create-wp-app
+	sleep 1
+	make laravel-create-laravel-app
+	sleep 1
+	make laravel-octane-conf-cp
+	sleep 1
 
 up:
 	@echo "up"
-	$(MAKE) cloudflared-tunnel-up
-# 	$(MAKE) nginx-up
-# 	$(MAKE) php-fpm-up
-# 	$(MAKE) mariadb-up
+	make cloudflared-tunnel-up
+	sleep 1
+	make mariadb-up
+	sleep 1
+	make redis-up
+	sleep 1
+	make laravel-octane-up
+	sleep 1
+	make php-fpm-up
+	sleep 5
+	make nginx-up
 
 down:
 	@echo "down"
-	$(MAKE) cloudflared-tunnel-down
-	$(MAKE) mariadb-down
-	$(MAKE) nginx-down
-	$(MAKE) php-fpm-down
-	make laravel-down
 	make laravel-octane-down
+	sleep 1
+	make php-fpm-down
+	sleep 1
+	make mariadb-down
+	sleep 1
+	make redis-down
+	sleep 1
+	make nginx-down
+	sleep 1
+	make cloudflared-tunnel-down
+	sleep 1
 
 down-v:
 	@echo "down-v"
-	$(MAKE) nginx-down-v
-	$(MAKE) php-fpm-down-v
-	$(MAKE) mariadb-down-v
 
+# PROJECT_PATH
 remove-project-path:
 	@echo "remove-project-path"
-	docker run -u root --rm -v $(VOLUMES_PROJECT):/parent $(ALPINE_IMAGE) sh -c "\
+	docker run -u root --rm -v $(PROJECT_PATH):/parent $(ALPINE_IMAGE) sh -c "\
 		chown -R root:root /parent; \
 		chmod -R 777 /parent; \
-		rm -rf /parent/volumes"
+		rm -rf /parent/project-server-lab"
 	rm -rf $(PROJECT_PATH)
+
+# SHARE_PROJECT_PATH
+remove-share-project-path:
+	@echo "remove-project-path"
+	docker run -u root --rm -v $(SHARE_PROJECT_PATH):/parent $(ALPINE_IMAGE) sh -c "\
+		chown -R root:root /parent; \
+		chmod -R 777 /parent; \
+		rm -rf /parent/project-server-lab"
+	rm -rf $(SHARE_PROJECT_PATH)

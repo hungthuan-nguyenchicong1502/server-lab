@@ -1,4 +1,4 @@
-# wp-app/_define-env-wp-app.mk
+# wp-app/_define-wp-app-env.mk
 
 define WP_APP_ENV
 # db wp app

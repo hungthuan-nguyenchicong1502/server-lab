@@ -1,12 +1,12 @@
 # redis/redis.mk
 
 REDIS_NAME := redis-alpine-ncc
-REDIS_PROJECT_PATH := $(PROJECT_PATH)/redis
+REDIS_PROJECT_PATH := $(SHARE_PROJECT_PATH)/redis
 REDIS_VERSION := v1.0.0
 # Dockerfile
 REDIS_IMAGE = $(REDIS_NAME)-$(REDIS_VERSION)
 # docke-compose.yml
-REDIS_NAME_APP_ENV := $(REDIS_NAME)-$(APP_ENV)
+REDIS_NAME_APP_ENV := $(REDIS_NAME)
 
 include redis/_define-docker-file.mk
 include redis/_docker-file.mk

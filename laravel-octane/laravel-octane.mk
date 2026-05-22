@@ -7,19 +7,7 @@ LARAVEL_OCTANE_VERSION := v1.0.0
 LARAVEL_OCTANE_IMAGE := $(LARAVEL_OCTANE_NAME)-$(LARAVEL_OCTANE_VERSION)
 # docker-compose.yml
 LARAVEL_OCTANE_NAME_APP_ENV := $(LARAVEL_OCTANE_NAME)-$(APP_ENV)
-LARAVEL_OCTANE_WORKDIR := /laravel-app
-
-ifeq ($(APP_ENV), dev)
- LARAVEL_OCTANE_NAME_APP_ENV := $(LARAVEL_OCTANE_NAME)-dev
-endif
-
-ifeq ($(APP_ENV), feature)
- LARAVEL_OCTANE_WORKDIR := /home/project/laravel-app
-endif
-
-ifeq ($(APP_ENV), prod)
- LARAVEL_OCTANE_NAME_APP_ENV := $(LARAVEL_OCTANE_NAME)-prod
-endif
+LARAVEL_OCTANE_WORKDIR := /home/project/laravel-app
 
 include laravel-octane/_define-docker-file.mk
 include laravel-octane/_docker-file.mk
@@ -42,9 +30,6 @@ laravel-octane-setup: _laravel-octane-prepare
 	make _laravel-octane/_docker-compose.mk
 	make _laravel-octane/_laravel-octane-conf.mk
 	sleep 1
-	cp -f $(LARAVEL_OCTANE_PROJECT_PATH)/laravel-octane.conf $(NGINX_VOLUMES_CONF)/laravel-octane.conf
-# 	sleep 5
-# 	make nginx-reload
 
 laravel-octane-build:
 	@echo "laravel-octane-build"
@@ -52,31 +37,28 @@ laravel-octane-build:
 
 laravel-octane-down:
 	@echo "laravel-octane-down"
-	$(MAKE) _laravel-octane/_docker-compose.mk-down
+	make _laravel-octane/_docker-compose.mk-down
 
 laravel-octane-down-v:
 	@echo "laravel-octane-down-v"
-	$(MAKE) _laravel-octane/_docker-compose.mk-down-v
+	make _laravel-octane/_docker-compose.mk-down-v
 
 laravel-octane-up:
 	@echo "laravel-octane-up"
-	$(MAKE) _laravel-octane/_docker-compose.mk-up
+	make _laravel-octane/_docker-compose.mk-up
 
 laravel-octane-logs:
 	docker logs $(LARAVEL_OCTANE_NAME_APP_ENV)
 
-laravel-octane-cp-conf:
-	@echo "laravel-octane-cp-conf"
-	cp -f ./laravel-octane/laravel-octane.conf $(NGINX_VOLUMES_CONF)
-	$(MAKE) nginx-reload
+laravel-octane-conf-cp:
+	@echo "laravel-octane-conf-cp"
+	make _laravel-octane-conf-cp
 
 laravel-octane-rm-conf:
 	@echo "laravel-octane-rm-conf"
 	rm -f $(NGINX_VOLUMES_CONF)/laravel-octane.conf
-	sleep 3
-	make nginx-down
 	sleep 1
-	make nginx-up
+	make nginx-reload
 
 laravel-octane-cat-conf:
 	@echo "laravel-octane-cat-conf"

@@ -6,7 +6,7 @@ MARIADB_VOLUMES_DATA := $(MARIADB_PROJECT_PATH)/mariadb-data
 MARIADB_VERSION := v1.0.0
 # Dockerfile
 MARIADB_IMAGE := $(MARIADB_NAME)-$(MARIADB_VERSION)
-MARIADB_NAME_APP_ENV := $(MARIADB_NAME)-$(APP_ENV)
+MARIADB_NAME_APP_ENV := $(MARIADB_NAME)
 # docker-comose.yml
 ifeq ($(APP_ENV), feature)
  MARIADB_PROJECT_PATH := $(PROJECT_PATH)/mariadb
@@ -25,7 +25,7 @@ mariadb-help:
 	@echo "make mariadb-setup"
 	@echo "make mariadb-down"
 
-_mariadb-prepare:
+_mariadb-prepare: _prepare
 	@echo "_mariadb-prepare"
 	mkdir -p $(MARIADB_PROJECT_PATH)
 	mkdir -p $(MARIADB_VOLUMES_DATA)

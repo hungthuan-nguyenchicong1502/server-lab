@@ -1,6 +1,6 @@
 # wp-cli/_docker-compose.mk
 
-WP_CLI_DOCKER_COMPOSE_YML_FILES := $(WP_CLI_PROJECT_PATH)/docker-compose.$(APP_ENV).yml
+WP_CLI_DOCKER_COMPOSE_YML_FILES := $(WP_CLI_PROJECT_PATH)/docker-compose.yml
 
 _wp-cli/_docker-compose.mk:
 	@echo "_wp-cli/_docker-compose.mk"

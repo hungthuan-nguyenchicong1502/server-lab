@@ -1,21 +1,14 @@
 # laravel/laravel.mk
 
 LARAVEL_NAME := laravel-alpine-ncc
-LARAVEL_PROJECT_PATH := $(PROJECT_PATH)/laravel
-# LARAVEL_VOLUMES_LARAVEL_APP := $(VOLUMES_PROJECT_APP)/laravel-app
+LARAVEL_PROJECT_PATH := $(SHARE_PROJECT_PATH)/laravel
 LARAVEL_NAME_VERSION := v1.0.0
 # Dockerfile
-LARAVEL_IMAGE := $(LARAVEL_NAME)-$(LARAVEL_NAME_VERSION)
-
 # docker-compose.yml
-LARAVEL_NAME_APP_ENV := $(LARAVEL_NAME)-$(APP_ENV)
+LARAVEL_NAME_APP_ENV := $(LARAVEL_NAME)
+LARAVEL_IMAGE := $(LARAVEL_NAME)-$(LARAVEL_NAME_VERSION)
 LARAVEL_DOCKERFILE := Dockerfile.$(APP_ENV)
-# LARAVEL_IMAGE := $(LARAVEL_NAME_APP_ENV)-$(LARAVEL_NAME_VERSION)
-LARAVEL_WORKDIR := /laravel-app
-
-ifeq ($(APP_ENV), feature)
-	LARAVEL_WORKDIR := /home/project/laravel-app
-endif
+LARAVEL_WORKDIR := /home/project/laravel-app
 
 include laravel/_define-dockerfile.mk
 include laravel/_docker-file.mk
@@ -29,21 +22,15 @@ include laravel/laravel-test/laravel-test.mk
 _laravel-prepare: _prepare
 	@echo "_laravel-prepare"
 	mkdir -p $(LARAVEL_PROJECT_PATH)
-# 	mkdir -p $(LARAVEL_VOLUMES_LARAVEL_APP)
 
 laravel-setup: _laravel-prepare
 	@echo "laravel-setup"
 	make _laravel/_docker-file.mk
 	make _laravel/_docker-compose.mk
 	sleep 1
-# 	$(MAKE) _laravel/_docker-compose.mk-build
-# 	sleep 2
-# 	$(MAKE) _laravel/_create-laravel-app.mk
-# 	sleep 1
-# 
 
-laravel-create-project:
-	@echo "laravel-create-project"
+laravel-create-laravel-app:
+	@echo "laravel-create-laravel-app"
 	make laravel-up
 	sleep 1
 	make _laravel/_create-laravel-app.mk
@@ -55,15 +42,20 @@ laravel-build:
 
 laravel-up:
 	@echo "laravel-up"
-	$(MAKE) _laravel/_docker-compose.mk-up
+	make _laravel/_docker-compose.mk-up
 
 laravel-down:
 	@echo "laravel-down"
-	$(MAKE) _laravel/_docker-compose.mk-down
+	make _laravel/_docker-compose.mk-down
 
 laravel-down-v:
 	@echo "laravel-down-v"
-	$(MAKE) _laravel/_docker-compose.mk-down-v
+	make _laravel/_docker-compose.mk-down-v
 
-laravel-app-ls:
-	ls $(LARAVEL_VOLUMES_LARAVEL_APP)
+# VOLUMES_LARAVEL_APP := $(VOLUMES_PROJECT_APP)/laravel-app
+laravel-rm-laravel-app:
+	@echo "laravel-rm-laravel-app"
+	docker run -u root --rm -v $(VOLUMES_LARAVEL_APP):/parent $(ALPINE_IMAGE) sh -c "\
+		chown -R root:root /parent; \
+		chmod -R 777 /parent; \
+		rm -rf /parent/laravel-app"

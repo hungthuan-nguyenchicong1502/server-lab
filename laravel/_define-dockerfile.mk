@@ -24,8 +24,6 @@ RUN apk add --no-cache \
     php84-pdo_sqlite \
     php84-pdo_mysql
 
-# RUN composer create-project laravel/laravel:^12 laravel-app
-
 CMD ["sh", "-c", "tail -f >/dev/null"]
 endef
 
@@ -53,6 +51,8 @@ RUN sed -i 's/AllowTcpForwarding.*/AllowTcpForwarding yes/' /etc/ssh/sshd_config
     sed -i 's/#PermitRootLogin.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 #     sed -i 's/#PasswordAuthentication.*/PasswordAuthentication yes/' /etc/ssh/sshd_config
 #     sed -i 's/#GatewayPorts.*/GatewayPorts yes/' /etc/ssh/sshd_config
+
+# RUN composer create-project laravel/laravel:^12 laravel-app
 
 WORKDIR /laravel-app
 

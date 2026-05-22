@@ -12,7 +12,7 @@ services:
    - $(LARAVEL_NAME_APP_ENV)-net
 
   volumes:
-   - $(LARAVEL_VOLUMES_LARAVEL_APP):$(LARAVEL_WORKDIR)
+   - $(VOLUMES_LARAVEL_APP):$(LARAVEL_WORKDIR)
 
 networks:
  $(LARAVEL_NAME_APP_ENV)-net:
@@ -20,7 +20,7 @@ networks:
   name: $(MY_APP_NET)
 endef
 
-export LARAVEL_DOCKER_COMPOSE
+export LARAVEL_DOCKER_COMPOSE_YML
 
 # dev
 define LARAVEL_DOCKER_COMPOSE_YML_DEV

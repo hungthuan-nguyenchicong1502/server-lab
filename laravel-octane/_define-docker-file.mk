@@ -2,7 +2,7 @@
 
 # main
 define LARAVEL_OCTANE_DOCKER_FILE
-FROM $(LARAVEL_NAME)
+FROM $(LARAVEL_IMAGE)
 
 RUN apk add --no-cache \
 	php84-pecl-swoole \
