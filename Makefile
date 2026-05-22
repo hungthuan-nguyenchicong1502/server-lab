@@ -32,6 +32,9 @@ include laravel/laravel.mk
 include laravel-octane/laravel-octane.mk
 include redis/redis.mk
 
+# feature
+include container-dev/container-dev.mk
+
 # app env
 include git/git.mk
 include git-dev/git-dev.mk
