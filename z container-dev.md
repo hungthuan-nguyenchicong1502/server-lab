@@ -77,3 +77,9 @@ kill -USR2 1
 echo "root:cong12345" | chpasswd
 
 passwd root
+
+docker exec -w /app container-name make target_name
+# Hoặc dùng cờ -C của make:
+docker exec container-name make -C /app target_name
+
+rsync -av --delete ./thu-muc-nguon/ ./thu-muc-dich/
