@@ -33,6 +33,7 @@ services:
   volumes:
    - ./_makefile:/_makefile
    - ./.ssh:/root/.ssh
+   - ./.vscode-server:/root/.vscode-server
 
 endef
 export CONTAINER_DEV_DOCKER_COMPOSE_YML_FEATURE
