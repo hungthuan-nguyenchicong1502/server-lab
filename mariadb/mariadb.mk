@@ -52,6 +52,8 @@ mariadb-down-v:
 	@echo "mariadb-down-v"
 	make _mariadb/_docker-compose.mk-down-v
 
+mariadb-cli:
+	docker exec -it $(MARIADB_NAME_APP_ENV) mariadb
 mariadb-logs:
 	docker logs $(MARIADB_NAME_APP_ENV)
 
