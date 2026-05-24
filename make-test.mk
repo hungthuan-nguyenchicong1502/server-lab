@@ -1,5 +1,5 @@
 # make-test.mk
 
 test:
-# 	ls $(MARIADB_VOLUMES_DATA)
+	ls $(CONTAINER_DEV_GIT_SSH_TARGET)
 # 	make git-feature-container-dev-test

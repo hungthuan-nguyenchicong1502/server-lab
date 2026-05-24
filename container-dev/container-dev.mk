@@ -7,6 +7,10 @@ CONTAINER_DEV_PROJECT_PATH := $(PROJECT_PATH)/container-dev
 # docker-compose-yml
 CONTAINER_DEV_NAME_APP_ENV := $(CONTAINER_DEV_NAME)-$(APP_ENV)
 CONTAINER_DEV_IMAGE := $(CONTAINER_DEV_NAME)
+## ssh
+VOLUMES_CONTAINER_DEV_SSH := $(SHARE_PROJECT_PATH)/container-dev/.ssh
+VOLUMES_CONTAINER_DEV_VSCODE_SERVER := $(SHARE_PROJECT_PATH)/container-dev/.vscode-server
+
 # env
 CONTAINER_DEV_AUTHORIZED_KEY := $(CONTAINER_DEV_AUTHORIZED_KEY)
 # feature
@@ -20,6 +24,9 @@ include container-dev/_define-docker-file.mk
 include container-dev/_docker-file.mk
 include container-dev/_define-docker-compose-yml.mk
 include container-dev/_docker-compose.mk
+# ssh
+include container-dev/_container-dev-share-ssh.mk
+include container-dev/_container-dev-sh-cp.mk
 # env
 include container-dev/_container-dev-env.mk
 # cp _makefile => use: Dockerfile
@@ -27,10 +34,15 @@ include container-dev/_container-dev-makefile.mk
 
 _container-dev-setup-prepare: _prepare
 	mkdir -p $(CONTAINER_DEV_PROJECT_PATH)
+	mkdir -p $(VOLUMES_CONTAINER_DEV_SSH)
+	mkdir -p $(VOLUMES_CONTAINER_DEV_VSCODE_SERVER)
 
 container-dev-setup: _container-dev-setup-prepare
 	make _container-dev/_docker-file.mk
 	make _container-dev/_docker-compose.mk
+# 	share /.ssh
+	make _container-dev/_container-dev-share-ssh.mk
+	make _container-dev/_container-dev-sh-cp.mk
 # 	.env.container-dev
 	make _container-dev/_container-dev-env.mk
 # 	cp _makefile => use: Dockerfile
@@ -53,5 +65,15 @@ container-dev-setup-ssh-authorized-keys:
 container-dev-logs:
 	docker logs $(CONTAINER_DEV_NAME_APP_ENV)
 
+container-dev-restart:
+	docker restart $(CONTAINER_DEV_NAME_APP_ENV)
+
 container-dev-sh:
 	docker exec -it $(CONTAINER_DEV_NAME_APP_ENV) sh
+
+container-dev-rm-container-dev:
+	docker run -u root --rm -v $(CONTAINER_DEV_PROJECT_PATH):/parent $(ALPINE_IMAGE) sh -c "\
+		chown -R root:root /parent; \
+		chmod -R 777 /parent; \
+		rm -rf /parent/container-dev"
+	rm -rf $(CONTAINER_DEV_PROJECT_PATH)

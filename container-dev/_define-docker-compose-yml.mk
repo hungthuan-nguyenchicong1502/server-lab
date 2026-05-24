@@ -31,9 +31,9 @@ services:
    - ./.env.container-dev
   
   volumes:
-   - ./_makefile:/_makefile
-   - ./.ssh:/root/.ssh
-   - ./.vscode-server:/root/.vscode-server
-
+#    - ./_makefile:/_makefile
+   - $(VOLUMES_CONTAINER_DEV_SSH):/root/.ssh
+   - $(VOLUMES_CONTAINER_DEV_VSCODE_SERVER):/root/.vscode-server
+   - ./root/git:/root/git
 endef
 export CONTAINER_DEV_DOCKER_COMPOSE_YML_FEATURE

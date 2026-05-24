@@ -51,6 +51,12 @@ RUN apk add --no-cache \
 RUN composer global require wp-cli/wp-cli-bundle && \
 	ln -s ~/.composer/vendor/bin/wp /usr/bin/wp
 
+# run container-dev.sh
+COPY ./container-dev.sh /usr/local/bin/container-dev.sh
+RUN chmod +x /usr/local/bin/container-dev.sh
+
+ENTRYPOINT ["/usr/local/bin/container-dev.sh"]
+
 # RUN composer create-project laravel/laravel:^12 laravel-app
 
 # vscode

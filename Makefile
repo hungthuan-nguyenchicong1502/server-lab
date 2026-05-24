@@ -5,15 +5,15 @@
 PROJECT_DIR := $(shell dirname $(PWD))
 PROJECT_NAME := project-server-lab
 PROJECT_PATH := $(PROJECT_DIR)/$(PROJECT_NAME)
-VOLUMES_PROJECT := $(PROJECT_PATH)/volumes
-VOLUMES_PROJECT_APP := $(VOLUMES_PROJECT)/project-app
+VOLUMES_PROJECT_PATH := $(PROJECT_PATH)/volumes
+VOLUMES_PROJECT_APP_PATH := $(VOLUMES_PROJECT_PATH)/project-app
 # share
 SHARE_PATH := $(HOME)/share
 SHARE_PROJECT_PATH := $(SHARE_PATH)/$(PROJECT_NAME)
 # volumes app
-VOLUMES_NGINX_CONF := $(VOLUMES_PROJECT)/nginx-conf
-VOLUMES_WP_APP := $(VOLUMES_PROJECT_APP)/wp-app
-VOLUMES_LARAVEL_APP := $(VOLUMES_PROJECT_APP)/laravel-app
+VOLUMES_NGINX_CONF := $(VOLUMES_PROJECT_PATH)/nginx-conf
+VOLUMES_WP_APP := $(VOLUMES_PROJECT_APP_PATH)/wp-app
+VOLUMES_LARAVEL_APP := $(VOLUMES_PROJECT_APP_PATH)/laravel-app
 # docker network
 MY_APP_NET := my-app-net
 # alpine_image => Using default tag: latest
@@ -60,8 +60,8 @@ _check-network:
 _prepare:
 	@echo "prepare"
 	mkdir -p $(PROJECT_PATH)
-	mkdir -p $(VOLUMES_PROJECT)
-	mkdir -p $(VOLUMES_PROJECT_APP)
+	mkdir -p $(VOLUMES_PROJECT_PATH)
+	mkdir -p $(VOLUMES_PROJECT_APP_PATH)
 	mkdir -p $(SHARE_PATH)
 	mkdir -p $(SHARE_PROJECT_PATH)
 	mkdir -p $(VOLUMES_NGINX_CONF)
