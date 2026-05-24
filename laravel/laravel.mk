@@ -10,6 +10,12 @@ LARAVEL_IMAGE := $(LARAVEL_NAME)-$(LARAVEL_NAME_VERSION)
 LARAVEL_DOCKERFILE := Dockerfile.$(APP_ENV)
 LARAVEL_WORKDIR := /home/project/laravel-app
 
+# feature
+ifeq ($(APP_ENV), feature)
+ LARAVEL_PROJECT_PATH := $(PROJECT_PATH)/laravel
+ VOLUMES_LARAVEL_APP := $(LARAVEL_PROJECT_PATH)/volumes/laravel-app
+endif
+
 include laravel/_define-dockerfile.mk
 include laravel/_docker-file.mk
 include laravel/_define-docker-compose-yml.mk
@@ -34,6 +40,8 @@ laravel-create-laravel-app:
 	make laravel-up
 	sleep 1
 	make _laravel/_create-laravel-app.mk
+	sleep 1
+	make laravel-down
 
 laravel-build:
 	@echo "laravel-build"

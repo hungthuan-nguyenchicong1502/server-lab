@@ -1,5 +1,5 @@
 # make-test.mk
 
 test:
-	ls $(CONTAINER_DEV_GIT_SSH_TARGET)
+	cat $(CONTAINER_GIT_CLONE_PROFILE_SH_TARGET)
 # 	make git-feature-container-dev-test

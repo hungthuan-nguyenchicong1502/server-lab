@@ -34,7 +34,7 @@ include redis/redis.mk
 
 # feature
 include container-dev/container-dev.mk
-
+include container-git-clone/container-git-clone.mk
 # app env
 include git/git.mk
 include git-dev/git-dev.mk
