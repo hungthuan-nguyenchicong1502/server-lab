@@ -39,10 +39,10 @@ git-feature-setup:
 	@echo "git-feature-setup"
 	make nginx-setup
 	make php-fpm-setup
+	make laravel-octane-setup
 # 	make wp-cli-setup
 # 	make wp-app-setup
 # 	make laravel-setup
-# 	make laravel-octane-setup
 
 git-feature-build:
 	make nginx-build
@@ -52,13 +52,16 @@ git-feature-create-project:
 	make wp-app-create-project
 
 git-feature-up:
+	make laravel-octane-up
+# 	make php-fpm-up
+	sleep 5
 	make nginx-up
-	make php-fpm-up
 
 git-feature-down:
 	@echo "git-feature-down"
 	make nginx-down
-	make php-fpm-down
+# 	make php-fpm-down
+	make laravel-octane-down
 
 # use
 # make git-feature-rm-project

@@ -1,5 +1,5 @@
 # make-test.mk
 
 test:
-	cat $(CONTAINER_GIT_CLONE_PROFILE_SH_TARGET)
+	ls $(LARAVEL_PROJECT_PATH)
 # 	make git-feature-container-dev-test

@@ -9,13 +9,20 @@ LARAVEL_OCTANE_IMAGE := $(LARAVEL_OCTANE_NAME)-$(LARAVEL_OCTANE_VERSION)
 LARAVEL_OCTANE_NAME_APP_ENV := $(LARAVEL_OCTANE_NAME)-$(APP_ENV)
 LARAVEL_OCTANE_WORKDIR := /home/project/laravel-app
 
+# feature
+ifeq ($(APP_ENV), feature)
+ LARAVEL_OCTANE_IMAGE := $(LARAVEL_OCTANE_NAME)-feature
+endif
+
+# include
 include laravel-octane/_define-docker-file.mk
 include laravel-octane/_docker-file.mk
 include laravel-octane/_define-docker-compose-yml.mk
 include laravel-octane/_docker-compose.mk
 include laravel-octane/_define-laravel-octane-conf.mk
 include laravel-octane/_laravel-octane-conf.mk
-
+# create update
+include laravel-octane/_laravel-octane-update.mk
 # test:
 # 	cat $(LARAVEL_OCTANE_PROJECT_PATH)/laravel-octane.conf
 
@@ -34,6 +41,8 @@ laravel-octane-setup: _laravel-octane-prepare
 laravel-octane-build:
 	@echo "laravel-octane-build"
 	make _laravel-octane-docker-build
+laravel-octane-update:
+	make _laravel-octane/_laravel-octane-update.mk
 
 laravel-octane-down:
 	@echo "laravel-octane-down"
@@ -46,6 +55,11 @@ laravel-octane-down-v:
 laravel-octane-up:
 	@echo "laravel-octane-up"
 	make _laravel-octane/_docker-compose.mk-up
+
+laravel-octane-update:
+
+laravel-octane-sh:
+	docker exec -it $(LARAVEL_OCTANE_NAME_APP_ENV) sh
 
 laravel-octane-logs:
 	docker logs $(LARAVEL_OCTANE_NAME_APP_ENV)

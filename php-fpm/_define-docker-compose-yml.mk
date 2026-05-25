@@ -14,7 +14,7 @@ services:
    - $(PHP_FPM_NAME_APP_ENV)-net
 
   volumes:
-   - $(VOLUMES_PROJECT_APP):$(PHP_FPM_WORKDIR)
+   - $(VOLUMES_PROJECT_APP_PATH):$(PHP_FPM_WORKDIR)
 
 networks:
  $(PHP_FPM_NAME_APP_ENV)-net:
@@ -70,7 +70,7 @@ services:
    - $(PHP_FPM_NAME_APP_ENV)-net
 
   volumes:
-   - $(VOLUMES_PROJECT_APP):$(PHP_FPM_WORKDIR)
+   - $(VOLUMES_PROJECT_APP_PATH):$(PHP_FPM_WORKDIR)
 
 networks:
  $(PHP_FPM_NAME_APP_ENV)-net:

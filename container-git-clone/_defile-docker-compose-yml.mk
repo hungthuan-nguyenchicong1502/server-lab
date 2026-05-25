@@ -12,8 +12,8 @@ services:
 
   volumes:
    - $(VOLUMES_CONTAINER_DEV_SSH):/root/.ssh
-   - $(VOLUMES_LARAVEL_APP):$(LARAVEL_WORKDIR)
    - $(CONTAINER_GIT_CLONE_PROFILE_SH_TARGET):/etc/profile.d/container-git-clone-profile.sh
+   - $(VOLUMES_CONTAINER_GIT_CLONE):$(CONTAINER_GIT_CLONE_WORKDIR)
 
 networks:
  $(CONTAINER_GIT_CLONE_NAME_APP_ENV)-net:

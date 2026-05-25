@@ -50,7 +50,7 @@ export LARAVEL_OCTANE_DOCKER_FILE_DEV
 
 # feature
 define LARAVEL_OCTANE_DOCKER_FILE_FEATURE
-FROM $(LARAVEL_NAME)
+FROM $(LARAVEL_IMAGE)
 
 RUN apk add --no-cache \
 	php84-pecl-swoole \
@@ -59,12 +59,18 @@ RUN apk add --no-cache \
 	php84-tokenizer \
     php84-session
 
-COPY ./laravel-octane.sh /usr/local/bin/laravel-octane.sh
-RUN chmod +x /usr/local/bin/laravel-octane.sh
+# COPY ./laravel-octane.sh /usr/local/bin/laravel-octane.sh
+# RUN chmod +x /usr/local/bin/laravel-octane.sh
 
-ENTRYPOINT ["/usr/local/bin/laravel-octane.sh"]
+# ENTRYPOINT ["/usr/local/bin/laravel-octane.sh"]
 
-WORKDIR $(LARAVEL_OCTANE_WORKDIR_APP_ENV)
+WORKDIR $(LARAVEL_OCTANE_WORKDIR)
+
+# install laravel octane
+# RUN cd $(LARAVEL_OCTANE_WORKDIR) && \
+#     composer require laravel/octane --quiet
+
+EXPOSE 1000
 
 CMD ["php", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--port=1000"]
 # CMD ["sh", "-c", "tail -f >/dev/null"]

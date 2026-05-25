@@ -13,7 +13,7 @@ LARAVEL_WORKDIR := /home/project/laravel-app
 # feature
 ifeq ($(APP_ENV), feature)
  LARAVEL_PROJECT_PATH := $(PROJECT_PATH)/laravel
- VOLUMES_LARAVEL_APP := $(LARAVEL_PROJECT_PATH)/volumes/laravel-app
+#  VOLUMES_LARAVEL_APP := $(LARAVEL_PROJECT_PATH)/volumes/laravel-app
 endif
 
 include laravel/_define-dockerfile.mk
@@ -61,9 +61,15 @@ laravel-down-v:
 	make _laravel/_docker-compose.mk-down-v
 
 # VOLUMES_LARAVEL_APP := $(VOLUMES_PROJECT_APP)/laravel-app
-laravel-rm-laravel-app:
+laravel-rm-volumes-laravel-app:
 	@echo "laravel-rm-laravel-app"
 	docker run -u root --rm -v $(VOLUMES_LARAVEL_APP):/parent $(ALPINE_IMAGE) sh -c "\
 		chown -R root:root /parent; \
 		chmod -R 777 /parent; \
 		rm -rf /parent/laravel-app"
+	rm -rf $(VOLUMES_LARAVEL_APP)
+
+# LARAVEL_PROJECT_PATH
+laravel-rm-laravel-project-path:
+	make laravel-rm-laravel-app
+	rm -rf $(LARAVEL_PROJECT_PATH)

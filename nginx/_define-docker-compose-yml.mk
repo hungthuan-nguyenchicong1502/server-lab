@@ -16,7 +16,7 @@ services:
 
   volumes:
    - $(VOLUMES_NGINX_CONF):/etc/nginx/http.d
-   - $(VOLUMES_PROJECT_APP):$(NGINX_WORKDIR)
+   - $(VOLUMES_PROJECT_APP_PATH):$(NGINX_WORKDIR)
 
 networks:
  $(NGINX_NAME_APP_ENV)-net:
@@ -50,8 +50,8 @@ services:
    - $(NGINX_NAME_APP_ENV)-net
 
   volumes:
-   - $(VOLUMES_PROJECT_APP):/var/www/html
-   - $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
+   - $(VOLUMES_PROJECT_APP_PATH):/var/www/html
+   - $(VOLUMES_NGINX_CONF):/etc/nginx/http.d
 
 networks:
  $(NGINX_NAME_APP_ENV)-net:
@@ -83,8 +83,8 @@ services:
    - $(NGINX_NAME_APP_ENV)-net
 
   volumes:
-   - $(VOLUMES_PROJECT_APP):$(NGINX_WORKDIR)
-   - $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
+   - $(VOLUMES_NGINX_CONF):/etc/nginx/http.d
+   - $(VOLUMES_PROJECT_APP_PATH):$(NGINX_WORKDIR)
 
 networks:
  $(NGINX_NAME_APP_ENV)-net:

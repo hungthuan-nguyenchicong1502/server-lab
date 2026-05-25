@@ -19,8 +19,7 @@ MY_APP_NET := my-app-net
 # alpine_image => Using default tag: latest
 # docker pull alpine
 ALPINE_IMAGE := alpine
-# test:
-# 	echo $(SHARE_PATH)
+
 # include
 include cloudflared-tunnel/cloudflared-tunnel.mk
 include nginx/nginx.mk
