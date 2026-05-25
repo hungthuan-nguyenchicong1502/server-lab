@@ -8,3 +8,6 @@ _wp-app/_wp-app-env.mk:
 _wp-app/_wp-app-env.mk-create:
 	@echo "_wp-app/_wp-app-env.mk-create"
 	printf "$$WP_APP_ENV" > $(WP_APP_PROJECT_PATH)/.env.wp-app
+
+test-a:
+	cat $(WP_APP_PROJECT_PATH)/.env.wp-app

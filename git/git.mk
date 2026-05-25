@@ -6,7 +6,7 @@ git-setup:
 	sleep 1
 	make build
 	sleep 1
-	make create-prject-app
+	make setting
 	sleep 1
 	make up
 

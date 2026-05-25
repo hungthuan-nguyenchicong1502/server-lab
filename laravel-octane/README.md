@@ -51,7 +51,7 @@ php artisan optimize:clear
 php artisan octane:reload
 
 ## nginx ls -sfn
-laravel-octane-link-uploads
+make laravel-octane-link-uploads
 
 ```
 laravel-app-link-uploads:

@@ -1,10 +1,10 @@
 # git-feature/git-feature.mk
 # .env => /home/cong/git-feature/server-lab/.env
 
-ifneq ($(wildcard /home/cong/git-feature/server-lab/.env),)
- include /home/cong/git-feature/server-lab/.env
- export
-endif
+# ifneq ($(wildcard /home/cong/git-feature/server-lab/.env),)
+#  include /home/cong/git-feature/server-lab/.env
+#  export
+# endif
 # feature
 include git-feature/container-dev/container-dev.mk
 

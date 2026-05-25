@@ -1,5 +1,5 @@
 # Makefile
--include ./.env
+-include .env
 
 .DEFAULT_GOAL :=help
 PROJECT_DIR := $(shell dirname $(PWD))
@@ -121,7 +121,7 @@ build:
 setting:
 	@echo "setting"
 	make mariadb-up
-	sleep 5
+	sleep 10
 	make php-fpm-up
 	sleep 1
 	make wp-app-create-wp-app
