@@ -3,12 +3,14 @@ NGINX_NAME := nginx-alpine-ncc
 NGINX_PROJECT_PATH := $(PROJECT_PATH)/nginx
 # Dockerfile
 NGINX_VERSION := v1.0.0
-NGINX_WORKDIR := /home/project
+NGINX_WORKDIR := /var/www/html
 NGINX_IMAGE := $(NGINX_NAME)-$(NGINX_VERSION)
 # docker-compose.yml
 NGINX_NAME_APP_ENV := $(NGINX_NAME)-$(APP_ENV)
-NGINX_DOCKERFILE := Dockerfile.$(APP_ENV)
 
+ifeq ($(APP_ENV), feature)
+ NGINX_IMAGE := $(NGINX_NAME)-feature
+endif
 # include
 include nginx/_define_docker-file.mk
 include nginx/_define-docker-compose-yml.mk

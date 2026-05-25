@@ -22,7 +22,7 @@ endef
 export NGINX_DOCKER_FILE
 
 # dev
-define NGINX_DOCKERFILE_DEV
+define NGINX_DOCKER_FILE_DEV
 FROM $(NGINX_NAME)
 
 RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirror.leaseweb.com/alpine/latest-stable/community\\n" > /etc/apk/repositories
@@ -34,22 +34,26 @@ WORKDIR $(NGINX_WORKDIR)
 CMD ["nginx", "-g", "daemon off;"]
 endef
 
-export NGINX_DOCKERFILE_DEV
+export NGINX_DOCKER_FILE_DEV
 
 # feature
-define NGINX_DOCKERFILE_FEATURE
-FROM $(NGINX_NAME)-dev
+define NGINX_DOCKER_FILE_FEATURE
+FROM $(ALPINE_IMAGE)
 
 RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirror.leaseweb.com/alpine/latest-stable/community\\n" > /etc/apk/repositories
 
 RUN apk update && apk upgrade
 
-WORKDIR $(NGINX_WORKDIR)
+RUN apk add --no-cache \
+	nginx
+
+RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
+	ln -sf /dev/stderr /var/log/nginx/error.log
 
 CMD ["nginx", "-g", "daemon off;"]
 endef
 
-export NGINX_DOCKERFILE_FEATURE
+export NGINX_DOCKER_FILE_FEATURE
 
 # prod
 define NGINX_DOCKERFILE_PROD
