@@ -30,6 +30,8 @@ include wp-app/wp-app.mk
 include laravel/laravel.mk
 include laravel-octane/laravel-octane.mk
 include redis/redis.mk
+# packages-ncc => use laravel-app
+include packages-ncc/packages-ncc.mk
 
 # feature
 include container-dev/container-dev.mk

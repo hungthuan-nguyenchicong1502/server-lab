@@ -9,8 +9,6 @@ include wp-app/_create-connect-mariadb.mk
 _wp-app/_wp-app-init.mk:
 	@echo "wp-app/_wp-app-init.mk"
 	make _wp-app/_wp-app-env.mk
-	sleep 1;
+	sleep 1
 	make _wp-app/_wp-app-conf.mk
-	sleep 1
 	make _wp-app/_create-connect-mariadb.mk
-	sleep 1

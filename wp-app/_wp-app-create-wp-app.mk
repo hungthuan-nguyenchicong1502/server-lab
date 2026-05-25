@@ -21,14 +21,8 @@ _wp-app/_wp-app-create-wp-app.mk:
 		sleep 1; \
 	done
 	make _wp-app/_wp-cli-core-download.mk
-	sleep 1
 	make _wp-app/_wp-cli-config-create.mk
-	sleep 1
 	make _wp-app/_wp-cli-config-set.mk
-	sleep 1
 	make _wp-app/_wp-cli-core-install.mk
-	sleep 1
 	make _wp-app/_wp-cli-option-update.mk
-	sleep 1
 	make _wp-app/_wp-app-conf.mk-create-cp
-	sleep 1

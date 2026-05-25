@@ -41,11 +41,14 @@ services:
   networks:
    - $(LARAVEL_OCTANE_NAME_APP_ENV)-net
 
+  working_dir: $(LARAVEL_OCTANE_WORKDIR)
+  
   volumes:
    - $(VOLUMES_LARAVEL_APP):$(LARAVEL_OCTANE_WORKDIR)
-   - $(VOLUMES_CONTAINER_GIT_CLONE):$(CONTAINER_GIT_CLONE_WORKDIR)
-  ports:
-   - "1000:1000"
+   - $(VOLUMES_PACKAGES_NCC):$(PACKAGES_NCC_WORKDIR)
+  
+#   ports:
+#    - "1000:1000"
 
   environment:
    - OCTANE_SERVER=swoole

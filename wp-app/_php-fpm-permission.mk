@@ -7,5 +7,3 @@ _wp-app/_php-fpm-permission.mk:
 		docker exec -u root $(PHP_FPM_NAME_APP_ENV) sh -c "\
 			chown -R nobody:root $$WP_PATH; \
 			chmod -R 775 $$WP_PATH"
-# 	docker restart $(NGINX_NAME)
-# 	docker restart $(PHP_FPM_NAME)

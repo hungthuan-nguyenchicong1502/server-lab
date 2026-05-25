@@ -1,5 +1,5 @@
 # make-test.mk
 
 test:
-	ls $(LARAVEL_PROJECT_PATH)
+	ls -ld $(VOLUMES_LARAVEL_APP)
 # 	make git-feature-container-dev-test

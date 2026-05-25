@@ -7,8 +7,8 @@ LARAVEL_NAME_VERSION := v1.0.0
 # docker-compose.yml
 LARAVEL_NAME_APP_ENV := $(LARAVEL_NAME)
 LARAVEL_IMAGE := $(LARAVEL_NAME)-$(LARAVEL_NAME_VERSION)
-LARAVEL_DOCKERFILE := Dockerfile.$(APP_ENV)
-LARAVEL_WORKDIR := /home/project/laravel-app
+# LARAVEL_WORKDIR := $(or $(LARAVEL_APP_PATH),/home/project/laravel-app)
+LARAVEL_WORKDIR := $(LARAVEL_APP_PATH)
 
 # feature
 ifeq ($(APP_ENV), feature)

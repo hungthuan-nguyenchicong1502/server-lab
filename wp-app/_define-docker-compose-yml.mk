@@ -27,10 +27,7 @@ export WP_APP_DOCKER_COMPOSE_YML
 define WP_APP_DOCKER_COMPOSE_YML_FEATURE
 services:
  $(WP_APP_NAME_APP_ENV):
-  build:
-   context: .
-   dockerfile: $(WP_APP_DOCKERFILE)
-
+  
   image: $(WP_APP_IMAGE)
   container_name: $(WP_APP_NAME_APP_ENV)
 

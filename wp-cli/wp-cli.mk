@@ -8,8 +8,6 @@ WP_CLI_IMAGE := $(WP_CLI_NAME)-$(WP_CLI_VERSION)
 
 # docker-compose.yml
 WP_CLI_NAME_APP_ENV := $(WP_CLI_NAME)
-WP_CLI_DOCKERFILE := Dockerfile.$(APP_ENV)
-# WP_CLI_IMAGE := $(WP_CLI_NAME_APP_ENV)-$(WP_CLI_VERSION)
 
 include wp-cli/_define-docker-file.mk
 include wp-cli/_docker-file.mk

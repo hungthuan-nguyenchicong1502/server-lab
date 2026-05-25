@@ -6,7 +6,7 @@ WP_APP_VERSION := v.1.0.0
 # docker-compose.yml
 WP_APP_IMAGE = $(WP_APP_NAME)-$(WP_APP_VERSION)
 WP_APP_NAME_APP_ENV := $(WP_APP_NAME)
-WP_APP_DOCKERFILE := Dockerfile.$(APP_ENV)
+WP_APP_WORKDIR := $(WP_PATH)
 
 include wp-app/_define-docker-file.mk
 include wp-app/_docker-file.mk
@@ -31,19 +31,13 @@ wp-app-setup: _wp-app-prepare
 wp-app-build:
 	@echo "wp-app-build"
 	make _wp-app-docker-build
-	sleep 1
 
 wp-app-create-wp-app:
 	@echo "wp-app-create-wp-app"
 	make wp-app-up
-	sleep 1
-
 	make _wp-app/_wp-app-init.mk
-	sleep 1
 	make _wp-app/_wp-app-create-wp-app.mk
-	sleep 1
 	make wp-app-down
-	sleep 1
 	make _wp-app/_php-fpm-permission.mk
 
 wp-app-up:

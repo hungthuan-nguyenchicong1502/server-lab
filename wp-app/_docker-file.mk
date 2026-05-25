@@ -9,7 +9,6 @@ _wp-app/_docker-file.mk:
 wp-app/_docker-file.mk-create-docker-file:
 	@echo "wp-app/_docker-file.mk-create-docker-file:"
 	printf "$$WP_APP_DOCKER_FILE" > $(WP_APP_PROJECT_PATH)/Dockerfile
-	sleep 1
 
 _wp-app-docker-build:
 	@echo "_wp-app-docker-build:"
