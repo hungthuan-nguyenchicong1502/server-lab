@@ -39,4 +39,4 @@ nginx-test-remove:
 	@echo "nginx-test-remove"
 	rm -rf $(NGINX_TEST_PROJECT_PATH)
 	rm -rf $(NGINX_TEST_VOLUMES)
-	rm -f $(NGINX_VOLUMES_CONF)/nginx-test.conf
+	rm -f $(VOLUMES_NGINX_CONF)/nginx-test.conf

@@ -86,14 +86,26 @@ export PHP_FPM_DOCKER_FILE_DEV
 
 # feature
 define PHP_FPM_DOCKER_FILE_FEATURE
-FROM $(PHP_FPM_NAME)-dev
+FROM $(ALPINE_IMAGE)
 
 RUN printf "https://mirror.leaseweb.com/alpine/latest-stable/main\\nhttps://mirror.leaseweb.com/alpine/latest-stable/community\\n" \\
 	> /etc/apk/repositories
 
 RUN apk update && apk upgrade --no-cache
 
-WORKDIR $(PHP_FPM_WORKDIR)
+RUN apk add --no-cache \
+	php84-fpm \
+	php84-mysqli \
+	php84-gd
+
+RUN sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/' /etc/php84/php-fpm.d/www.conf
+
+RUN ln -sf /dev/stdout /var/log/php84/error.log
+
+RUN chown -R nobody:nobody /var/log/php84 && \
+    chmod -R 755  /var/log/php84
+
+USER nobody
 
 CMD ["php-fpm84", "-F"]
 

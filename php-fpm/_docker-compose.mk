@@ -2,6 +2,10 @@
 
 PHP_FPM_DOCKER_COMPOSE_YML_FILES := $(PHP_FPM_PROJECT_PATH)/docker-compose.yml
 
+ifeq ($(APP_ENV), feature)
+ PHP_FPM_DOCKER_COMPOSE_YML_FILES := $(PHP_FPM_PROJECT_PATH)/docker-compose.feature.yml
+endif
+
 _php-fpm/_docker-compose.mk:
 	@echo "_php-fpm/_docker-compose.mk"
 	make _php-fpm/_docker-compose.mk-create-docker-compose-yml

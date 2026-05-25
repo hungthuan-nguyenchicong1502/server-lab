@@ -2,6 +2,10 @@
 
 PHP_FPM_DOCKER_FILE_FILES := $(PHP_FPM_PROJECT_PATH)/Dockerfile
 
+ifeq ($(APP_ENV), feature)
+ PHP_FPM_DOCKER_FILE_FILES := $(PHP_FPM_PROJECT_PATH)/Dockerfile.feature
+endif
+
 _php-fpm/_docker-file.mk:
 	@echo "_php-fpm/_docker-file.mk"
 	make _php-fpm/_docker-file.mk-create-docker-file
@@ -9,7 +13,7 @@ _php-fpm/_docker-file.mk:
 _php-fpm/_docker-file.mk-create-docker-file:
 	@echo "_php-fpm/_docker-file.mk-create-docker-file"
 	printf "$$PHP_FPM_DOCKER_FILE" > $(PHP_FPM_PROJECT_PATH)/Dockerfile
-	sleep 1
+	printf "$$PHP_FPM_DOCKER_FILE_FEATURE" > $(PHP_FPM_PROJECT_PATH)/Dockerfile.feature
 
 _php-fpm-docker-build:
 	@echo "_php-fpm-docker-build"

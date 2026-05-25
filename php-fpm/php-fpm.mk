@@ -5,10 +5,13 @@ PHP_FPM_PROJECT_PATH = $(PROJECT_PATH)/php-fpm
 PHP_FPM_VERSION := v1.0.0
 # Dockerfile
 PHP_FPM_IMAGE := $(PHP_FPM_NAME)-$(PHP_FPM_VERSION)
-PHP_FPM_WORKDIR := /home/project
+PHP_FPM_WORKDIR := /var/www/html
 # docker-compose.yml
 PHP_FPM_NAME_APP_ENV := $(PHP_FPM_NAME)-$(APP_ENV)
-PHP_FPM_DOCKERFILE := Dockerfile.$(APP_ENV)
+
+ifeq ($(APP_ENV), feature)
+ PHP_FPM_IMAGE := $(PHP_FPM_NAME)-feature
+endif
 
 include php-fpm/_define-docker-file.mk
 include php-fpm/_docker-file.mk

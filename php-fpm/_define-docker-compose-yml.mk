@@ -57,10 +57,7 @@ export PHP_FPM_DOCKER_COMPOSE_YML_DEV
 define PHP_FPM_DOCKER_COMPOSE_YML_FEATURE
 services:
  $(PHP_FPM_NAME_APP_ENV):
-  build:
-   context: .
-   dockerfile: $(PHP_FPM_DOCKERFILE)
-  
+    
   image: $(PHP_FPM_IMAGE)
   container_name: $(PHP_FPM_NAME_APP_ENV)
 
