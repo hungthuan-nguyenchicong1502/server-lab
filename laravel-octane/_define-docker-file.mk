@@ -11,15 +11,7 @@ RUN apk add --no-cache \
 	php84-tokenizer \
     php84-session
 
-COPY ./laravel-octane.sh /usr/local/bin/laravel-octane.sh
-RUN chmod +x /usr/local/bin/laravel-octane.sh
-
-ENTRYPOINT ["/usr/local/bin/laravel-octane.sh"]
-
-WORKDIR /laravel-app
-
 CMD ["php", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--port=1000"]
-# CMD ["sh", "-c", "tail -f >/dev/null"]
 endef
 
 export LARAVEL_OCTANE_DOCKER_FILE

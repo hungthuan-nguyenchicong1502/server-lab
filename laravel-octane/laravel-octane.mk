@@ -72,10 +72,6 @@ laravel-octane-sh:
 laravel-octane-logs:
 	docker logs $(LARAVEL_OCTANE_NAME_APP_ENV)
 
-laravel-octane-conf-cp:
-	@echo "laravel-octane-conf-cp"
-	make _laravel-octane-conf-cp
-
 laravel-octane-rm-conf:
 	@echo "laravel-octane-rm-conf"
 	rm -f $(NGINX_VOLUMES_CONF)/laravel-octane.conf

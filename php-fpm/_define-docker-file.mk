@@ -18,15 +18,12 @@ RUN sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/' /etc/php84/php-fpm
 
 RUN ln -sf /dev/stdout /var/log/php84/error.log
 
-WORKDIR $(PHP_FPM_WORKDIR)
-
-RUN chown -R nobody:root $(PHP_FPM_WORKDIR) /var/log/php84 && \
-chmod -R 775 $(PHP_FPM_WORKDIR) /var/log/php84
+RUN chown -R nobody:nobody /var/log/php84 && \
+    chmod -R 755  /var/log/php84
 
 USER nobody
 
 CMD ["php-fpm84", "-F"]
-
 endef
 
 export PHP_FPM_DOCKER_FILE

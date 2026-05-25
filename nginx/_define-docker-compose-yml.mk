@@ -5,12 +5,12 @@
 define NGINX_DOCKER_COMPOSE_YML
 services:
  $(NGINX_NAME_APP_ENV):
-    
+  
   image: $(NGINX_IMAGE)
   container_name: $(NGINX_NAME_APP_ENV)
 
   restart: always
-
+  
   networks:
    - $(NGINX_NAME_APP_ENV)-net
 
@@ -22,7 +22,6 @@ networks:
  $(NGINX_NAME_APP_ENV)-net:
   external: true
   name: $(MY_APP_NET)
-
 endef
 
 export NGINX_DOCKER_COMPOSE_YML

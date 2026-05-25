@@ -68,7 +68,6 @@ _prepare:
 	mkdir -p $(VOLUMES_NGINX_CONF)
 	mkdir -p $(VOLUMES_WP_APP)
 	mkdir -p $(VOLUMES_LARAVEL_APP)
-	sleep 1
 
 project-ls:
 	@echo "project-ls"
@@ -119,17 +118,17 @@ build:
 	make laravel-octane-build
 	sleep 1
 
-create-prject-app:
-	@echo "create-prject-app"
+setting:
+	@echo "setting"
 	make mariadb-up
 	sleep 5
 	make php-fpm-up
-	sleep 5
+	sleep 1
 	make wp-app-create-wp-app
 	sleep 1
 	make laravel-create-laravel-app
 	sleep 1
-	make laravel-octane-conf-cp
+	make laravel-octane-setting
 	sleep 1
 
 up:

@@ -14,8 +14,6 @@ RUN apk add --no-cache \
 RUN ln -sf /dev/stdout /var/log/nginx/access.log && \
 	ln -sf /dev/stderr /var/log/nginx/error.log
 
-WORKDIR $(NGINX_WORKDIR)
-
 CMD ["nginx", "-g", "daemon off;"]
 endef
 

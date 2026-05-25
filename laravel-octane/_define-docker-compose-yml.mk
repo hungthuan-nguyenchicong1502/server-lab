@@ -9,21 +9,23 @@ services:
   container_name: $(LARAVEL_OCTANE_NAME_APP_ENV)
   
   restart: always
-
+  
   networks:
    - $(LARAVEL_OCTANE_NAME_APP_ENV)-net
 
-  volumes:
-   - $(VOLUMES_LARAVEL_APP):$(LARAVEL_OCTANE_WORKDIR)
-
   environment:
    - OCTANE_SERVER=swoole
+
+  working_dir: $(LARAVEL_OCTANE_WORKDIR)
+  
+  volumes:
+   - $(VOLUMES_LARAVEL_APP):$(LARAVEL_OCTANE_WORKDIR)
+   - $(VOLUMES_PACKAGES_NCC):$(PACKAGES_NCC_WORKDIR)
  
 networks:
  $(LARAVEL_OCTANE_NAME_APP_ENV)-net:
   external: true
   name: $(MY_APP_NET)
-
 endef
 
 export LARAVEL_OCTANE_DOCKER_COMPOSE_YML
