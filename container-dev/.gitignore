@@ -1,2 +1,3 @@
-/.id_ed25519_win_ncc.txt
-/.id_ed25519_win_git_server_lab
+/.ssh
+/.ssh/id_ed25519_win_ncc.pub
+/.ssh/id_ed25519_win_git_server_lab

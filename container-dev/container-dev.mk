@@ -2,15 +2,18 @@
 
 # CONTAINER_DEV
 CONTAINER_DEV_NAME := container-dev-alpine-ncc
-CONTAINER_DEV_PROJECT_PATH := $(PROJECT_PATH)/container-dev
+CONTAINER_DEV_PROJECT_PATH := $(SHARE_PROJECT_PATH)/container-dev
 
 # docker-compose-yml
 CONTAINER_DEV_NAME_APP_ENV := $(CONTAINER_DEV_NAME)-$(APP_ENV)
 CONTAINER_DEV_IMAGE := $(CONTAINER_DEV_NAME)
-## ssh
-VOLUMES_CONTAINER_DEV_SSH := $(SHARE_PROJECT_PATH)/container-dev/.ssh
-VOLUMES_CONTAINER_DEV_VSCODE_SERVER := $(SHARE_PROJECT_PATH)/container-dev/.vscode-server
-
+## share volumes
+VOLUMES_CONTAINER_DEV_PATH := $(SHARE_PROJECT_PATH)/container-dev
+## .ssh .vscode-server
+VOLUMES_CONTAINER_DEV_SSH := $(VOLUMES_CONTAINER_DEV_PATH)/.ssh
+VOLUMES_CONTAINER_DEV_VSCODE_SERVER := $(VOLUMES_CONTAINER_DEV_PATH)/.vscode-server
+# /root-git
+VOLUMES_CONTAINER_DEV_ROOT_GIT := $(VOLUMES_CONTAINER_DEV_PATH)/root-git
 # env
 CONTAINER_DEV_AUTHORIZED_KEY := $(CONTAINER_DEV_AUTHORIZED_KEY)
 # feature
@@ -34,8 +37,10 @@ include container-dev/_container-dev-makefile.mk
 
 _container-dev-setup-prepare: _prepare
 	mkdir -p $(CONTAINER_DEV_PROJECT_PATH)
+	mkdir -p $(VOLUMES_CONTAINER_DEV_PATH)
 	mkdir -p $(VOLUMES_CONTAINER_DEV_SSH)
 	mkdir -p $(VOLUMES_CONTAINER_DEV_VSCODE_SERVER)
+	mkdir -p $(VOLUMES_CONTAINER_DEV_ROOT_GIT)
 
 container-dev-setup: _container-dev-setup-prepare
 	make _container-dev/_docker-file.mk
@@ -58,9 +63,8 @@ container-dev-up:
 container-dev-down:
 	make _container-dev/_docker-compose.mk-down
 
-container-dev-setup-ssh-authorized-keys:
-	docker exec -w /_makefile $(CONTAINER_DEV_NAME_APP_ENV) make
-	docker restart $(CONTAINER_DEV_NAME_APP_ENV)
+container-dev-down-v:
+	make _container-dev/_docker-compose.mk-down-v
 	
 container-dev-logs:
 	docker logs $(CONTAINER_DEV_NAME_APP_ENV)
@@ -71,9 +75,22 @@ container-dev-restart:
 container-dev-sh:
 	docker exec -it $(CONTAINER_DEV_NAME_APP_ENV) sh
 
+# CONTAINER_DEV_PROJECT_PATH /container-dev
 container-dev-rm-container-dev:
 	docker run -u root --rm -v $(CONTAINER_DEV_PROJECT_PATH):/parent $(ALPINE_IMAGE) sh -c "\
 		chown -R root:root /parent; \
 		chmod -R 777 /parent; \
 		rm -rf /parent/container-dev"
 	rm -rf $(CONTAINER_DEV_PROJECT_PATH)
+
+# VOLUMES_CONTAINER_DEV_SSH .ssh
+container-dev-rm-container-dev-ssh:
+	docker run -u root --rm -v $(VOLUMES_CONTAINER_DEV_SSH):/parent $(ALPINE_IMAGE) sh -c "\
+		chown -R root:root /parent; \
+		chmod -R 777 /parent; \
+		rm -rf /parent/.ssh"
+	rm -rf $(VOLUMES_CONTAINER_DEV_SSH)
+
+container-dev-setup-ssh-authorized-keys:
+	docker exec -w /_makefile $(CONTAINER_DEV_NAME_APP_ENV) make
+	docker restart $(CONTAINER_DEV_NAME_APP_ENV)

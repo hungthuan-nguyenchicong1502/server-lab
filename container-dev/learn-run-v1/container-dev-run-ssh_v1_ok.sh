@@ -15,19 +15,4 @@ if [ -f "/tmp/root/.ssh/id_ed25519" ]; then
     chmod 600 /root/.ssh/id_ed25519
 fi
 
-# run nginx
-if [ -z "$(netstat -lpn | grep nginx)" ]; then
-    nginx
-fi
-
-# run php-fpm84
-if [ -z "$(netstat -lpn | grep php-fpm)" ]; then
-    php-fpm84 -D
-fi
-
-# run redis
-if [ -z "$(netstat -lpn | grep redis)" ]; then
-    redis-server /etc/redis.conf --daemonize yes
-fi
-
 exec "$@"

@@ -1,9 +1,9 @@
 # container-dev/_container-dev-share-ssh.mk
 # ~/.ssh/authorized_keys
-CONTAINER_DEV_AUTHORIZED_KEYS_SOURCE := ./container-dev/.id_ed25519_win_ncc.txt
+CONTAINER_DEV_AUTHORIZED_KEYS_SOURCE := ./container-dev/.ssh/id_ed25519_win_ncc.pub
 CONTAINER_DEV_AUTHORIZED_KEYS_TARGET := $(VOLUMES_CONTAINER_DEV_SSH)/authorized_keys
 # ~/.ssh/id_ed25519_win_git_server_lab
-CONTAINER_DEV_GIT_SSH_SOURCE := ./container-dev/.id_ed25519_win_git_server_lab
+CONTAINER_DEV_GIT_SSH_SOURCE := ./container-dev/.ssh/id_ed25519_win_git_server_lab
 CONTAINER_DEV_GIT_SSH_TARGET := $(VOLUMES_CONTAINER_DEV_SSH)/id_ed25519
 _container-dev/_container-dev-share-ssh.mk:
 	make _container-dev/_container-dev-share-ssh.mk-cp

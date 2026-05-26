@@ -11,6 +11,8 @@ git fetch origin --prune
 
 RUN composer create-project laravel/laravel:^12 laravel-app
 
+ps | grep -v grep | grep -w 'nginx'
+
 # docker
 ## dọn dẹp tổng thể
 Lệnh này sẽ xóa sạch: tất cả container đã dừng, các network không dùng, các images "dangling" (hình ảnh bị treo, không có tag) và build cache.

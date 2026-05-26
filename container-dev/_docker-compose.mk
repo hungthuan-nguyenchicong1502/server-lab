@@ -22,3 +22,8 @@ _container-dev/_docker-compose.mk-down:
 	docker compose -f $(CONTAINER_DEV_DOCKER_COMPOSE_YML_FILES) \
 		--project-directory $(CONTAINER_DEV_PROJECT_PATH) \
 		down
+
+_container-dev/_docker-compose.mk-down-v:
+	docker compose -f $(CONTAINER_DEV_DOCKER_COMPOSE_YML_FILES) \
+		--project-directory $(CONTAINER_DEV_PROJECT_PATH) \
+		down -v

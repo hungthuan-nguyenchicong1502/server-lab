@@ -83,3 +83,37 @@ docker exec -w /app container-name make target_name
 docker exec container-name make -C /app target_name
 
 rsync -av --delete ./thu-muc-nguon/ ./thu-muc-dich/
+
+CMD ["sh", "-c", "mkdir -p /root/.ssh && chmod 700 /root/.ssh && if [ -f /tmp/git_id_ed25519 ]; then cp /tmp/git_id_ed25519 /root/.ssh/id_ed25519 && chmod 600 /root/.ssh/id_ed25519; fi && exec /usr/sbin/sshd -D -e"]
+
+## yml
+```
+services:
+  container-dev-alpine-ncc-dev:
+    image: container-dev-alpine-ncc
+    container_name: container-dev-alpine-ncc-dev
+    init: true
+    restart: always
+    networks:
+      - container-dev-alpine-ncc-dev-net
+    ports:
+      - "2222:22"
+    env_file:
+      - ./.env.container-dev
+    
+    volumes:
+      # 1. Volume độc lập cho .ssh (Không lo mất file config, known_hosts khi up/down)
+      - ssh_data_container_dev:/root/.ssh
+      
+      # 2. Chỉ mount duy nhất file key Git từ máy ngoài vào một thư mục tạm
+      - /home/cong/share/project-server-lab/container-dev/.ssh/id_ed25519:/tmp/git_id_ed25519:ro
+
+networks:
+  container-dev-alpine-ncc-dev-net:
+    external: true
+    name: my-app-net
+
+# Khai báo Named Volume ở cuối file
+volumes:
+  ssh_data_container_dev:
+```
