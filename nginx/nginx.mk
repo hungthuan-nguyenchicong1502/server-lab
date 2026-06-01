@@ -51,6 +51,9 @@ nginx-down-v:
 	@echo "nginx-down-v"
 	$(MAKE) _nginx/_docker-compose.mk-down-v
 
+nginx-sh:
+	docker exec -it $(NGINX_NAME_APP_ENV) sh
+
 nginx-conf-ls:
 	ls $(NGINX_VOLUMES_CONF)
 

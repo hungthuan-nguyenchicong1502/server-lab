@@ -9,7 +9,8 @@ RUN apk add --no-cache \
     php84-pcntl \
     php84-posix \
 	php84-tokenizer \
-    php84-session
+    php84-session \
+    php84-redis
 
 CMD ["php", "artisan", "octane:start", "--server=swoole", "--host=0.0.0.0", "--port=1000"]
 endef

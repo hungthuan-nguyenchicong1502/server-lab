@@ -11,6 +11,9 @@ services:
 
   networks:
    - $(REDIS_NAME_APP_ENV)-net
+  
+  environment:
+   - TZ=Asia/Ho_Chi_Minh
 
 networks:
  $(REDIS_NAME_APP_ENV)-net:

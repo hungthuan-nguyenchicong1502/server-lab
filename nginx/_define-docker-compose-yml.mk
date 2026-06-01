@@ -96,25 +96,21 @@ define NGINX_DOCKER_COMPOSE_YML_PROD
 services:
  $(NGINX_NAME_APP_ENV):
   
-  build:
-   context: .
-   dockerfile: Dockerfile.prod
-
-  image: $(NGINX_NAME_APP_ENV)
+  image: $(NGINX_IMAGE)
   container_name: $(NGINX_NAME_APP_ENV)
 
   restart: always
-
-  ports:
-   - "$(NGINX_PORT_WP_APP):$(NGINX_PORT_WP_APP)"
-   - "$(NGINX_PORT_LARAVEL_APP):$(NGINX_PORT_LARAVEL_APP)"
-
+  
   networks:
    - $(NGINX_NAME_APP_ENV)-net
 
   volumes:
-   - $(VOLUMES_PROJECT_APP):/var/www/html
-   - $(NGINX_VOLUMES_CONF):/etc/nginx/http.d
+   - $(VOLUMES_NGINX_CONF):/etc/nginx/http.d
+   - $(VOLUMES_PROJECT_APP_PATH):$(NGINX_WORKDIR)
+
+  ports:
+   - "80:80"
+   - "8080:8080"
 
 networks:
  $(NGINX_NAME_APP_ENV)-net:

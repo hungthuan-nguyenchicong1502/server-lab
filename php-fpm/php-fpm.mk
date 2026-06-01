@@ -56,3 +56,6 @@ php-fpm-restart:
 
 php-fpm-logs:
 	docker logs $(PHP_FPM_NAME_APP_ENV)
+
+php-fpm-sh:
+	docker exec -it $(PHP_FPM_NAME_APP_ENV) sh

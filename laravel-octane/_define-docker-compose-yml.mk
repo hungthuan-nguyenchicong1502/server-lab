@@ -15,6 +15,7 @@ services:
 
   environment:
    - OCTANE_SERVER=swoole
+   - TZ=Asia/Ho_Chi_Minh
 
   working_dir: $(LARAVEL_OCTANE_WORKDIR)
   

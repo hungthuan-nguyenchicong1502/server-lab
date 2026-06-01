@@ -1,7 +1,7 @@
 # make-test.mk
 
 test:
-	ls -ld $(VOLUMES_CONTAINER_DEV_SSH)
+	ls $(VOLUMES_PACKAGES_NCC)
 # 	cat $(CONTAINER_DEV_DOCKER_FILE_FILES)
 # 	make git-feature-container-dev-test
 # 	docker inspect $(CONTAINER_DEV_NAME_APP_ENV) --format '{{.Args}}'

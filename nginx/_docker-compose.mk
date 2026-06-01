@@ -2,7 +2,11 @@
 NGINX_DOCKER_COMPOSE_YML_FILES := $(NGINX_PROJECT_PATH)/docker-compose.yml
 
 ifeq ($(APP_ENV), feature)
-	NGINX_DOCKER_COMPOSE_YML_FILES := $(NGINX_PROJECT_PATH)/docker-compose.feature.yml
+ NGINX_DOCKER_COMPOSE_YML_FILES := $(NGINX_PROJECT_PATH)/docker-compose.feature.yml
+endif
+
+ifeq ($(APP_ENV), prod)
+ NGINX_DOCKER_COMPOSE_YML_FILES := $(NGINX_PROJECT_PATH)/docker-compose.prod.yml
 endif
 
 _nginx/_docker-compose.mk:

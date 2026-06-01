@@ -8,6 +8,10 @@ REDIS_IMAGE = $(REDIS_NAME)-$(REDIS_VERSION)
 # docke-compose.yml
 REDIS_NAME_APP_ENV := $(REDIS_NAME)
 
+ifeq ($(APP_ENV), prod)
+ REDIS_NAME_APP_ENV := $(REDIS_NAME)-$(APP_ENV)
+endif
+
 include redis/_define-docker-file.mk
 include redis/_docker-file.mk
 include redis/_define-docker-compose-yml.mk

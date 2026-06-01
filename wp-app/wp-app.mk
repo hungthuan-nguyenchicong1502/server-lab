@@ -48,17 +48,38 @@ wp-app-down:
 	@echo "wp-app-down"
 	$(MAKE) _wp-app/_docker-compose.mk-down
 
+wp-app-option-update-woocommerce:
+	@echo "wp-app-option-update-woocommerce"
+	make wp-app-setup
+	make wp-app-up
+	make _wp-app/_wp-cli-option-update.mk-woocommerce
+	sleep 1
+	make wp-app-down
+
+wp-app-option-update:
+	@echo "wp-app-option-update"
+	make wp-app-up
+	make _wp-app/_wp-cli-option-update.mk
+	make _wp-app/_wp-cli-option-update.mk-woocommerce
+	sleep 1
+	make wp-app-down
+
+wp-app-db-reset:
+	@echo "wp-app-db-reset"
+	make wp-app-up
+	sleep 1
+	make _wp-app/_wp-cli-db-reset.mk
+	sleep 1
+	make wp-app-down
+
+
 wp-app-rm-wp-app:
 	@echo "wp-app-rm-wp-app"
-	make _wp-app/_wp-cli-db-reset.mk
-	make _wp-app/_docker-compose.mk-down-v
-# 	rm -rf $(WP_APP_VOLUMES_PROJECT_APP)
-# Dùng một container tạm thời để xóa folder với quyền root
-	docker run --rm -v $(VOLUMES_WP_APP):/parent $(ALPINE_IMAGE) sh -c "\
+	docker run -u root --rm -v $(VOLUMES_WP_APP):/parent $(ALPINE_IMAGE) sh -c "\
 		chown -R root:root /parent; \
 		chmod -R 777 /parent; \
 		rm -rf /parent/wp-app"
-	make wp-app-conf-remove
+	rm -rf $(VOLUMES_WP_APP)
 
 wp-app-conf-remove:
 	@echo "wp-app-config-remove"

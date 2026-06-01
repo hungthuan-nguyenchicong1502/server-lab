@@ -2,6 +2,35 @@ make laravel-octane-sh
 
 vi .env
 
+```
+APP_ENV=prod
+
+APP_DEBUG=false
+
+DB_CONNECTION=mariadb            
+# DB_HOST=          
+# DB_PORT=3306                  
+# DB_DATABASE=         
+# DB_USERNAME=         
+# DB_PASSWORD= 
+
+REDIS_HOST=
+
+# Đổi các driver sang redis
+SESSION_DRIVER=redis
+QUEUE_CONNECTION=redis
+CACHE_STORE=redis
+DEVELOPER_CACHE_STORE=redis
+
+# mo rong
+## file
+APP_MAINTENANCE_DRIVER=cache
+APP_MAINTENANCE_STORE=redis
+
+## debug
+LOG_LEVEL=error
+```
+
 composer update
 
 php artisan migrate
@@ -47,18 +76,35 @@ composer dump-autoload
 php artisan migrate
 
 php artisan optimize:clear
+# fix
+tail -n 10 /var/www/html/laravel-app/storage/logs/laravel.log
 
-php artisan octane:reload
+APP_DEBUG=true
 
-## nginx ls -sfn
-make laravel-octane-link-uploads
+php artisan tinker
 
-```
-laravel-app-link-uploads:
-	@if [ -d $(WP_APP_PATH)/wp-content/uploads ]; then \
-		ln -sfn $(WP_APP_PATH)/wp-content/uploads $(LARAVEL_APP_PATH)/public/uploads; \
-	else \
-		echo "Error: $(WP_APP_PATH)/wp-content/uploads"; \
-	fi
-	@echo "laravel-app-link-uploads ok"
-```
+Cache::store('redis')->put('test-key', 'Xuan 2026', 10);
+
+Cache::store('redis')->get('test-key');
+
+services:
+  laravel-app:
+    # ... các cấu hình khác
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+
+  redis-alpine-ncc-prod:
+    # ... các cấu hình khác
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+
+services:
+  laravel-app:
+    # ... các cấu hình khác
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+
+  redis-alpine-ncc-prod:
+    # ... các cấu hình khác
+    environment:
+      - TZ=Asia/Ho_Chi_Minh

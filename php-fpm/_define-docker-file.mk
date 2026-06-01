@@ -14,6 +14,13 @@ RUN apk add --no-cache \
 	php84-mysqli \
 	php84-gd
 
+# Rank math php8.4-dom php8.4-xml php8.4-mbstring
+RUN apk add --no-cache \
+	php84-dom \
+    php84-simplexml \
+    php84-mbstring
+
+
 RUN sed -i 's/listen = 127.0.0.1:9000/listen = 0.0.0.0:9000/' /etc/php84/php-fpm.d/www.conf
 
 RUN ln -sf /dev/stdout /var/log/php84/error.log

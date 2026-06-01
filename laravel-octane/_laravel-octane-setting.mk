@@ -2,6 +2,7 @@
 
 _laravel-octane/_laravel-octane-setting.mk:
 	make _laravel-octane/_laravel-octane-setting.mk-setting
+	make _laravel-octane-setting-ls-sfn-uploads
 	make packages-ncc-git-pull
 
 _laravel-octane/_laravel-octane-setting.mk-setting:
@@ -13,6 +14,7 @@ _laravel-octane/_laravel-octane-setting.mk-setting:
 
 _laravel-octane-setting-ls-sfn-uploads:
 	docker exec $(NGINX_NAME_APP_ENV) sh -c "\
+		mkdir -p $(WP_APP_WORKDIR)/wp-content/uploads; \
 		ln -sfn $(WP_APP_WORKDIR)/wp-content/uploads \
 		$(LARAVEL_OCTANE_WORKDIR)/public/uploads"
 	sleep 1
