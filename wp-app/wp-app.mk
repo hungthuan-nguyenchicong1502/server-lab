@@ -48,18 +48,24 @@ wp-app-down:
 	@echo "wp-app-down"
 	$(MAKE) _wp-app/_docker-compose.mk-down
 
-wp-app-option-update-woocommerce:
-	@echo "wp-app-option-update-woocommerce"
-	make wp-app-setup
-	make wp-app-up
-	make _wp-app/_wp-cli-option-update.mk-woocommerce
-	sleep 1
-	make wp-app-down
-
 wp-app-option-update:
 	@echo "wp-app-option-update"
 	make wp-app-up
 	make _wp-app/_wp-cli-option-update.mk
+	make _wp-app/_wp-cli-option-update.mk-woocommerce
+	sleep 1
+	make wp-app-down
+
+wp-app-media-regenerate:
+	@echo "wp-app-media-regenerate"
+	make wp-app-up
+	make _wp-app/_wp-cli-media-regenerate.mk
+	sleep 1
+	make wp-app-down
+
+wp-app-option-update-woocommerce:
+	@echo "wp-app-option-update-woocommerce"
+	make wp-app-up
 	make _wp-app/_wp-cli-option-update.mk-woocommerce
 	sleep 1
 	make wp-app-down

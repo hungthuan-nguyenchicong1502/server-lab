@@ -1,7 +1,8 @@
 # make-test.mk
 
 test:
-	ls $(VOLUMES_PACKAGES_NCC)
+# 	ls $(VOLUMES_PACKAGES_NCC)
+	@echo "$(WP_PATH)"
 # 	cat $(CONTAINER_DEV_DOCKER_FILE_FILES)
 # 	make git-feature-container-dev-test
 # 	docker inspect $(CONTAINER_DEV_NAME_APP_ENV) --format '{{.Args}}'

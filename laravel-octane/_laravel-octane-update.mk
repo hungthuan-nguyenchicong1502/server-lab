@@ -4,14 +4,15 @@ _laravel-octane/_laravel-octane-update.mk:
 	make _laravel-octane/_laravel-octane-update.mk-update
 
 _laravel-octane/_laravel-octane-update.mk-update:
-	docker run --rm \
-		--network=$(MY_APP_NET) \
-		-v $(VOLUMES_LARAVEL_APP):$(LARAVEL_OCTANE_WORKDIR) \
-		-v $(VOLUMES_CONTAINER_GIT_CLONE):$(CONTAINER_GIT_CLONE_WORKDIR) \
-		-w $(LARAVEL_OCTANE_WORKDIR) \
-		$(LARAVEL_OCTANE_IMAGE) sh -c "\
-			composer require laravel/octane --quiet; \
-			composer update; \
-			composer dump-autoload; \
-			php artisan migrate; \
-			php artisan optimize:clear"
+	@echo "_laravel-octane/_laravel-octane-update.mk-update"
+	make packages-ncc-git-pull
+	docker exec $(LARAVEL_OCTANE_NAME_APP_ENV) sh -c "\
+		composer install --no-dev --optimize-autoloader; \
+		php artisan migrate; \
+		php artisan build-ncc -f; \
+		php artisan optimize:clear; \
+		php artisan octane:reload"
+
+	make laravel-octane-restart
+	sleep 3
+	make nginx-reload

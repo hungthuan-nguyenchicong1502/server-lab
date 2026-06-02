@@ -77,23 +77,14 @@ project-ls:
 setup: _prepare
 	@echo "setup"
 	make _check-network
-# 	sleep 1
 	make cloudflared-tunnel-setup
-# 	sleep 1
 	make laravel-setup
-# 	sleep 1
 	make laravel-octane-setup
-# 	sleep 1
 	make mariadb-setup
-# 	sleep 1
 	make nginx-setup
-# 	sleep 1
 	make php-fpm-setup
-# 	sleep 1
 	make redis-setup
-# 	sleep 1
 	make wp-app-setup
-# 	sleep 1
 	make wp-cli-setup
 	sleep 1
 
@@ -120,6 +111,10 @@ build:
 
 setting:
 	@echo "setting"
+	make setup
+	sleep 1
+	make build
+	sleep 1
 	make mariadb-up
 	sleep 10
 	make php-fpm-up
@@ -130,6 +125,7 @@ setting:
 	sleep 1
 	make laravel-octane-setting
 	sleep 1
+	make up
 
 up:
 	@echo "up"

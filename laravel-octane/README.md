@@ -7,6 +7,8 @@ APP_ENV=prod
 
 APP_DEBUG=false
 
+APP_URL=http://localhost
+
 DB_CONNECTION=mariadb            
 # DB_HOST=          
 # DB_PORT=3306                  
@@ -31,22 +33,6 @@ APP_MAINTENANCE_STORE=redis
 LOG_LEVEL=error
 ```
 
-composer update
-
-php artisan migrate
-
-php artisan optimize:clear
-
-php artisan octane:reload
-
-## volumes packages-ncc
-
-working_dir: $(LARAVEL_OCTANE_WORKDIR)
-  
-  volumes:
-   - $(VOLUMES_LARAVEL_APP):$(LARAVEL_OCTANE_WORKDIR)
-   - $(VOLUMES_PACKAGES_NCC):$(PACKAGES_NCC_WORKDIR)
-
 ## setup packages-ncc
 make laravel-octane-sh
 
@@ -69,13 +55,58 @@ vi composer.json
 ### view / welcom
 vi routes/web.php
 
+## laravel-octane-reload
+make laravel-octane-reload
+
+# note
+composer install --no-de --optimize-autoloader
+
+php artisan migrate
+
+php artisan build-ncc -f
+
+php artisan optimize:clear
+
+php artisan octane:reload
+
 composer update
 
 composer dump-autoload
 
+make laravel-octane-reload
+
+## cache
+php artisan config:cache
+
+php artisan route:cache
+
+php artisan view:cache
+
+php artisan event:cache
+
+composer update
+
 php artisan migrate
 
 php artisan optimize:clear
+
+php artisan octane:reload
+
+## docker compose
+working_dir: $(LARAVEL_OCTANE_WORKDIR)
+  
+  volumes:
+   - $(VOLUMES_LARAVEL_APP):$(LARAVEL_OCTANE_WORKDIR)
+   - $(VOLUMES_PACKAGES_NCC):$(PACKAGES_NCC_WORKDIR)
+## opcache.ini
+```
+opcache.enable=1
+opcache.enable_cli=1        # Cực kỳ quan trọng vì Octane chạy qua giao diện CLI
+opcache.memory_consumption=256
+opcache.interned_strings_buffer=16
+opcache.max_accelerated_files=20000
+opcache.validate_timestamps=0 # Tắt hẳn việc check file thay đổi để đạt hiệu năng tối đa
+```
 # fix
 tail -n 10 /var/www/html/laravel-app/storage/logs/laravel.log
 

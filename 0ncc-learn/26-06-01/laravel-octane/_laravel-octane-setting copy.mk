@@ -14,10 +14,9 @@ _laravel-octane/_laravel-octane-setting.mk-setting:
 			composer require laravel/octane --quiet;"
 
 _laravel-octane-setting-ls-sfn-uploads:
-	docker run -u root --rm \
-		-v $(VOLUMES_PROJECT_APP_PATH):$(APP_PATH) \
-		-w $(APP_PATH) \
-	 	$(ALPINE_IMAGE) sh -c "\
-			mkdir -p $(WP_APP_WORKDIR)/wp-content/uploads; \
-			ln -sfn $(WP_APP_WORKDIR)/wp-content/uploads \
-			$(LARAVEL_OCTANE_WORKDIR)/public/uploads"
+	docker exec $(NGINX_NAME_APP_ENV) sh -c "\
+		mkdir -p $(WP_APP_WORKDIR)/wp-content/uploads; \
+		ln -sfn $(WP_APP_WORKDIR)/wp-content/uploads \
+		$(LARAVEL_OCTANE_WORKDIR)/public/uploads"
+	sleep 1
+	make nginx-reload

@@ -3,7 +3,7 @@ NGINX_NAME := nginx-alpine-ncc
 NGINX_PROJECT_PATH := $(PROJECT_PATH)/nginx
 # Dockerfile
 NGINX_VERSION := v1.0.0
-NGINX_WORKDIR := /var/www/html
+NGINX_WORKDIR := $(APP_PATH)
 NGINX_IMAGE := $(NGINX_NAME)-$(NGINX_VERSION)
 # docker-compose.yml
 NGINX_NAME_APP_ENV := $(NGINX_NAME)-$(APP_ENV)

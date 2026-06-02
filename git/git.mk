@@ -1,6 +1,6 @@
 # git/git.mk
 
-git-setup:
+git-setting:
 	@echo "git-setup: branch origin main"
 	make setup
 	sleep 1
@@ -10,15 +10,18 @@ git-setup:
 	sleep 1
 	make up
 
+
+git-setup:
+	@echo "git-setup"
+	make setup
+
 git-up:
 	@echo "git-up"
 	make up
 
 git-down:
-	@echo "git"
+	@echo "git-down"
 	make laravel-octane-down
-	sleep 1
 	make php-fpm-down
-	sleep 1
 	make nginx-down
 	sleep 1

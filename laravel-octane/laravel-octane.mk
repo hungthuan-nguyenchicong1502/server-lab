@@ -62,20 +62,15 @@ laravel-octane-down-v:
 	@echo "laravel-octane-down-v"
 	make _laravel-octane/_docker-compose.mk-down-v
 
-laravel-octane-reload:
-	@echo "laravel-octane-reload"
-	make packages-ncc-git-pull
-	docker exec $(LARAVEL_OCTANE_NAME_APP_ENV) sh -c "\
-		composer install --no-dev --optimize-autoloader; \
-		php artisan migrate; \
-		php artisan optimize:clear; \
-		php artisan octane:reload"
-
 laravel-octane-update:
+	@echo "make laravel-octane-update"
 	make _laravel-octane/_laravel-octane-update.mk
 
 laravel-octane-sh:
 	docker exec -it $(LARAVEL_OCTANE_NAME_APP_ENV) sh
+
+laravel-octane-restart:
+	docker restart $(LARAVEL_OCTANE_NAME_APP_ENV)
 
 laravel-octane-logs:
 	docker logs $(LARAVEL_OCTANE_NAME_APP_ENV)
